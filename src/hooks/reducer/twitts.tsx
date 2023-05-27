@@ -1,5 +1,6 @@
 
 import { Twitt } from "../../types"
+import { twittsActions } from "../../utils/utils.ts"
 
 
 interface TwittState {
@@ -8,15 +9,15 @@ interface TwittState {
 }
 
 type Action =
-    { type: 'FETCH_TWITTS_SUCCESS', payload: any } |
-    { type: 'FETCH_ONETWITT_SUCCESS', payload: any }
+    { type: string , payload: any } |
+    { type: string, payload: any }
 
 const reducer = (state: TwittState, action: Action): TwittState => {
     switch(action.type){
-        case 'FETCH_TWITTS_SUCCESS':
+        case twittsActions.FETCH_TWITTS_SUCCESS:
             const twitts = action.payload
             return {...state, twitts}
-        case 'FETCH_ONETWITT_SUCCESS':
+        case twittsActions.FETCH_TWITTS_SUCCESS:
             const twitt = action.payload
             return {...state, oneTwitt: twitt}
         default: 

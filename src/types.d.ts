@@ -3,7 +3,6 @@ import { ReactNode } from "react";
 
 export interface User {
     username: string,
-    password: string,
     email: string
     avatar?: string
 }
@@ -23,10 +22,28 @@ export interface AppContextProp {
 }
 
 export interface TwittState {
-    twitts: Twitt[] | [],
+    twitts: Twitt[] ,
     oneTwitt: Twitt
 }
 
+export interface UserContext {
+    users: User[],
+    user: User,
+    error?: string,
+    login: (email: string, password: string) => void
+}
+
+export interface UserInitState {
+    users: User[],
+    user: User,
+    error: string
+}
+
+
+export interface FormLoginData {
+    email: string
+    password: string
+}
 
 
 
