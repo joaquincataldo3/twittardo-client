@@ -26,18 +26,23 @@ export interface TwittState {
     oneTwitt: Twitt
 }
 
-export interface UserContext {
+
+export interface UserCtxt {
     users: User[],
     user: User,
     error?: string,
-    login: (email: string, password: string) => void
+    token: string
+    login: (username: string, password: string) => void
 }
+
 
 export interface UserInitState {
     users: User[],
     user: User,
     error: string
+    token: string
 }
+
 
 
 export interface FormLoginData {

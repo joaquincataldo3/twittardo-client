@@ -13,8 +13,9 @@ const reducer = (state: UserInitState, action: Action) => {
             const user = action.payload
             return { ...state, user }
         case userActions.USER_LOGIN_SUCCESS:
-            const userLogged = action.payload
-            return { ...state, user: userLogged }
+            const userLogged = action.payload.user
+            const token = action.payload.token
+            return { ...state, user: userLogged, token }
         case userActions.USER_LOGIN_ERROR:
             const errorMsg = action.payload
             return { ...state, error: errorMsg }

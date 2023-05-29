@@ -1,22 +1,14 @@
-import { createContext, useContext, useReducer } from "react";
-import { AppContextProp, UserContext, UserInitState } from "../../types";
+import { createContext, useReducer, useContext } from "react";
+import { AppContextProp, UserCtxt, UserInitState } from "../../types";
 import axios from "axios";
 import { apiUrl } from "../../utils/utils";
 import userReducer from "../reducer/user";
 import { userActions } from "../../utils/utils";
+import { useNavigate } from "react-router-dom";
 
 
 // TODO - CREATE POST FORM
-const UserContext = createContext<UserContext>({
-    users: [],
-    user: {
-        username: '',
-        email: '',
-        avatar: ''
-    },
-    error: '',
-    login: () => {}
-})
+const UserContext = createContext<UserCtxt | null>(null)
 
 const initialState: UserInitState = {
     users: [],
@@ -25,37 +17,46 @@ const initialState: UserInitState = {
         email: '',
         avatar: ''
     },
+    token: '',
     error: '',
 }
 
 const UserContextProvider = ({ children }: AppContextProp) => {
 
     const [state, dispatch] = useReducer(userReducer, initialState)
+    const navigate = useNavigate()
 
-    const login= async (email:string, password: string) => {
+    const loginFn = async (email: string, password: string) => {
         try {
-            const response = await axios.post(`${apiUrl}user/login`, {email, password})
+            const response = await axios.post(`${apiUrl}users/login`, { email, password })
             const data = response.data
+            console.log(data)
             dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: data })
+            navigate('/home')
         } catch (error: any) {
+            console.log(error)
             const loginError = error.msg
             dispatch({ type: userActions.USER_LOGIN_ERROR, payload: loginError })
         }
     }
 
 
-    const providerValue = {
-        ...state,
-        login
-    }
 
-    return <UserContext.Provider value={providerValue}>
+    return <UserContext.Provider value={{ ...state, login: loginFn }}>
         {children}
     </UserContext.Provider>
 }
 
 const useUserGlobalContext = () => {
-    return useContext(UserContext)
+    const currentUserContext = useContext(UserContext);
+
+    if (!currentUserContext) {
+        throw new Error(
+            "useCurrentUser has to be used within <CurrentUserContext.Provider>"
+        );
+    }
+
+    return currentUserContext;
 }
 
 export { UserContextProvider, useUserGlobalContext }
