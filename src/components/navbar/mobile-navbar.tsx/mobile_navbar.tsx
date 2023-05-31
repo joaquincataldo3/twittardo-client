@@ -1,9 +1,12 @@
-/* import { useState } from "react" */
+import { useUserGlobalContext } from '../../../hooks/context/user'
+import './header.css'
+import { User, UserCtxt } from '../../../types'
+
 
 function Navbar() {
 
-  /*   const [navOptionList, setNavOptionList] = useState
-    const [navOptionActive, setNavOptionActive] = useState() */
+  const context: UserCtxt = useUserGlobalContext()
+  const user: User = context.user
 
   return (
     <div className="navbar-container">

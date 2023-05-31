@@ -1,11 +1,13 @@
 import logo from '../../assets/logo.jpg'
+import { apiUrl } from '../../utils/utils'
 import { useUserGlobalContext } from '../../hooks/context/user'
 import './header.css'
+import { User, UserCtxt } from '../../types'
 
 function Header() {
 
-  const {user} = useUserGlobalContext()
-  console.log(user)
+  const context: UserCtxt = useUserGlobalContext()
+  const user: User = context.user
 
   return (
     <header>
@@ -15,7 +17,7 @@ function Header() {
             <button className='login-btn'><a href="users/login">Logueate</a></button>
             :
             <div className='user-avatar-container'>
-              <img src={user.avatar} alt="" />
+              <img src={`${apiUrl}avatars/${user.avatar}`} alt="" className='user-avatar' />
             </div>
 
         }

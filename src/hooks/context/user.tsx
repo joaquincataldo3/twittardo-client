@@ -15,7 +15,9 @@ const initialState: UserInitState = {
     user: {
         username: '',
         email: '',
-        avatar: ''
+        avatar: '',
+        followers: [],
+        followersNumber: null
     },
     token: '',
     error: '',
@@ -30,8 +32,8 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         try {
             const response = await axios.post(`${apiUrl}users/login`, { email, password })
             const data = response.data
-            console.log(data)
             dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: data })
+            dispatch({ type: userActions.GET_FOLLOWERS_NUMBER, payload: data.followers })
             navigate('/home')
         } catch (error: any) {
             console.log(error)

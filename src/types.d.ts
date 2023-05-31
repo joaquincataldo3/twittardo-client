@@ -4,7 +4,9 @@ import { ReactNode } from "react";
 export interface User {
     username: string,
     email: string
-    avatar?: string
+    avatar?: string,
+    followers: string[] | []
+    followersNumber: number | null
 }
 
 export interface Twitt {
@@ -43,7 +45,13 @@ export interface UserInitState {
     token: string
 }
 
-
+export interface reducerActions {
+    FETCH_USERS_SUCCESS: string,
+    FETCH_ONEUSER_SUCCESS: string,
+    USER_LOGIN_SUCCESS: string,
+    USER_LOGIN_ERROR: string,
+    GET_FOLLOWERS_NUMBER: string
+}
 
 export interface FormLoginData {
     email: string
