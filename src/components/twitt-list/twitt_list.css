@@ -1,0 +1,50 @@
+.home-twitts-container {
+    padding: 3% 5%;
+}
+
+.twitts-list-container {
+    margin-top: 5%;
+}
+
+.twitt-card {
+    padding: 3% 0;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+ 
+    border-bottom: 1px solid #797878;
+}
+
+.twitt-card:first-child {
+    border-top: 1px solid #797878;
+}
+
+.twitt-card-second-column-container {
+    width: 85%;
+    height: 100%;
+}
+
+.twitt-card-first-column-container {
+    width: 15%;
+    height: 100%;
+}
+
+.twitt-card-img-container {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.twitt-card-img-container img {
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.twitt-info-container {
+    margin-left: 3%;
+    height: 60%;
+    width: 100%;
+}

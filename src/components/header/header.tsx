@@ -3,26 +3,33 @@ import { apiUrl } from '../../utils/utils'
 import { useUserGlobalContext } from '../../hooks/context/user'
 import './header.css'
 import { User, UserCtxt } from '../../types'
+import { useLocation } from 'react-router-dom'
 
 function Header() {
 
   const context: UserCtxt = useUserGlobalContext()
   const user: User = context.user
+  const toggleNavbar = context.toggleNavbar
+  const loginPathname: string = '/user/login'
+  const location: string = useLocation().pathname
+
 
   return (
     <header>
       <div className='header-content-container'>
         {
           user.username === '' ?
-            <button className='login-btn'><a href="users/login">Logueate</a></button>
+            <button className='anchor-login-container'><a href={location === loginPathname ? '#' : loginPathname}>Logueate</a></button>
             :
-            <div className='user-avatar-container'>
-              <img src={`${apiUrl}avatars/${user.avatar}`} alt="" className='user-avatar' />
+            <div className='user-avatar-container'  onClick={toggleNavbar} >
+              <img src={`${apiUrl}images/${user.avatar}`} alt="" className='user-avatar' />
             </div>
 
         }
         <div className='twittardo-logo-container'>
-          <img src={logo} alt="Twittardo logo" className='twittardo-logo' />
+          <a href="/">
+            <img src={logo} alt="Twittardo logo" className='twittardo-logo' />
+          </a>   
         </div>
 
       </div>

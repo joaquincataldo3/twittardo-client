@@ -6,16 +6,12 @@ import { apiUrl } from "../../utils/utils";
 import twittsReducer from "../reducer/twitts";
 import { twittsActions } from "../../utils/utils";
 
-const TwittsContext = createContext<TwittState>({
-    twitts: [],
-    oneTwitt: {
-        twitt: '',
-        user: '',
-    }
-})
+const TwittsContext = createContext<TwittState | null>(null)
 
 const initialState: TwittState = {
-    twitts: [],
+    twitts: {
+        data: []
+    },
     oneTwitt: {
         twitt: '',
         user: '' 
@@ -29,7 +25,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const fetchTwitts = async () => {
         try {
             const response = await axios.get(`${apiUrl}twitts/all`)
-            const data = response
+            const data = response.data
             console.log(data)
             dispatch({ type: twittsActions.FETCH_TWITTS_SUCCESS, payload: data })
            

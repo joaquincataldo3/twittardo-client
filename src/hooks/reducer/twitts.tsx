@@ -1,25 +1,14 @@
 
-import { Twitt } from "../../types"
+import { TwittState } from "../../types"
 import { twittsActions } from "../../utils/utils.ts"
 
-
-interface TwittState {
-    twitts: Twitt[]
-    oneTwitt: Twitt
-}
-
-type Action =
-    { type: string , payload: any } |
-    { type: string, payload: any }
+type Action ={ type: string , payload: any } 
 
 const reducer = (state: TwittState, action: Action): TwittState => {
     switch(action.type){
         case twittsActions.FETCH_TWITTS_SUCCESS:
-            const twitts = action.payload
-            return {...state, twitts}
-        case twittsActions.FETCH_TWITTS_SUCCESS:
-            const twitt = action.payload
-            return {...state, oneTwitt: twitt}
+            const twittPayload = action.payload
+            return {...state, twitts: {...state.twitts, data: twittPayload}}
         default: 
             throw new Error('Inesperado tipo de acción')
     }

@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext, useState } from "react";
 import { AppContextProp, UserCtxt, UserInitState } from "../../types";
 import axios from "axios";
 import { apiUrl } from "../../utils/utils";
@@ -17,7 +17,9 @@ const initialState: UserInitState = {
         email: '',
         avatar: '',
         followers: [],
-        followersNumber: null
+        following: [],
+        followersNumber: 0,
+        followingNumber: 0
     },
     token: '',
     error: '',
@@ -26,6 +28,7 @@ const initialState: UserInitState = {
 const UserContextProvider = ({ children }: AppContextProp) => {
 
     const [state, dispatch] = useReducer(userReducer, initialState)
+    const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState<boolean>(false)
     const navigate = useNavigate()
 
     const loginFn = async (email: string, password: string) => {
@@ -33,7 +36,6 @@ const UserContextProvider = ({ children }: AppContextProp) => {
             const response = await axios.post(`${apiUrl}users/login`, { email, password })
             const data = response.data
             dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: data })
-            dispatch({ type: userActions.GET_FOLLOWERS_NUMBER, payload: data.followers })
             navigate('/home')
         } catch (error: any) {
             console.log(error)
@@ -42,9 +44,13 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         }
     }
 
+    const toggleNavbar = () => {
+        setIsMobileNavbarOpen(!isMobileNavbarOpen)
+    }
 
 
-    return <UserContext.Provider value={{ ...state, login: loginFn }}>
+
+    return <UserContext.Provider value={{ ...state, login: loginFn, isMobileNavbarOpen, toggleNavbar}}>
         {children}
     </UserContext.Provider>
 }

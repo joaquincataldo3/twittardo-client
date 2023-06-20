@@ -1,0 +1,80 @@
+.navbar-container {
+    position: fixed;
+    
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    z-index: 5;
+    background-color: white;
+    padding: 8% 3% 0 3%;
+    transform: translateX(-150%);
+    transition: transform 0.3s;
+}
+
+.navbar-container-active {
+    transform: translateX(0);
+}
+
+
+.close-mobile-navbar-container {
+   width: 100%;
+   height: 5%;
+}
+
+.close-navbar {
+    font-size: 1rem;
+    color: black;
+}
+
+ul {
+    list-style: none;
+}
+
+.navbar-user-avatar-container {
+    width: 40%;
+    background-color: white;
+    border-radius: 50%;
+ 
+}
+
+.navbar-user-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.username-container {
+    margin-top: 5%;
+}
+
+.user-stats-container {
+    margin: 15% 0;
+}
+
+.user-followers {
+    margin-bottom: 3%;
+}
+
+.mobile-navbar {
+    margin-top: 5%;
+    height: 15%;
+}
+
+.mobile-navbar ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.mobile-navbar-item {
+    margin: 3% 0;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-navbar-item i {
+    font-weight: 700;
+    margin-right: 3%;
+}

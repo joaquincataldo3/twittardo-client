@@ -1,17 +1,23 @@
 import { ReactNode } from "react";
 
 
+type Followers = string[] | []
+type Following = string[] | []
+
 export interface User {
     username: string,
     email: string
     avatar?: string,
-    followers: string[] | []
-    followersNumber: number | null
+    followers: Followers,
+    following: Following,
+    followersNumber: number,
+    followingNumber: number
 }
 
 export interface Twitt {
     twitt: string,
-    user: string
+    user: string,
+    image?: string
 }
 
 export interface Error {
@@ -24,7 +30,9 @@ export interface AppContextProp {
 }
 
 export interface TwittState {
-    twitts: Twitt[] ,
+    twitts: {
+        data: Twitt[]
+    } ,
     oneTwitt: Twitt
 }
 
@@ -34,7 +42,9 @@ export interface UserCtxt {
     user: User,
     error?: string,
     token: string
-    login: (username: string, password: string) => void
+    login: (username: string, password: string) => void,
+    isMobileNavbarOpen: boolean,
+    toggleNavbar: () => void
 }
 
 

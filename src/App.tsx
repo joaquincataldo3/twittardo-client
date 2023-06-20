@@ -6,17 +6,21 @@ import './App.css'
 
 function App() {
   return (
-    
-      <Routes>
-        <Route path='/' element={<Shared_Layout />}>
-              <Route path = 'home' index element={<Home />} />
 
-              <Route path = 'users'> 
-                  <Route path = 'login' element={<User_Login />} />
-              </Route>
-        </Route>
-      </Routes>
-  
+    <Routes>
+
+
+      <Route path='home' index element={<Home />} />
+
+      <Route path='user' element={<Shared_Layout />}>
+        <Route path='login' element={<User_Login />} />
+        {/* <Route path='profile' element={<User_Profile />} /> */}
+      </Route>
+
+
+
+    </Routes>
+
   )
 }
 

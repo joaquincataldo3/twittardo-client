@@ -14,11 +14,16 @@ const reducer = (state: UserInitState, action: Action) => {
             return { ...state, user }
         case userActions.USER_LOGIN_SUCCESS:
             let followersAccumulator: number = 0   
+            let followingAccumulator: number = 0 
             const userLogged: User = action.payload.user
             for (let i = 0; i < userLogged.followers.length; i++){
                 followersAccumulator++
             }
+            for (let i = 0; i < userLogged.following.length; i++){
+                followingAccumulator++
+            }
             userLogged.followersNumber = followersAccumulator
+            userLogged.followingNumber = followingAccumulator
             const token = action.payload.token
             return { ...state, user: userLogged, token }
         case userActions.USER_LOGIN_ERROR:

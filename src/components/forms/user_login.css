@@ -1,3 +1,5 @@
+@import '../../style-variables/variables.css';
+
 .user-login-main {
     margin-top: 10%;
 }
@@ -11,29 +13,55 @@
 }
 
 .input-error {
-    border: 1px solid red;
+    border: 1px solid var(--red);
 }
 
 .input-label-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin: 4% 0;
 }
 
 .input-label-container input {
-    margin: 3% 0;
     width: 100%;
+    height: 25px;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+    border: 1px solid #646464;
 }
 
+.input-label-container label {
+    margin-bottom: 5%;
+    text-align: left;
+    color: var(--purple);
+}
+
+.input-label-container input:focus-visible {
+    border: 0;
+    outline: 0;
+    border: 1px solid var(--purple);
+}
 
 .login-btn {
     border: 0;
     outline: 0;
-    border: 1px solid #cbcbcb;
+    border: 1px solid #646464;
     margin: 3% 0;
-    padding: 2% 5%;
+    padding: 1% 4%;
     border-radius: 10px;
-    width: 50%;
+    width: fit-content;
     font-size: 0.875rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--blue);
+}
+
+.login-btn a {
+    color: var(--blue);
+}
+
+.login-btn a:visited {
+    color: var(--blue);
 }
