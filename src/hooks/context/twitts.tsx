@@ -14,7 +14,7 @@ const initialState: TwittState = {
     },
     oneTwitt: {
         twitt: '',
-        user: '' 
+        user: ''  // TODO - UPDATE USER PROPERTIES
     }
 }
 
