@@ -4,4 +4,14 @@
     --blue: #0667f8;
     --red: #ff0404;
     --grey: #cbcbcb;
+    --yellow: #facd06;
+}
+
+.star {
+    color: var(--yellow);
+}
+
+.full-star {
+    color: var(--yellow);
+    background-color: var(--yellow);
 }

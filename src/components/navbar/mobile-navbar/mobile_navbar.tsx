@@ -1,16 +1,19 @@
 import { useUserGlobalContext } from '../../../hooks/context/user'
-import { User, UserCtxt } from '../../../types'
+import { useTwittGlobalContext } from '../../../hooks/context/twitts'
+import { TwittState, User, UserCtxt } from '../../../types'
 import { apiUrl } from '../../../utils/utils'
 import './mobile_navbar.css'
 
 
 function Navbar() {
 
-  const context: UserCtxt = useUserGlobalContext()
-  const user: User = context.user
-  const {isMobileNavbarOpen} = context
-  const toggleNavbar = context.toggleNavbar
-
+  const userContext: UserCtxt = useUserGlobalContext()!
+  const user: User = userContext.user
+  const {isMobileNavbarOpen} = userContext
+  const toggleNavbar = userContext.toggleNavbar
+  
+  const twittContext: TwittState = useTwittGlobalContext()!
+  const {fetchOneTwitt} = twittContext
   return (
     <>
       {
@@ -42,7 +45,7 @@ function Navbar() {
 
           <nav className="mobile-navbar">
             <ul>
-              <li className='mobile-navbar-item'><i className='bx bx-user' ></i><p>Perfil</p></li>
+              <li className='mobile-navbar-item'><a href="/user/profile" onClick={() => fetchOneTwitt(user._id)}></a><i className='bx bx-user' ></i></li>
               <li className='mobile-navbar-item'><i className='bx bx-bell' ></i><p>Notificaciones</p></li>
               <li className='mobile-navbar-item'><i className='bx bx-bookmark' ></i><p>Guardados</p></li>
             </ul>

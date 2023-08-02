@@ -3,6 +3,7 @@ import { reducerActions } from "../types"
 export const twittsActions = {
     FETCH_TWITTS_SUCCESS: 'FETCH_TWITTS_SUCCESS',
     FETCH_ONETWITT_SUCCESS: 'FETCH_ONETWITT_SUCCESS',   
+    SET_ONE_TWITT: 'SET_ONE_TWITT'
 }
 
 export const userActions: reducerActions = {
@@ -13,4 +14,4 @@ export const userActions: reducerActions = {
     GET_FOLLOWERS_NUMBER: 'GET_FOLLOWERS_NUMBER'
 }
 
-export const apiUrl = 'https://drab-ruby-termite-tie.cyclic.app/'
+export const apiUrl = 'https://twittardo-api.onrender.com/'

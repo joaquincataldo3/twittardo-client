@@ -13,13 +13,16 @@ const UserContext = createContext<UserCtxt | null>(null)
 const initialState: UserInitState = {
     users: [],
     user: {
+        _id: '',
         username: '',
         email: '',
         avatar: '',
         followers: [],
         following: [],
         followersNumber: 0,
-        followingNumber: 0
+        followingNumber: 0,
+        isAdmin: null,
+        favourites: []
     },
     token: '',
     error: '',
@@ -38,19 +41,37 @@ const UserContextProvider = ({ children }: AppContextProp) => {
             dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: data })
             navigate('/home')
         } catch (error: any) {
-            console.log(error)
+            console.log(`Failed in login: ${error}`)
             const loginError = error.msg
             dispatch({ type: userActions.USER_LOGIN_ERROR, payload: loginError })
         }
+    }
+
+    const checkLogin = async () => {
+        try {
+            const response = await axios(`${apiUrl}users/check-login`)
+            const data = response.data
+            if(response.status === 200){
+                console.log(data)
+            } else {
+                console.log('No autenticado')
+            }
+        } catch (error) {
+            console.log(`Failed in check login: ${error}`)
+        }
+        
     }
 
     const toggleNavbar = () => {
         setIsMobileNavbarOpen(!isMobileNavbarOpen)
     }
 
+    const providerValue = {
+        ...state, login: loginFn, isMobileNavbarOpen, toggleNavbar, checkLogin
+    }
 
 
-    return <UserContext.Provider value={{ ...state, login: loginFn, isMobileNavbarOpen, toggleNavbar}}>
+    return <UserContext.Provider value={providerValue}>
         {children}
     </UserContext.Provider>
 }

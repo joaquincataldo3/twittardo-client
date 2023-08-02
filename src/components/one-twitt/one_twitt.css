@@ -1,0 +1,124 @@
+@import '../../style-variables/variables.css';
+
+
+
+
+.one-twitt-content-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-top: 1%;
+    justify-content: center;
+}
+
+.one-twitt-content-container-no-img {
+    padding: 5%;
+}
+
+.one-twitt-card-first-column-container {
+    display: flex;
+   
+    width: 100%;
+    align-items: center;
+    padding: 0 3%;
+}
+
+.one-twitt-user-avatar-container {
+    display: flex;
+    align-items: center;
+    
+}
+
+.one-twitt-wrapper {
+    border-top: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
+    margin-top: 8%;
+    padding: 3% 0;
+}
+
+.one-twitt-wrapper-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.one-twitt-wrapper-no-img {
+    display: block;
+}
+
+
+.one-twitt-card-avatar-container {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.one-twitt-card-first-column-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.one-twitt-card-username-container {
+    font-weight: 700;
+}
+
+.close-one-twitt-container i {
+    font-size: 1.5rem;
+}
+
+.one-twitt-card-img-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 60%;
+}
+
+.one-twitt-card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.one-twitt-card-second-column-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75%;
+    width: 80%;
+    margin: 5% auto;
+}
+
+.one-twitt-card-second-column-container-no-img {
+    display: flex;
+    justify-content: center;
+    margin: 7% 0;
+}
+
+.one-twitt-card-third-column-container {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.one-twitt-card-third-column-container .icon-num-container i {
+    font-size: 1.2rem;
+}
+
+.one-twitt-desc-container {
+    margin-bottom: 3%;
+}
+
+.icon-num-container {
+    display: flex;
+    align-items: center;
+}
+
+.delete-twitt {
+    color: var(--red);
+}
+
+.comments-container {
+    margin-top: 3%;
+}

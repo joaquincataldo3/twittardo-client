@@ -5,19 +5,32 @@ type Followers = string[] | []
 type Following = string[] | []
 
 export interface User {
+    _id: string | null,
     username: string,
     email: string
     avatar?: string,
+    isAdmin: number | null,
     followers: Followers,
     following: Following,
     followersNumber: number,
-    followingNumber: number
+    followingNumber: number,
+    favourites: string[]
 }
 
 export interface Twitt {
+    _id: string,
     twitt: string,
-    user: string,
-    image?: string
+    user: User,
+    image?: string,
+    comments?: Comment[],
+    commentsNumber: number,
+    favourites: number
+}
+
+export interface Comment {
+    _id: string,
+    comment: string,
+    user: User,
 }
 
 export interface Error {
@@ -29,11 +42,27 @@ export interface AppContextProp {
     children: ReactNode
 }
 
+export interface TwittInitState {
+    twitts: {
+        data: Twitt[]
+    } ,
+    oneTwitt: Twitt,
+    page: number,
+}
+
 export interface TwittState {
     twitts: {
         data: Twitt[]
     } ,
-    oneTwitt: Twitt
+    oneTwitt: Twitt,
+    fetchTwitts: () => void,
+    fetchOneTwitt: (id: string) => void,
+    page: number,
+    isLoading: boolean,
+    isOneTwittActive: boolean,
+    /* setOneTwitt: (id: string) => void, */
+    setIsOneTwittActive: (prevState)=> void,
+  /*   disableOneTwitt: () => void */
 }
 
 
@@ -44,7 +73,8 @@ export interface UserCtxt {
     token: string
     login: (username: string, password: string) => void,
     isMobileNavbarOpen: boolean,
-    toggleNavbar: () => void
+    toggleNavbar: () => void,
+    checkLogin: () => void
 }
 
 
@@ -68,5 +98,10 @@ export interface FormLoginData {
     password: string
 }
 
+export interface TwittCardProps {
+    twitt: Twitt,
+}
 
-
+export interface CommentProps {
+    comment: Comment
+}

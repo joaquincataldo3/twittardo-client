@@ -1,4 +1,4 @@
-import './black-screen.css'
+import './black_screen.css'
 import { useUserGlobalContext } from '../../hooks/context/user'
 import { UserCtxt } from '../../types'
 
