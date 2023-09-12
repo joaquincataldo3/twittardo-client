@@ -1,15 +1,14 @@
 import { createContext, useContext, useEffect, useReducer, useState} from "react";
 import { AppContextProp } from "../../types";
-import { TwittState, TwittInitState } from "../../types";
+import { TwittCxt, TwittInitState } from "../../types";
 import axios from "axios";
 import { apiUrl } from "../../utils/utils";
 import twittsReducer from "../reducer/twitts";
 import { twittsActions } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
+import { useUserGlobalContext } from "./user";
 
-const TwittsContext = createContext<TwittState | null>(null)
-
-const initialState: TwittInitState = {
+let reducerInitState: TwittInitState  = {
     twitts: {
         data: []
     },
@@ -31,15 +30,34 @@ const initialState: TwittInitState = {
         favourites: 0,
         commentsNumber: 0 
     },
-    page: 1
+    page: 0,
+    twittError: '',
+    isTwittErrorActive: false
 }
+
+let contextInitState: TwittCxt = {
+    ...reducerInitState,
+    fetchTwitts: () => {},
+    fetchOneTwitt: () => {},
+    isLoading: false,
+    isOneTwittActive: false,
+    setIsOneTwittActive: () => {},
+    createTwitt: () => {},
+    createTwittError: () => {}
+}
+
+const TwittsContext = createContext<TwittCxt>(contextInitState)
+
 
 const TwittContextProvider = ({ children }: AppContextProp) => {
 
-    const [state, dispatch] = useReducer(twittsReducer, initialState)
-    const [isLoading, setIsLoading] = useState(false)
-    const [isOneTwittActive, setIsOneTwittActive] = useState(false)
-    const navigate = useNavigate()
+
+    const userContext = useUserGlobalContext();
+    const [state, dispatch] = useReducer(twittsReducer, reducerInitState);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isOneTwittActive, setIsOneTwittActive] = useState<boolean>(false);
+    const navigate = useNavigate();
+    const {user} = userContext;
 
     const fetchTwitts = async () => {
         try {
@@ -51,34 +69,46 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             setIsLoading(false)
            
         } catch (error) {
-            console.log(error)
+            let loginError;
+            if (error instanceof Error) {
+                console.log(`Failed in login: ${error.message}`);
+                loginError = error.message;
+              } else {
+                console.log(`Failed in login: ${error}`);
+                loginError = error;
+              }
             navigate('/home')
         }
     }
 
     const fetchOneTwitt = async (id: string) => {
         try {
-            setIsLoading(true)
-            const response = await axios.get(`${apiUrl}twitts/${id}`)
-            const data = response.data
-            dispatch({ type: twittsActions.FETCH_ONETWITT_SUCCESS, payload: data })
-            setIsLoading(false)
+            setIsLoading(true);
+            const response = await axios(`${apiUrl}twitts/${id}`);
+            const data = response.data;
+            dispatch({ type: twittsActions.FETCH_ONETWITT_SUCCESS, payload: data });
+            setIsLoading(false);
         } catch (error) {
-            console.log(error)
-            navigate('/home')
+            console.log(error);
+            navigate('/home');
         }
     }
 
-  /*   const disableOneTwitt = () => {
-        setIsOneTwittActive(isOneTwittActive => !isOneTwittActive) 
-        document.body.style.overflow = 'auto'
-    } */
-/* 
-    const setOneTwitt = (id: string) => {
-        setIsOneTwittActive(isOneTwittActive => !isOneTwittActive)   
-        dispatch({ type: twittsActions.SET_ONE_TWITT, payload: {id, twitts: state.twitts.data} })
-        document.body.style.overflow = 'hidden'
-    } */
+    const createTwittError = (msg: string) => {
+        dispatch({type: twittsActions.CREATE_TW_ERROR, payload: {msg}})
+    }
+
+    const createTwitt = async (formData: FormData) => {
+        setIsLoading(true);
+        const response = await axios.post(`${apiUrl}twitts/${user._id}/create`, formData);
+        if(response.status === 200){
+            fetchTwitts(); 
+        } else {
+            createTwittError('Error al crear el twitt, vuelva a intentarlo');
+        }
+    }
+
+  
     
 
     useEffect(() => {
@@ -92,7 +122,9 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         fetchOneTwitt,
         isLoading,
         isOneTwittActive,
-        setIsOneTwittActive
+        setIsOneTwittActive,
+        createTwitt,
+        createTwittError
     }
 
     return <TwittsContext.Provider value={providerValue}>

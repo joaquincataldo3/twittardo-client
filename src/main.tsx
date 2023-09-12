@@ -8,11 +8,11 @@ import { UserContextProvider } from './hooks/context/user.tsx'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <TwittContextProvider>
-        <UserContextProvider>
+      <UserContextProvider>
+        <TwittContextProvider>
           <App />
-        </UserContextProvider>
-      </TwittContextProvider>
+        </TwittContextProvider>
+      </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

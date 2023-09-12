@@ -1,19 +1,18 @@
 import { useUserGlobalContext } from '../../../hooks/context/user'
 import { useTwittGlobalContext } from '../../../hooks/context/twitts'
-import { TwittState, User, UserCtxt } from '../../../types'
-import { apiUrl } from '../../../utils/utils'
 import './mobile_navbar.css'
 
 
 function Navbar() {
 
-  const userContext: UserCtxt = useUserGlobalContext()!
-  const user: User = userContext.user
-  const {isMobileNavbarOpen} = userContext
-  const toggleNavbar = userContext.toggleNavbar
+  const userContext = useUserGlobalContext();
+  const {user} = userContext;
+  const {isMobileNavbarOpen} = userContext;
+  const toggleNavbar = userContext.toggleNavbar;
   
-  const twittContext: TwittState = useTwittGlobalContext()!
-  const {fetchOneTwitt} = twittContext
+  const twittContext = useTwittGlobalContext();
+  const {fetchOneTwitt} = twittContext;
+  
   return (
     <>
       {
@@ -26,7 +25,7 @@ function Navbar() {
 
           <div className="navbar-user-info-container">
             <div className="navbar-user-avatar-container">
-              <img className='navbar-user-avatar' src={`${apiUrl}images/${user.avatar}`} alt="" />
+              <img className='navbar-user-avatar' src={user.image_url} alt="" />
             </div>
 
             <div className='username-container'>
@@ -45,7 +44,7 @@ function Navbar() {
 
           <nav className="mobile-navbar">
             <ul>
-              <li className='mobile-navbar-item'><a href="/user/profile" onClick={() => fetchOneTwitt(user._id)}></a><i className='bx bx-user' ></i></li>
+              <li className='mobile-navbar-item'><a href="/user/profile" onClick={() => fetchOneTwitt(user._id ? user._id : '')}></a><i className='bx bx-user' ></i></li>
               <li className='mobile-navbar-item'><i className='bx bx-bell' ></i><p>Notificaciones</p></li>
               <li className='mobile-navbar-item'><i className='bx bx-bookmark' ></i><p>Guardados</p></li>
             </ul>

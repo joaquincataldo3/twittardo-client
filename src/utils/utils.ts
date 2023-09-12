@@ -3,7 +3,10 @@ import { reducerActions } from "../types"
 export const twittsActions = {
     FETCH_TWITTS_SUCCESS: 'FETCH_TWITTS_SUCCESS',
     FETCH_ONETWITT_SUCCESS: 'FETCH_ONETWITT_SUCCESS',   
-    SET_ONE_TWITT: 'SET_ONE_TWITT'
+    SET_ONE_TWITT: 'SET_ONE_TWITT',
+    EMPTY_CREATE_TW_ERROR: 'EMPTY_CREATE_TW_ERROR',
+    MAX_CHARACTERS_TW_ERROR: 'MAX_CHARACTERS_TW_ERROR',
+    CREATE_TW_ERROR: 'CREATE_TW_ERROR'
 }
 
 export const userActions: reducerActions = {
@@ -14,4 +17,4 @@ export const userActions: reducerActions = {
     GET_FOLLOWERS_NUMBER: 'GET_FOLLOWERS_NUMBER'
 }
 
-export const apiUrl = 'https://twittardo-api.onrender.com/'
+export const apiUrl = 'http://localhost:3000/'

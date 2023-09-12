@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import {Dispatch, SetStateAction} from 'react';
 
 
 type Followers = string[] | []
@@ -9,6 +10,7 @@ export interface User {
     username: string,
     email: string
     avatar?: string,
+    image_url?: string,
     isAdmin: number | null,
     followers: Followers,
     following: Following,
@@ -22,6 +24,7 @@ export interface Twitt {
     twitt: string,
     user: User,
     image?: string,
+    image_url?: string,
     comments?: Comment[],
     commentsNumber: number,
     favourites: number
@@ -48,9 +51,11 @@ export interface TwittInitState {
     } ,
     oneTwitt: Twitt,
     page: number,
+    twitError: string,
+    isTwittErrorActive: boolean,
 }
 
-export interface TwittState {
+export interface TwittCxt  {
     twitts: {
         data: Twitt[]
     } ,
@@ -60,9 +65,11 @@ export interface TwittState {
     page: number,
     isLoading: boolean,
     isOneTwittActive: boolean,
-    /* setOneTwitt: (id: string) => void, */
-    setIsOneTwittActive: (prevState)=> void,
-  /*   disableOneTwitt: () => void */
+    twittError: string,
+    isTwittErrorActive: boolean,
+    setIsOneTwittActive: Dispatch<SetStateAction>,
+    createTwitt: (formData: FormData) => void,
+    createTwittError: (msg: string) => void
 }
 
 
@@ -104,4 +111,8 @@ export interface TwittCardProps {
 
 export interface CommentProps {
     comment: Comment
+}
+
+export interface LoginError {
+    msg: string
 }

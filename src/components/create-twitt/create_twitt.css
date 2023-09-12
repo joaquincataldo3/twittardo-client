@@ -1,3 +1,5 @@
+@import '../../style-variables/variables.css';
+
 .create-twitt-container {
     margin: 5% 0;
     display: flex;
@@ -16,7 +18,7 @@
     width: 100%;
     border: 0;
     outline: 0;
-    border: 1px solid grey;
+    border: 1px solid var(--grey);
     padding: 3%;
     border-radius: 5px;
 }
@@ -27,5 +29,31 @@
    margin-top: 3%;
 }
 
+.create-tw-btn-img-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.create-tw-btn {
+    margin-top: 3%;
+    width: 50%;
+    text-transform: uppercase;
+    border: 0;
+    outline: 0;
+    border: 1px solid var(--purple);
+    border-radius: 5px;
+}
+
+.characters-container {
+    margin: 2% 0;
+    text-align: right;
+}
+
+.textarea-empty {
+    border: 0;
+    outline: 0;
+    border: 1px solid var(--red)!important;
+}
 
 

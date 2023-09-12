@@ -22,7 +22,6 @@ const Twitt_List = () => {
                     <div className="twitts-list-container">
                         {
                             data.map((twitt, i) => {
-
                                 return (
                                     <Twitt_Card twitt={twitt} key={i} />
 

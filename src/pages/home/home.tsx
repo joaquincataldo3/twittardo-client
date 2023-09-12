@@ -1,5 +1,4 @@
 
-import {useEffect} from 'react'
 import Black_Screen from "../../components/black-screen/black_screen"
 import Header from "../../components/header/header"
 import Mobile_Navbar from '../../components/navbar/mobile-navbar/mobile_navbar'
@@ -11,12 +10,9 @@ import { useUserGlobalContext } from "../../hooks/context/user"
 function Home() {
 
   const context = useUserGlobalContext()
-  const {user, checkLogin} = context
+  const {user } = context
 
 
-  useEffect(() => {
-    checkLogin()
-  }, [])
 
   return (
 

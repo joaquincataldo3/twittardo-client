@@ -1,21 +1,22 @@
-import {useEffect} from 'react'
+
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/home/home'
 import User_Login from './components/forms/user_login'
 import One_Twitt from './components/one-twitt/one_twitt'
 import Shared_Layout from './components/shared-layout/shared_layout'
-import { useUserGlobalContext } from './hooks/context/user'
 import './App.css'
+import { useUserGlobalContext } from './hooks/context/user'
+import {useEffect} from 'react'
+import { useLocation } from 'react-router-dom';
 
 function App() {
 
-  const context = useUserGlobalContext()
-  const {checkLogin} = context
+  const location = useLocation();
+  const {checkLogin} = useUserGlobalContext();
 
   useEffect(() => {
     checkLogin()
-  }, [])
-
+  }, [location])
 
   return (
 

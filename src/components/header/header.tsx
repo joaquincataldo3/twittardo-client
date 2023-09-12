@@ -1,18 +1,16 @@
-import logo from '../../assets/logo.jpg'
-import { apiUrl } from '../../utils/utils'
-import { useUserGlobalContext } from '../../hooks/context/user'
-import './header.css'
-import { User, UserCtxt } from '../../types'
-import { useLocation } from 'react-router-dom'
-
+import logo from '../../assets/logo.jpg';
+import { useUserGlobalContext } from '../../hooks/context/user';
+import './header.css';
+import { User, UserCtxt } from '../../types';
+import { useLocation } from 'react-router-dom';
 function Header() {
 
-  const context: UserCtxt = useUserGlobalContext()
-  const user: User = context.user
-  const toggleNavbar = context.toggleNavbar
-  const loginPathname: string = '/user/login'
-  const location: string = useLocation().pathname
-
+  const context: UserCtxt = useUserGlobalContext();
+  const user: User = context.user;
+  const toggleNavbar = context.toggleNavbar;
+  const loginPathname: string = '/user/login';
+  const location: string = useLocation().pathname;
+ 
 
   return (
     <header>
@@ -22,7 +20,7 @@ function Header() {
             <button className='anchor-login-container'><a href={location === loginPathname ? '#' : loginPathname}>Logueate</a></button>
             :
             <div className='user-avatar-container'  onClick={toggleNavbar} >
-              <img src={`${apiUrl}images/${user.avatar}`} alt="" className='user-avatar' />
+              <img src={user.image_url} alt="" className='user-avatar' />
             </div>
 
         }

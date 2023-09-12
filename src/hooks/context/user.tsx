@@ -7,8 +7,28 @@ import { userActions } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 
-// TODO - CREATE POST FORM
-const UserContext = createContext<UserCtxt | null>(null)
+const defState: UserCtxt = {
+    users: [],
+    user: {
+        _id: '',
+        username: '',
+        email: '',
+        isAdmin: null,
+        followers: [],
+        following: [],
+        followersNumber: 0,
+        followingNumber: 0,
+        favourites: []
+    },
+    isMobileNavbarOpen: false,
+    token: '',
+    login: (_username: string, _password: string) => {},
+    toggleNavbar: () => {},
+    checkLogin: () => {}
+
+};
+ 
+const UserContext = createContext<UserCtxt>(defState);
 
 const initialState: UserInitState = {
     users: [],
@@ -26,7 +46,7 @@ const initialState: UserInitState = {
     },
     token: '',
     error: '',
-}
+};
 
 const UserContextProvider = ({ children }: AppContextProp) => {
 
@@ -36,39 +56,53 @@ const UserContextProvider = ({ children }: AppContextProp) => {
 
     const loginFn = async (email: string, password: string) => {
         try {
-            const response = await axios.post(`${apiUrl}users/login`, { email, password })
-            const data = response.data
-            dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: data })
-            navigate('/home')
+            const response = await axios.post(`${apiUrl}users/login`, { email, password }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true // para recibir y obtener cookies. importante
+            });
+            dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: {user: response.data.userVerified} });
+            navigate('/home');
         } catch (error: any) {
-            console.log(`Failed in login: ${error}`)
-            const loginError = error.msg
-            dispatch({ type: userActions.USER_LOGIN_ERROR, payload: loginError })
+            let loginError;
+            if (error instanceof Error) {
+                console.log(`Failed in login: ${error.message}`);
+                loginError = error.message;
+            } else {
+                console.log(`Failed in login: ${error}`);
+                loginError = error.msg;
+            }
+            dispatch({ type: userActions.USER_LOGIN_ERROR, payload: loginError });
         }
-    }
+    };
 
     const checkLogin = async () => {
         try {
-            const response = await axios(`${apiUrl}users/check-login`)
-            const data = response.data
-            if(response.status === 200){
-                console.log(data)
+            const response = await axios(`${apiUrl}users/check-cookie`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true // para recibir y obtener cookies. importante
+            });
+            const data = response.data;
+            if(data.loggedIn){ 
+                dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: {user: data.user} })
             } else {
-                console.log('No autenticado')
+                console.log('Not authenticated')
             }
-        } catch (error) {
-            console.log(`Failed in check login: ${error}`)
+        } catch (error: any) {
+            console.log(error.response);
         }
-        
-    }
+    };
 
     const toggleNavbar = () => {
         setIsMobileNavbarOpen(!isMobileNavbarOpen)
-    }
+    };
 
     const providerValue = {
         ...state, login: loginFn, isMobileNavbarOpen, toggleNavbar, checkLogin
-    }
+    };
 
 
     return <UserContext.Provider value={providerValue}>
