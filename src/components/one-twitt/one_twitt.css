@@ -60,6 +60,9 @@
 
 .one-twitt-card-username-container {
     font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
 }
 
 .close-one-twitt-container i {

@@ -6,16 +6,11 @@ import './mobile_navbar.css'
 function Navbar() {
 
   const userContext = useUserGlobalContext();
-  const { user } = userContext;
-  const { isMobileNavbarOpen } = userContext;
-  const toggleNavbar = userContext.toggleNavbar;
+  const { user, isMobileNavbarOpen, toggleNavbar, handleLogout} = userContext;
 
   const twittContext = useTwittGlobalContext();
   const { fetchOneTwitt } = twittContext;
 
-  const handleLogout = () => {
-    
-  }
 
   return (
     <>

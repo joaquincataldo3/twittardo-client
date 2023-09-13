@@ -24,8 +24,8 @@ const defState: UserCtxt = {
     token: '',
     login: (_username: string, _password: string) => {},
     toggleNavbar: () => {},
-    checkLogin: () => {}
-
+    checkLogin: () => {},
+    handleLogout: () => {}
 };
  
 const UserContext = createContext<UserCtxt>(defState);
@@ -100,8 +100,13 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         setIsMobileNavbarOpen(!isMobileNavbarOpen)
     };
 
+    const handleLogout = async () => {
+        await axios(`${apiUrl}users/logout`, {withCredentials: true});
+        navigate('/home');
+    }
+
     const providerValue = {
-        ...state, login: loginFn, isMobileNavbarOpen, toggleNavbar, checkLogin
+        ...state, login: loginFn, isMobileNavbarOpen, toggleNavbar, checkLogin, handleLogout
     };
 
 

@@ -79,7 +79,8 @@ export interface UserCtxt {
     login: (username: string, password: string) => void,
     isMobileNavbarOpen: boolean,
     toggleNavbar: () => void,
-    checkLogin: () => void
+    checkLogin: () => void,
+    handleLogout: () => void
 }
 
 
@@ -95,7 +96,8 @@ export interface UserReducerActions {
     FETCH_ONEUSER_SUCCESS: string,
     USER_LOGIN_SUCCESS: string,
     USER_LOGIN_ERROR: string,
-    GET_FOLLOWERS_NUMBER: string
+    GET_FOLLOWERS_NUMBER: string,
+    LOGOUT_ERROR_
 }
 
 export interface TwittReducerActions {

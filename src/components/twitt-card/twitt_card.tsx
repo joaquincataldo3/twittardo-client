@@ -8,6 +8,7 @@ function Twitt_Card(props: TwittCardProps) {
 
     const userContext = useUserGlobalContext();
     const { twitt } = props;
+    const { user } = twitt;
 
     return (
         <div className="twitt-card" key={twitt._id}>
@@ -24,12 +25,12 @@ function Twitt_Card(props: TwittCardProps) {
 
                 <div className="twitt-card-first-column-container">
 
-                    <img src={twitt.user.image_url} alt="" />
+                    <img src={user.image_url} alt="" />
                 </div>
                 <div className="twitt-card-second-column-container">
 
                     <div className="twitt-card-user-info">
-                        <p>@{twitt.user.username}</p>
+                        <p>@{user.username}</p>
                     </div>
 
                     <div className="twitt-info-container">
@@ -51,8 +52,8 @@ function Twitt_Card(props: TwittCardProps) {
                 <div className="icon-num-container">
                     <>
                         {
-                            userContext && userContext.user.favourites.length > 0 ?
-                                userContext.user.favourites.forEach(fav => {
+                            userContext && user.favourites.length > 0 ?
+                                user.favourites.forEach(fav => {
                                     return (
                                         fav == twitt._id && <i className='bx bxs-star full-star' ></i>
                                     )
