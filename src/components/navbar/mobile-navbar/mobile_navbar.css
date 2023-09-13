@@ -1,6 +1,5 @@
 .navbar-container {
     position: fixed;
-    
     top: 0;
     bottom: 0;
     left: 0;
@@ -20,6 +19,11 @@
 .close-mobile-navbar-container {
    width: 100%;
    height: 5%;
+   margin-bottom: 10%;
+}
+
+.first-row-wrapper {
+    height: 50%;
 }
 
 .close-navbar {
@@ -46,6 +50,10 @@ ul {
 
 .username-container {
     margin-top: 5%;
+}
+
+.username-container p {
+    font-weight: 700;
 }
 
 .user-stats-container {
@@ -77,4 +85,11 @@ ul {
 .mobile-navbar-item i {
     font-weight: 700;
     margin-right: 3%;
+}
+
+.second-row-wrapper {
+    height: 50%;
+    padding: 10% 0;
+    display: flex;
+    align-items: flex-end;
 }

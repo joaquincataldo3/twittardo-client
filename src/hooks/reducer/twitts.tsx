@@ -1,14 +1,20 @@
 
 import { TwittInitState, Twitt } from "../../types"
-import { twittsActions } from "../../utils/utils.ts"
+import { twittsActions, fetchTwittActions } from "../../utils/utils.ts"
 
 type Action = { type: string, payload: any }
 
 const reducer = (state: TwittInitState, action: Action): TwittInitState => {
     switch (action.type) {
         case twittsActions.FETCH_TWITTS_SUCCESS:
-            const twittsPayload = action.payload;
-            return { ...state, page: state.page + 1, twitts: { ...state.twitts, data: twittsPayload } }
+            const {data, method} = action.payload;
+            let page;
+            if(method === fetchTwittActions.RELOAD || method === fetchTwittActions.REGULAR){
+                page = state.page + 1;
+            } else {
+                page = 1;
+            }     
+            return { ...state, page, twitts: { ...state.twitts, data} }
         case twittsActions.FETCH_ONETWITT_SUCCESS:
             const twittPayload = action.payload;
             return { ...state, oneTwitt: twittPayload }
