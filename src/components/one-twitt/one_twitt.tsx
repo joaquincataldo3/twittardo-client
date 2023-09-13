@@ -1,13 +1,13 @@
+import LoadingSpinner from "../loading-spinner/loading_spinner";
+import Comment from "../comment/comment";
+import Create_Comment from '../create-comment/create_comment';
 import { useEffect } from 'react';
 import { useTwittGlobalContext } from "../../hooks/context/twitts";
 import { useUserGlobalContext } from "../../hooks/context/user";
-import LoadingSpinner from "../loading-spinner/loading_spinner";
-import Comment from "../comment/comment";
-import '../../style-variables/variables.css';
-import './one_twitt.css';
 import { useParams } from "react-router-dom";
-import Create_Comment from '../create-comment/create_comment';
 import { useNavigate } from 'react-router-dom';
+import './one_twitt.css';
+import '../../style-variables/variables.css';
 
 function One_Twitt() {
 
@@ -28,8 +28,6 @@ function One_Twitt() {
         navigate('/home');
     }
 
-
-
     return (
 
         <>
@@ -41,7 +39,8 @@ function One_Twitt() {
                 </div>
 
             }
-            {!isLoading && twittContext &&
+            {!isLoading &&
+
                 <div className="one-twitt-container">
 
                     <div className={`one-twitt-wrapper ${image ? 'one-twitt-wrapper-img' : '.one-twitt-wrapper-no-img'}`}>
@@ -51,7 +50,7 @@ function One_Twitt() {
                             <div className="one-twitt-card-first-column-container">
                                 <div className="one-twitt-user-avatar-container">
                                     <div className="one-twitt-card-avatar-container">
-                                        <img src={user.image_url} alt="" />
+                                        <img src={oneTwitt.user.image_url} alt="" />
                                     </div>
                                 </div>
 

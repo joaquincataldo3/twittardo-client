@@ -6,13 +6,13 @@ import One_Twitt from './components/one-twitt/one_twitt'
 import Shared_Layout from './components/shared-layout/shared_layout'
 import './App.css'
 import { useUserGlobalContext } from './hooks/context/user'
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 
 function App() {
 
   const location = useLocation();
-  const {checkLogin} = useUserGlobalContext();
+  const { checkLogin } = useUserGlobalContext();
 
   useEffect(() => {
     checkLogin()
@@ -22,8 +22,9 @@ function App() {
 
     <Routes>
 
-
-      <Route path='home' index element={<Home />} />
+      <Route path='home' element={<Shared_Layout />}>
+        <Route index element={<Home />} />
+      </Route>
 
       <Route path='user' element={<Shared_Layout />}>
         <Route path='login' element={<User_Login />} />
@@ -31,11 +32,9 @@ function App() {
       </Route>
 
       <Route path='twitts' element={<Shared_Layout />}>
-        <Route path=':twittId' element={<One_Twitt/>} />
-      
+        <Route path=':twittId' element={<One_Twitt />} />
+
       </Route>
-
-
 
     </Routes>
 

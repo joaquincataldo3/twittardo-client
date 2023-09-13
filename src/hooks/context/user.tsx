@@ -102,7 +102,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
 
     const handleLogout = async () => {
         await axios(`${apiUrl}users/logout`, {withCredentials: true});
-        navigate('/home');
+        window.location.reload();
     }
 
     const providerValue = {
