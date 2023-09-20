@@ -1,0 +1,7 @@
+.profile-options-container {
+    width: 80%;
+    margin: 8% auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

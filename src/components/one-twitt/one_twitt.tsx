@@ -88,10 +88,10 @@ function One_Twitt() {
                                 <div className="icon-num-container">
                                     <>
                                         {
-                                            user && user.favourites ?
-                                                user.favourites.forEach(fav => fav == _id ? <i className='bx bxs-star full-star' ></i> : <i className='bx bx-star star' ></i>)
+                                            user.favourites.length > 0 ?
+                                                user.favourites.forEach(fav => fav == _id && <i className='bx bxs-star full-star' ></i>)
                                                 :
-                                                <i className='bx bx-star star' ></i>
+                                                <i className='bx bx-star star'></i>
                                         }
                                     </>
                                     <span>{favourites > 0 ? favourites : '0'}</span>

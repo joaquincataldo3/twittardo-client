@@ -1,25 +1,16 @@
+import axios from "axios";
+import userReducer from "../reducer/user";
 import { createContext, useReducer, useContext, useState } from "react";
 import { AppContextProp, UserCtxt, UserInitState } from "../../types";
-import axios from "axios";
 import { apiUrl } from "../../utils/utils";
-import userReducer from "../reducer/user";
 import { userActions } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
+import { userEmptyState } from "../../utils/utils";
 
 
 const defState: UserCtxt = {
     users: [],
-    user: {
-        _id: '',
-        username: '',
-        email: '',
-        isAdmin: null,
-        followers: [],
-        following: [],
-        followersNumber: 0,
-        followingNumber: 0,
-        favourites: []
-    },
+    user: userEmptyState,
     isMobileNavbarOpen: false,
     token: '',
     login: (_username: string, _password: string) => {},
@@ -32,18 +23,7 @@ const UserContext = createContext<UserCtxt>(defState);
 
 const initialState: UserInitState = {
     users: [],
-    user: {
-        _id: '',
-        username: '',
-        email: '',
-        avatar: '',
-        followers: [],
-        following: [],
-        followersNumber: 0,
-        followingNumber: 0,
-        isAdmin: null,
-        favourites: []
-    },
+    user: userEmptyState,
     token: '',
     error: '',
 };

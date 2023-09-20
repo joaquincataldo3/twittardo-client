@@ -17,6 +17,7 @@ export interface User {
     followersNumber: number,
     followingNumber: number,
     favourites: string[]
+    twitts: Twitt[]
 }
 
 export interface Twitt {
@@ -97,7 +98,7 @@ export interface UserReducerActions {
     USER_LOGIN_SUCCESS: string,
     USER_LOGIN_ERROR: string,
     GET_FOLLOWERS_NUMBER: string,
-    LOGOUT_ERROR_
+    LOGOUT_ERROR: string
 }
 
 export interface TwittReducerActions {

@@ -1,12 +1,13 @@
+import axios from "axios";
+import twittsReducer from "../reducer/twitts";
 import { createContext, useContext, useEffect, useReducer, useState} from "react";
 import { AppContextProp } from "../../types";
 import { TwittCxt, TwittInitState } from "../../types";
-import axios from "axios";
 import { apiUrl } from "../../utils/utils";
-import twittsReducer from "../reducer/twitts";
 import { twittsActions, fetchTwittActions } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { useUserGlobalContext } from "./user";
+import { userEmptyState } from "../../utils/utils";
 
 let reducerInitState: TwittInitState  = {
     twitts: {
@@ -15,18 +16,7 @@ let reducerInitState: TwittInitState  = {
     oneTwitt: {
         _id: '',
         twitt: '',
-        user: {
-            _id: '',
-            username: '',
-            email: '',
-            avatar: '',
-            followers: [],
-            following: [],
-            followersNumber: 0,
-            followingNumber: 0,
-            isAdmin: null,
-            favourites: []
-        },
+        user: userEmptyState,
         favourites: 0,
         commentsNumber: 0 
     },
@@ -76,7 +66,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             const response = await axios.get(`${apiUrl}twitts/all?p=${page}`);
             const data = response.data;
             dispatch({ type: twittsActions.FETCH_TWITTS_SUCCESS, payload: {data, method} });
-            setIsLoading(false)
+            setIsLoading(false);
         } catch (error) {
             let loginError;
             if (error instanceof Error) {
@@ -91,7 +81,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     };
 
     const fetchOneTwitt = async (id: string) => {
-        try {
+        try {  
             setIsLoading(true);
             const response = await axios(`${apiUrl}twitts/${id}`);
             const data = await response.data;

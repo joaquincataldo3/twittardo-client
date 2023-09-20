@@ -11,7 +11,6 @@ function Navbar() {
   const twittContext = useTwittGlobalContext();
   const { fetchOneTwitt } = twittContext;
 
-
   return (
     <>
       {
@@ -44,7 +43,7 @@ function Navbar() {
 
             <nav className="mobile-navbar">
               <ul>
-                <li className='mobile-navbar-item'><a href="/user/profile" onClick={() => fetchOneTwitt(user._id ? user._id : '')}></a><i className='bx bx-user' ></i>Perfil</li>
+                <li className='mobile-navbar-item'><i className='bx bx-user' ></i><a href="/user/profile" onClick={() => fetchOneTwitt(user._id ? user._id : '')}>Perfil</a></li>
                 <li className='mobile-navbar-item'><i className='bx bx-bell' ></i><p>Notificaciones</p></li>
                 <li className='mobile-navbar-item'><i className='bx bx-bookmark' ></i><p>Guardados</p></li>
               </ul>

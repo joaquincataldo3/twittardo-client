@@ -1,13 +1,10 @@
 import { TwittCardProps } from "../../types";
-import { useUserGlobalContext } from "../../hooks/context/user";
-import './twitt_card.css'
-import '../../style-variables/variables.css'
+import '../twitt-card/twitt_card.css';
 
-function Twitt_Card(props: TwittCardProps) {
+function Twitt_Card_Profile(props: TwittCardProps) {
 
     const { twitt } = props;
     const { user } = twitt;
-    const userContext = useUserGlobalContext().user
 
     return (
         <div className="twitt-card" key={twitt._id}>
@@ -19,8 +16,6 @@ function Twitt_Card(props: TwittCardProps) {
 
 
             <div className="twitt-content-container">
-
-
 
                 <div className="twitt-card-first-column-container">
 
@@ -51,20 +46,14 @@ function Twitt_Card(props: TwittCardProps) {
                 <div className="icon-num-container">
                     <>
                         {
-                            twitt.user._id != userContext._id ?
-                                user.favourites && user.favourites.length > 0 ?
-                                     user.favourites.forEach(fav => {
+                            user.favourites && user.favourites.length > 0 ?
+                                user.favourites.forEach(fav => {
                                     return (
                                         fav == twitt._id && <i className='bx bxs-star full-star' ></i>
                                     )
                                 })
                                 :
                                 <i className='bx bx-star star' ></i>
-                                :
-                                <div className="fav-number-container">
-                                    <p>{twitt.favourites}</p>
-                                    <i className='bx bxs-star full-star'></i>
-                                </div>
                         }
                     </>
 
@@ -80,4 +69,4 @@ function Twitt_Card(props: TwittCardProps) {
     )
 }
 
-export default Twitt_Card
+export default Twitt_Card_Profile
