@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import {Dispatch, SetStateAction} from 'react';
+import { Params } from "react-router-dom";
 
 
 type Followers = string[] | []
@@ -75,6 +76,7 @@ export interface TwittCxt extends TwittInitState  {
 export interface UserCtxt {
     users: User[],
     user: User,
+    userProfile: User,
     error?: string,
     token: string
     login: (username: string, password: string) => void,
@@ -82,12 +84,14 @@ export interface UserCtxt {
     toggleNavbar: () => void,
     checkLogin: () => void,
     handleLogout: () => void
+    getUser: (id: string | Readonly<Params<string>>) => void
 }
 
 
 export interface UserInitState {
     users: User[],
     user: User,
+    userProfile: User,
     error: string
     token: string
 }

@@ -31,7 +31,7 @@ function App() {
       <Route path='user' element={<Shared_Layout />}>
         <Route path='login' element={<User_Login />} />
         {
-          user && <Route path='profile' element={<User_Profile />} /> 
+          user && <Route path='profile/:userId' element={<User_Profile />} /> 
         }
 
       </Route>

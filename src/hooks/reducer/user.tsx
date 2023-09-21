@@ -10,8 +10,8 @@ const reducer = (state: UserInitState, action: Action) => {
             const users: User[] = action.payload
             return { ...state, users }
         case userActions.FETCH_ONEUSER_SUCCESS:
-            const user: User = action.payload
-            return { ...state, user }
+            const user: User = action.payload.user
+            return { ...state, userProfile: user }
         case userActions.USER_LOGIN_SUCCESS:
             let followersAccumulator: number = 0   
             let followingAccumulator: number = 0 
