@@ -18,7 +18,8 @@ export interface User {
     followersNumber: number,
     followingNumber: number,
     favourites: string[]
-    twitts: Twitt[]
+    twitts: Twitt[],
+    comments: Comment[]
 }
 
 export interface Twitt {
@@ -32,10 +33,8 @@ export interface Twitt {
     favourites: number
 }
 
-export interface Comment {
-    _id: string,
-    comment: string,
-    user: User,
+export interface Comment extends Twitt {
+    twittCommented: Twitt
 }
 
 export interface Error {
@@ -130,10 +129,18 @@ export interface TwittCardProps {
     twitt: Twitt,
 }
 
+export interface CommentCardProps {
+    comment: Comment
+}
+
 export interface CommentProps {
     comment: Comment
 }
 
 export interface LoginError {
+    msg: string
+}
+
+export interface NoContentTextProps {
     msg: string
 }

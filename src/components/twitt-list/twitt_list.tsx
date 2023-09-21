@@ -7,12 +7,12 @@ import { fetchTwittActions } from "../../utils/utils"
 const Twitt_List = () => {
 
     const twittContext = useTwittGlobalContext()!
-    const {data} = twittContext.twitts
+    const { data } = twittContext.twitts
     const { isLoading, fetchTwitts } = twittContext
-    
+
 
     const handleFetchButtonClick = () => {
-        fetchTwitts(fetchTwittActions.REGULAR)   
+        fetchTwitts(fetchTwittActions.REGULAR)
     }
 
     return (
@@ -28,17 +28,21 @@ const Twitt_List = () => {
                         {
                             data.map((twitt, i) => {
                                 return (
-                                    <Twitt_Card twitt={twitt} key={i} />
-
+                                    <div className="twitt-card" key={twitt._id}>
+                                        <div className="twitt-card-second-column-first-row">
+                                            <a href={`/twitts/${twitt._id}`}><i className='bx bx-search-alt-2'></i></a>
+                                        </div>
+                                        <Twitt_Card twitt={twitt} key={i} />
+                                    </div>
                                 )
                             })
                         }
 
                     </div>
                     <div className="load-more-twitts-container">
-                    <button className="load-more-twitts" onClick={handleFetchButtonClick}>Cargar más twitts</button>
+                        <button className="load-more-twitts" onClick={handleFetchButtonClick}>Cargar más twitts</button>
                     </div>
-                    
+
                 </>
             }
 

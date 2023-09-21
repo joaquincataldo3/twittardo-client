@@ -15,6 +15,7 @@
     position: relative;
     height: 90vh;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .profile-user-content {

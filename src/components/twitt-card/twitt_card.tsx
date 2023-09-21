@@ -8,17 +8,9 @@ function Twitt_Card(props: TwittCardProps) {
     const { user } = twitt;
 
     return (
-        <div className="twitt-card" key={twitt._id}>
-
-
-            <div className="twitt-card-second-column-first-row">
-                <a href={`/twitts/${twitt._id}`}><i className='bx bx-search-alt-2'></i></a>
-            </div>
-
+        <>
 
             <div className="twitt-content-container">
-
-
 
                 <div className="twitt-card-first-column-container">
 
@@ -49,15 +41,15 @@ function Twitt_Card(props: TwittCardProps) {
                 <div className="icon-num-container">
                     <>
                         {
-                                user.favourites && user.favourites.length > 0 ?
-                                     user.favourites.forEach(fav => {
+                            user.favourites && user.favourites.length > 0 ?
+                                user.favourites.forEach(fav => {
                                     return (
                                         fav == twitt._id && <i className='bx bxs-star full-star' ></i>
                                     )
                                 })
                                 :
                                 <i className='bx bx-star star' ></i>
-                               
+
                         }
                     </>
 
@@ -69,7 +61,7 @@ function Twitt_Card(props: TwittCardProps) {
                 </div>
             </div>
 
-        </div>
+        </>
     )
 }
 

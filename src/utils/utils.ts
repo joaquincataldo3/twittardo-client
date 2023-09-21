@@ -35,7 +35,8 @@ export const userEmptyState =  {
     followersNumber: 0,
     followingNumber: 0,
     favourites: [],
-    twitts: []
+    twitts: [],
+    comments: []
 }
 
 
