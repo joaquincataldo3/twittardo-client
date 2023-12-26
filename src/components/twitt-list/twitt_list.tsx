@@ -6,9 +6,10 @@ import { fetchTwittActions } from "../../utils/utils"
 
 const Twitt_List = () => {
 
-    const twittContext = useTwittGlobalContext()!
-    const { data } = twittContext.twitts
-    const { isLoading, fetchTwitts } = twittContext
+    const twittContext = useTwittGlobalContext()!;
+    const {twitts, noTwittsLeft} = twittContext;
+    const { data } = twitts;
+    const { isLoading, fetchTwitts } = twittContext;
 
 
     const handleFetchButtonClick = () => {
@@ -40,7 +41,7 @@ const Twitt_List = () => {
 
                     </div>
                     <div className="load-more-twitts-container">
-                        <button className="load-more-twitts" onClick={handleFetchButtonClick}>Cargar más twitts</button>
+                        <button className="load-more-twitts" onClick={handleFetchButtonClick} style={{pointerEvents: `${noTwittsLeft ? 'none' : 'all'}`}}>{noTwittsLeft ? 'No hay más twitts para cargar' : 'Cargar más twitts'}</button>
                     </div>
 
                 </>

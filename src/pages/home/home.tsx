@@ -22,7 +22,6 @@ function Home() {
           <Create_Twitt />
         } 
         <Twitt_List />
-        
       </main>
 
     </>

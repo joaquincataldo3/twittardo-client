@@ -22,7 +22,7 @@ let reducerInitState: TwittInitState  = {
     },
     page: 0,
     twittError: '',
-    isTwittErrorActive: false
+    isTwittErrorActive: false,
 }
 
 let contextInitState: TwittCxt = {
@@ -31,7 +31,8 @@ let contextInitState: TwittCxt = {
     fetchOneTwitt: () => {},
     isLoading: false,
     createTwitt: () => {},
-    createTwittError: () => {}
+    createTwittError: () => {},
+    noTwittsLeft: false
 }
 
 const TwittsContext = createContext<TwittCxt>(contextInitState)
@@ -39,12 +40,12 @@ const TwittsContext = createContext<TwittCxt>(contextInitState)
 
 const TwittContextProvider = ({ children }: AppContextProp) => {
 
-
     const userContext = useUserGlobalContext();
     const [state, dispatch] = useReducer(twittsReducer, reducerInitState);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const {user} = userContext;
+    const [noTwittsLeft, setNoTwittsLeft] = useState<boolean>(false);
 
     const fetchTwitts = async (method: string) => {
         try {
@@ -52,21 +53,26 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             let page;
             switch(method){
                 case fetchTwittActions.RELOAD:
-                    page = state.page - 1;
-                    break;
-                case fetchTwittActions.REGULAR:
                     page = state.page;
                     break;
+                case fetchTwittActions.REGULAR:
+                    page = state.page + 1;
+                    break;
                 case fetchTwittActions.INITIAL:
-                    page = 0;
+                    page = 1;
                     break;
                 default: 
                     throw new Error('Invalid action name');
             }
             const response = await axios.get(`${apiUrl}twitts/all?p=${page}`);
             const data = response.data;
-            dispatch({ type: twittsActions.FETCH_TWITTS_SUCCESS, payload: {data, method} });
+            if(data.length > 0) {
+                dispatch({ type: twittsActions.FETCH_TWITTS_SUCCESS, payload: {data, method} });
+            } else {
+                setNoTwittsLeft(true);
+            }
             setIsLoading(false);
+            
         } catch (error) {
             let loginError;
             if (error instanceof Error) {
@@ -103,7 +109,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             withCredentials: true
         });
         if(response.status === 200){
-            fetchTwitts('reload'); 
+            fetchTwitts(fetchTwittActions.RELOAD); 
         } else {
             createTwittError('Error al crear el twitt, vuelva a intentarlo');
         }
@@ -121,7 +127,8 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         fetchOneTwitt,
         isLoading,
         createTwitt,
-        createTwittError
+        createTwittError,
+        noTwittsLeft
     }
 
     return <TwittsContext.Provider value={providerValue}>

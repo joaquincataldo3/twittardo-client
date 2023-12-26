@@ -53,37 +53,39 @@ export interface TwittInitState {
     oneTwitt: Twitt,
     page: number,
     twittError: string,
-    isTwittErrorActive: boolean,
+    isTwittErrorActive: boolean
 }
 
 export interface TwittCxt extends TwittInitState  {
     twitts: {
         data: Twitt[]
     } ,
-    oneTwitt: Twitt,
-    fetchTwitts: (method: string) => void,
-    fetchOneTwitt: (id: string) => void,
-    page: number,
-    isLoading: boolean,
-    twittError: string,
+    oneTwitt: Twitt
+    fetchTwitts: (method: string) => void
+    fetchOneTwitt: (id: string) => void
+    page: number
+    isLoading: boolean
+    twittError: string
     isTwittErrorActive: boolean,
-    createTwitt: (formData: FormData) => void,
+    createTwitt: (formData: FormData) => void
     createTwittError: (msg: string) => void
+    noTwittsLeft: boolean
 }
 
 
 export interface UserCtxt {
-    users: User[],
-    user: User,
-    userProfile: User,
-    error?: string,
+    users: User[]
+    user: User
+    userProfile: User
+    error?: string
     token: string
-    login: (username: string, password: string) => void,
-    isMobileNavbarOpen: boolean,
+    login: (username: string, password: string) => void
+    isMobileNavbarOpen: boolean
     toggleNavbar: () => void,
-    checkLogin: () => void,
+    checkLogin: () => void
     handleLogout: () => void
     getUser: (id: string | Readonly<Params<string>>) => void
+
 }
 
 

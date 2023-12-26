@@ -7,16 +7,18 @@
 
 .twitts-list-container {
     margin-top: 5%;
-    overflow-y: scroll;
+    height: 800px;
+    overflow: scroll;
 }
 
+
 .twitts-list-container::-webkit-scrollbar {
-    width: 0.5em;
+    width: 5px;
     background-color: #F5F5F5;
 }
 
 .twitts-list-container::-webkit-scrollbar-thumb {
-    background-color: #000000;
+    background-color: var(--purple);
 }
 
 .twitts-list-container::-webkit-scrollbar-track {

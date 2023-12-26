@@ -47,7 +47,8 @@
 
 .characters-container {
     margin: 2% 0;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
 }
 
 .textarea-empty {
@@ -56,4 +57,21 @@
     border: 1px solid var(--red)!important;
 }
 
+.filename-container {
+    display: flex;
+    align-items: center;
+}
+
+.filename-container span {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.delete-file {
+    color: var(--purple)!important;   
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
 

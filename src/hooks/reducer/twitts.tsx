@@ -8,13 +8,16 @@ const reducer = (state: TwittInitState, action: Action): TwittInitState => {
     switch (action.type) {
         case twittsActions.FETCH_TWITTS_SUCCESS:
             const {data, method} = action.payload;
-            let page;
+            let page: number;
+            let updatedTwitts: Twitt[];
             if(method === fetchTwittActions.RELOAD || method === fetchTwittActions.REGULAR){
+                updatedTwitts = [...state.twitts.data, ...data];
                 page = state.page + 1;
             } else {
                 page = 1;
+                updatedTwitts = data;
             }     
-            return { ...state, page, twitts: { ...state.twitts, data} }
+            return { ...state, page, twitts: { ...state.twitts, data: updatedTwitts } }
         case twittsActions.FETCH_ONETWITT_SUCCESS:
             const twittPayload = action.payload;
             return { ...state, oneTwitt: twittPayload }
