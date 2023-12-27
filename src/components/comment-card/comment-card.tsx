@@ -1,16 +1,17 @@
 import { TwittCardProps } from "../../types"
-import { apiUrl } from "../../utils/utils"
 import './comment.css'
 
 function Comment_Card(props: TwittCardProps) {
 
     const {twitt} = props;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     return (
         <div className="comment-card" key={twitt._id}>
 
 
             <div className="comment-content-container">
+
 
                 <div className="comment-card-first-column-container">
                     <div className="img-container">

@@ -6,6 +6,15 @@ import { Params } from "react-router-dom";
 type Followers = string[] | []
 type Following = string[] | []
 
+
+// global
+
+export interface AppContextProp {
+    children: ReactNode
+}
+
+// users
+
 export interface User {
     _id: string | null,
     username: string,
@@ -22,29 +31,35 @@ export interface User {
     comments: Comment[]
 }
 
-export interface Twitt {
-    _id: string,
-    twitt: string,
+export interface UserCtxt {
+    users: User[]
+    user: User
+    userProfile: User
+    error?: string
+    token: string
+    login: (username: string, password: string) => void
+    isMobileNavbarOpen: boolean
+    toggleNavbar: () => void,
+    checkLogin: () => void
+    handleLogout: () => void
+    getUser: (id: string | Readonly<Params<string>>) => void
+
+}
+
+export interface UserInitState {
+    users: User[],
     user: User,
-    image?: string,
-    image_url?: string,
-    comments?: Comment[],
-    commentsNumber: number,
-    favourites: number
+    userProfile: User,
+    error: string
+    token: string
 }
 
-export interface Comment extends Twitt {
-    twittCommented: Twitt
+export interface FormLoginData {
+    email: string
+    password: string
 }
 
-export interface Error {
-    message: string;
-}
-
-
-export interface AppContextProp {
-    children: ReactNode
-}
+// twitts
 
 export interface TwittInitState {
     twitts: {
@@ -61,42 +76,46 @@ export interface TwittCxt extends TwittInitState  {
         data: Twitt[]
     } ,
     oneTwitt: Twitt
+    page: number
+    twittError: string
+    isLoading: boolean
+    isTwittErrorActive: boolean,
+    noTwittsLeft: boolean
+    isFavLoading: boolean
     fetchTwitts: (method: string) => void
     fetchOneTwitt: (id: string) => void
-    page: number
-    isLoading: boolean
-    twittError: string
-    isTwittErrorActive: boolean,
-    createTwitt: (formData: FormData) => void
+    createComment: (formData: FormData, twittId: string) => void
     createTwittError: (msg: string) => void
-    noTwittsLeft: boolean
+    createTwitt: (formData: FormData) => void
+    favTwitt: (twittId: string, userId: string) => void
+    undoFav: (twittId: string, userId: string) => void
 }
 
-
-export interface UserCtxt {
-    users: User[]
-    user: User
-    userProfile: User
-    error?: string
-    token: string
-    login: (username: string, password: string) => void
-    isMobileNavbarOpen: boolean
-    toggleNavbar: () => void,
-    checkLogin: () => void
-    handleLogout: () => void
-    getUser: (id: string | Readonly<Params<string>>) => void
-
+export interface FetchTwittActions {
+    INITIAL: string
+    REGULAR: string
+    RELOAD: string
 }
 
-
-export interface UserInitState {
-    users: User[],
+export interface Twitt {
+    _id: string,
+    twitt: string,
     user: User,
-    userProfile: User,
-    error: string
-    token: string
+    image?: string,
+    image_url?: string,
+    comments?: Comment[]
+    commentsNumber: number
+    favourites: number
 }
 
+export interface Comment extends Twitt {
+    twittCommented: Twitt
+}
+
+
+
+
+// reducer
 export interface UserReducerActions {
     FETCH_USERS_SUCCESS: string,
     FETCH_ONEUSER_SUCCESS: string,
@@ -116,17 +135,12 @@ export interface TwittReducerActions {
     CREATE_TWITT_SUCCESS: string
 }
 
-export interface FetchTwittActions {
-    INITIAL: string,
-    REGULAR: string,
-    RELOAD: string
-}
+// types
 
-export interface FormLoginData {
-    email: string
-    password: string
-}
+type HandleCreateTwitt = (e: React.FormEvent) => void 
 
+
+// props
 export interface TwittCardProps {
     twitt: Twitt,
 }
@@ -139,10 +153,27 @@ export interface CommentProps {
     comment: Comment
 }
 
+export interface NoContentTextProps {
+    msg: string
+}
+
+export interface AvatarContainerProps {
+    url: string
+}
+
+export interface CreateTwittBtnProps {
+    content: string
+    handleClick: HandleCreateTwitt
+    additionalClassname?: string
+    twittId?: string
+}
+
+// error
 export interface LoginError {
     msg: string
 }
 
-export interface NoContentTextProps {
-    msg: string
+export interface Error {
+    message: string;
 }
+

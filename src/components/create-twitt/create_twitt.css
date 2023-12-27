@@ -35,15 +35,7 @@
     width: 100%;
 }
 
-.create-tw-btn {
-    margin-top: 3%;
-    width: 50%;
-    text-transform: uppercase;
-    border: 0;
-    outline: 0;
-    border: 1px solid var(--purple);
-    border-radius: 5px;
-}
+
 
 .characters-container {
     margin: 2% 0;

@@ -10,8 +10,6 @@ function Home() {
   const context = useUserGlobalContext()
   const {user } = context
 
-
-
   return (
 
     <>

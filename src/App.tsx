@@ -1,7 +1,7 @@
 
 import Home from './pages/home/home';
 import User_Login from './components/forms/user_login';
-import One_Twitt from './components/one-twitt/one_twitt';
+import One_Twitt from './pages/one-twitt/one_twitt';
 import Shared_Layout from './components/shared-layout/shared_layout';
 import User_Profile from './pages/profile/user-profile';
 import { Routes, Route } from 'react-router-dom';

@@ -1,5 +1,6 @@
 import { UserReducerActions, TwittReducerActions, FetchTwittActions } from "../types"
 
+
 export const twittsActions: TwittReducerActions = {
     FETCH_TWITTS_SUCCESS: 'FETCH_TWITTS_SUCCESS',
     FETCH_ONETWITT_SUCCESS: 'FETCH_ONETWITT_SUCCESS',   
@@ -38,6 +39,3 @@ export const userEmptyState =  {
     twitts: [],
     comments: []
 }
-
-
-export const apiUrl = 'http://localhost:3000/'

@@ -2,7 +2,6 @@ import axios from "axios";
 import userReducer from "../reducer/user";
 import { createContext, useReducer, useContext, useState } from "react";
 import { AppContextProp, UserCtxt, UserInitState } from "../../types";
-import { apiUrl } from "../../utils/utils";
 import { userActions } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { userEmptyState } from "../../utils/utils";
@@ -37,6 +36,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     const [state, dispatch] = useReducer(userReducer, initialState)
     const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState<boolean>(false)
     const navigate = useNavigate()
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const loginFn = async (email: string, password: string) => {
         try {
@@ -44,8 +44,9 @@ const UserContextProvider = ({ children }: AppContextProp) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                withCredentials: true // para recibir y obtener cookies. importante
+                withCredentials: true 
             });
+            
             dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: {user: response.data.userVerified} });
             navigate('/home');
         } catch (error: any) {
@@ -64,12 +65,8 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     const checkLogin = async () => {
         try {
             const response = await axios(`${apiUrl}users/check-cookie`, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 withCredentials: true // para recibir y obtener cookies. importante
             });
-          
             const data = response.data;
             if(data.loggedIn){ 
                 dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: {user: data.user} })

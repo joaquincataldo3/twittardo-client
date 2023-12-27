@@ -3,7 +3,7 @@ import twittsReducer from "../reducer/twitts";
 import { createContext, useContext, useEffect, useReducer, useState} from "react";
 import { AppContextProp } from "../../types";
 import { TwittCxt, TwittInitState } from "../../types";
-import { apiUrl } from "../../utils/utils";
+
 import { twittsActions, fetchTwittActions } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { useUserGlobalContext } from "./user";
@@ -27,12 +27,16 @@ let reducerInitState: TwittInitState  = {
 
 let contextInitState: TwittCxt = {
     ...reducerInitState,
-    fetchTwitts: () => {},
-    fetchOneTwitt: () => {},
     isLoading: false,
+    noTwittsLeft: false,
+    isFavLoading: false,
+    fetchOneTwitt: () => {},
     createTwitt: () => {},
     createTwittError: () => {},
-    noTwittsLeft: false
+    fetchTwitts: () => {},
+    createComment: () => {},
+    favTwitt: () => {},
+    undoFav: () => {}
 }
 
 const TwittsContext = createContext<TwittCxt>(contextInitState)
@@ -40,12 +44,14 @@ const TwittsContext = createContext<TwittCxt>(contextInitState)
 
 const TwittContextProvider = ({ children }: AppContextProp) => {
 
-    const userContext = useUserGlobalContext();
     const [state, dispatch] = useReducer(twittsReducer, reducerInitState);
+    const [noTwittsLeft, setNoTwittsLeft] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isFavLoading, setIsFavLoading] = useState<boolean>(false);
+    const userContext = useUserGlobalContext();
     const navigate = useNavigate();
     const {user} = userContext;
-    const [noTwittsLeft, setNoTwittsLeft] = useState<boolean>(false);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const fetchTwitts = async (method: string) => {
         try {
@@ -74,13 +80,13 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             setIsLoading(false);
             
         } catch (error) {
-            let loginError;
+            let fetchError;
             if (error instanceof Error) {
                 console.log(`Failed in login: ${error.message}`);
-                loginError = error.message;
+                fetchError = error.message;
               } else {
                 console.log(`Failed in login: ${error}`);
-                loginError = error;
+                fetchError = error;
               }
             navigate('/home');
         }
@@ -115,6 +121,34 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         }
     };
 
+    const createComment = async (formData: FormData, twittId: string) => {
+        setIsLoading(true);
+        const response = await axios.post(`${apiUrl}comments/${twittId}/${user._id}/create`, formData, {
+            withCredentials: true
+        });
+        if(response.status === 200){
+            fetchTwitts(fetchTwittActions.RELOAD); 
+        } else {
+            createTwittError('Error al crear el twitt, vuelva a intentarlo');
+        }
+    };
+
+    const favTwitt = async (twittId: string, userId: string) => {
+        setIsFavLoading(true);
+        await axios.put(`${apiUrl}twitts/add-fav/${twittId}/${userId}`, null, {
+            withCredentials: true
+        });
+        setIsFavLoading(false);
+    }
+
+    const undoFav = async (twittId: string, userId: string) => {
+        setIsFavLoading(true);
+        await axios.put(`${apiUrl}twitts/undo-fav/${twittId}/${userId}`, null, {
+            withCredentials: true
+        });
+        setIsFavLoading(false);
+    }
+
 
     useEffect(() => {
         fetchTwitts(fetchTwittActions.INITIAL);
@@ -123,12 +157,16 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
 
     const providerValue = {
         ...state,
-        fetchTwitts,
-        fetchOneTwitt,
+        noTwittsLeft,
         isLoading,
-        createTwitt,
+        fetchOneTwitt,
         createTwittError,
-        noTwittsLeft
+        createTwitt,
+        fetchTwitts,
+        createComment,
+        favTwitt,
+        undoFav,
+        isFavLoading
     }
 
     return <TwittsContext.Provider value={providerValue}>

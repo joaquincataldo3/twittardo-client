@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useTwittGlobalContext } from '../../hooks/context/twitts';
 import './create_twitt.css';
+import { Create_Twitt_Btn } from '../create-twitt-btn/create_twitt_btn';
+import { HandleCreateTwitt } from '../../types';
 
 function Create_Twitt() {
 
@@ -12,7 +14,7 @@ function Create_Twitt() {
     const [fileName, setFileName] = useState<string>('');
     const { createTwitt } = useTwittGlobalContext();
 
-    const handleSubmitCreateTwForm = (e: React.FormEvent) => {
+    const handleSubmitCreateTwForm: HandleCreateTwitt = (e: React.FormEvent) => {
         e.preventDefault();
         setIsCreateTwAreaEmpty(false);
         if (textAreaContent.length === 0) {
@@ -79,7 +81,8 @@ function Create_Twitt() {
                 </div>
                 <div className='create-tw-btn-img-container'>
                     <label htmlFor="twitt-image" className='img-label'><i className='bx bx-photo-album' ></i></label>
-                    <button type='submit' className='create-tw-btn' onClick={(e) => handleSubmitCreateTwForm(e)}>Twittear</button>
+                    
+                    <Create_Twitt_Btn content={'Twittear'} handleClick={handleSubmitCreateTwForm}/>
                 </div>
 
             </form>

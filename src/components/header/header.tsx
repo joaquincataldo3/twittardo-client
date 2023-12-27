@@ -25,7 +25,7 @@ function Header() {
 
         }
         <div className='twittardo-logo-container'>
-          <a href="/">
+          <a href="/home">
             <img src={logo} alt="Twittardo logo" className='twittardo-logo' />
           </a>   
         </div>

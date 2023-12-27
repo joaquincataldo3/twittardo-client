@@ -1,21 +1,19 @@
 import { TwittCardProps } from "../../types";
 import './twitt_card.css'
 import '../../style-variables/variables.css'
+import { Twitt_Avatar } from "../twitt-avatar/twitt_avatar";
+import { CommentAndFav } from "../comment-and-fav/comment_and_fav";
 
 function Twitt_Card(props: TwittCardProps) {
 
     const { twitt } = props;
     const { user } = twitt;
-
+   
     return (
         <>
-
             <div className="twitt-content-container">
 
-                <div className="twitt-card-first-column-container">
-
-                    <img src={user.image_url} alt="" />
-                </div>
+                <Twitt_Avatar url={user.image_url!} />
                 <div className="twitt-card-second-column-container">
 
                     <div className="twitt-card-user-info">
@@ -38,29 +36,8 @@ function Twitt_Card(props: TwittCardProps) {
             </div>
 
             <div className="twitt-card-third-column-container">
-                <div className="icon-num-container">
-                    <>
-                        {
-                            user.favourites && user.favourites.length > 0 ?
-                                user.favourites.forEach(fav => {
-                                    return (
-                                        fav == twitt._id && <i className='bx bxs-star full-star' ></i>
-                                    )
-                                })
-                                :
-                                <i className='bx bx-star star' ></i>
-
-                        }
-                    </>
-
-                    <p>{twitt.favourites > 0 ? twitt.favourites : '0'}</p>
-                </div>
-                <div className="icon-num-container">
-                    <i className='bx bx-comment'></i>
-                    <p>{twitt.commentsNumber > 0 ? twitt.commentsNumber : '0'}</p>
-                </div>
+                <CommentAndFav twitt={twitt} />
             </div>
-
         </>
     )
 }

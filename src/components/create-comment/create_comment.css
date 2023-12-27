@@ -1,15 +1,20 @@
 .create-comment-container {
-    margin: 5% 0;
+    margin: 5% auto;
     display: flex;
-    justify-content: center;
+    width: 80%;
 }
 
 .create-comment-container form {
-    width: 80%;
+    width: 100%;
     display: flex;
-
     flex-direction: column;
     justify-content: center;
+    margin-left: 1rem;
+}
+
+.create-comment-btn {
+    margin-left: auto;
+    width: 60%;
 }
 
 .create-comment-container form textarea {
@@ -20,3 +25,6 @@
     padding: 3%;
     border-radius: 5px;
 }
+
+
+

@@ -1,7 +1,7 @@
 import Twitt_Card from '../../components/twitt-card/twitt_card';
 import LoadingSpinner from '../../components/loading-spinner/loading_spinner';
 import No_Content_Text from '../../components/no-content-text/no_content_text';
-import Comment_Card from '../../components/comment/comment';
+import Comment_Card from '../../components/comment-card/comment-card';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUserGlobalContext } from '../../hooks/context/user';
 import { useEffect, useState } from 'react';
