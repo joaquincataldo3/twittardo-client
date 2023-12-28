@@ -7,9 +7,10 @@
     right: 0;
     background-color: black;
     transition: all 0.5s;
+    z-index: 5;
 }
 
 .black-screen-active {
-    left: 50%;
+    left: 0;
     opacity: 0.5;
 }

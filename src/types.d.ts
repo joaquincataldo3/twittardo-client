@@ -180,13 +180,24 @@ export interface NoContentTextProps {
 
 export interface AvatarContainerProps {
     url: string
+    width: number
+    height: number
+    handleFunction?: () => void
 }
 
 export interface CreateTwittBtnProps {
     content: string
     handleClick: HandleCreateTwitt
-    additionalClassname?: string
     twittId?: string
+}
+
+export interface BlackScreenProps {
+    state: boolean
+}
+
+export interface CloseMenuProps {
+    colorVar: string
+    functionToHandle: () => void
 }
 
 // error

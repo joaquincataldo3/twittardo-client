@@ -1,0 +1,9 @@
+.close-menu-container {
+   width: 100%;
+   height: 5%;
+   margin-bottom: 10%;
+}
+
+.close-menu-container i {
+    font-size: 1.5rem;
+ }

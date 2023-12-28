@@ -1,6 +1,9 @@
+@import url('../../style-variables/variables.css');
+
 header {
     padding: 2% 5%;
-    height: 10vh;
+    height: 12vh;
+    background-color: var(--dark-blue);
 }
 
 .header-content-container {

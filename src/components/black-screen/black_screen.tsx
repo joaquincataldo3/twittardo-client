@@ -1,16 +1,15 @@
 import './black_screen.css'
-import { useUserGlobalContext } from '../../hooks/context/user'
-import { UserCtxt } from '../../types'
+import {  } from '../../hooks/context/user'
+import { BlackScreenProps} from '../../types'
 
 
 
-const Black_Screen = () => {
+const Black_Screen = (props: BlackScreenProps) => {
 
-    const context: UserCtxt = useUserGlobalContext()
-    const {isMobileNavbarOpen} = context
+   const {state} = props;
 
   return (
-    <div className={`black-screen ${isMobileNavbarOpen && 'black-screen-active'}`}>Black_Screen</div>
+    <div className={`black-screen ${state && 'black-screen-active'}`}></div>
   )
 }
 

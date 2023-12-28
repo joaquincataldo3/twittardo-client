@@ -1,7 +1,7 @@
 import { TwittCardProps } from "../../types";
 import './twitt_card.css'
 import '../../style-variables/variables.css'
-import { Twitt_Avatar } from "../user-avatar/user_avatar";
+import { UserAvatar } from "../user-avatar/user_avatar";
 import { CommentAndFav } from "../comment-and-fav/comment_and_fav";
 
 function Twitt_Card(props: TwittCardProps) {
@@ -13,7 +13,7 @@ function Twitt_Card(props: TwittCardProps) {
         <>
             <div className="twitt-content-container">
 
-                <Twitt_Avatar url={user.image_url!} />
+                <UserAvatar url={user.image_url!} width={55} height={45} />
                 <div className="twitt-card-second-column-container">
 
                     <div className="twitt-card-user-info">

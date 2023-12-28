@@ -1,12 +1,17 @@
 import { AvatarContainerProps } from '../../types';
-import './twitt_avatar.css';
+import './user_avatar.css';
 
 export const UserAvatar = (props: AvatarContainerProps) => {
     
-    const {url} = props;
+    const {url, width, height, handleFunction} = props;
+
+    const styles = {
+      width,
+      height
+    }
 
     return (
-    <div className='avatar-container'>
+    <div className='avatar-container' style={styles} onClick={handleFunction && handleFunction}>
         <img src={url} alt={url} />
     </div>
   )

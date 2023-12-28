@@ -1,9 +1,12 @@
 .create-tw-btn {
     margin-top: 3%;
-    width: 50%;
+    width: 70%;
     text-transform: uppercase;
     border: 0;
     outline: 0;
     border: 1px solid var(--purple);
     border-radius: 5px;
+    color: black;
+    padding: 2%;
+    margin-left: auto;
 }

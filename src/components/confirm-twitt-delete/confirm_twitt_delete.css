@@ -1,0 +1,25 @@
+@import url('../../style-variables/variables.css');
+
+.delete-twitt {
+    color: var(--red);
+}
+
+.confirm-twitt-delete-container {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 20%;
+    background-color: red;
+    z-index: 7;
+    opacity: 0;
+    transition: opacity .5s;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background-color: var(--light-white);
+}
+
+.confirm-twitt-delete-active {
+    opacity: 1;
+    pointer-events: all;
+}

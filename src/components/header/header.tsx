@@ -1,37 +1,38 @@
-import logo from '../../assets/logo.jpg';
+import logo from '../../assets/images/logo.png';
 import { useUserGlobalContext } from '../../hooks/context/user';
 import './header.css';
-import { User, UserCtxt } from '../../types';
 import { useLocation } from 'react-router-dom';
+import { UserAvatar } from '../user-avatar/user_avatar';
+import Black_Screen from '../black-screen/black_screen';
 function Header() {
 
-  const context: UserCtxt = useUserGlobalContext();
-  const user: User = context.user;
-  const toggleNavbar = context.toggleNavbar;
+  const context = useUserGlobalContext();
+  const { user } = context;
+  const { toggleNavbar, isMobileNavbarOpen} = context;
   const loginPathname: string = '/user/login';
   const location: string = useLocation().pathname;
  
 
   return (
-    <header>
+    <>
+      <header>
       <div className='header-content-container'>
         {
           user.username === '' ?
             <button className='anchor-login-container'><a href={location === loginPathname ? '#' : loginPathname}>Logueate</a></button>
             :
-            <div className='user-avatar-container'  onClick={toggleNavbar} >
-              <img src={user.image_url} alt="" className='user-avatar' />
-            </div>
-
+            <UserAvatar url={user.image_url} width={65} height={55} handleFunction={toggleNavbar}/>
         }
         <div className='twittardo-logo-container'>
           <a href="/home">
             <img src={logo} alt="Twittardo logo" className='twittardo-logo' />
           </a>   
         </div>
-
       </div>
     </header>
+    <Black_Screen state={isMobileNavbarOpen} />
+    </>
+  
   )
 }
 

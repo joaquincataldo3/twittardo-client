@@ -1,4 +1,5 @@
 import { useUserGlobalContext } from '../../../hooks/context/user'
+import { UserAvatar } from '../../user-avatar/user_avatar';
 import './mobile_navbar.css'
 
 
@@ -19,9 +20,7 @@ function Navbar() {
             </div>
 
             <div className="navbar-user-info-container">
-              <div className="navbar-user-avatar-container">
-                <img className='navbar-user-avatar' src={user.image_url} alt="" />
-              </div>
+              <UserAvatar url={user.image_url} width={75} height={65} />
 
               <div className='username-container'>
                 <p>@{user.username}</p>

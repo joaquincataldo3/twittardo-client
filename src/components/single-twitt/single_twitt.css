@@ -1,8 +1,5 @@
 @import '../../style-variables/variables.css';
 
-
-
-
 .one-twitt-content-container {
     display: flex;
     flex-direction: column;
@@ -12,16 +9,15 @@
 }
 
 .one-twitt-content-container-no-img {
-    padding: 5%;
+    padding: 3%;
 }
 
 .one-twitt-card-first-column-container {
     display: flex;
-   
-    width: 90%;
-    align-items: center;
-    padding: 0 3%;
+    align-items: center; 
     margin: 0 auto;
+    width: 100%;
+    padding: 0 3%;
 }
 
 .one-twitt-user-avatar-container {
@@ -31,10 +27,9 @@
 }
 
 .one-twitt-wrapper {
-    border-top: 1px solid var(--grey);
     border-bottom: 1px solid var(--grey);
     margin-top: 8%;
-    padding: 3% 0;
+    padding: 3% 2%;
 }
 
 .one-twitt-wrapper-img {
@@ -64,6 +59,7 @@
     display: flex;
     justify-content: space-between;
     width: 90%;
+    margin-left: 1rem;
 }
 
 .close-one-twitt-container i {
@@ -75,12 +71,6 @@
     width: 100%;
     justify-content: center;
     height: 60%;
-}
-
-.one-twitt-card-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
 }
 
 .one-twitt-card-second-column-container {
@@ -97,13 +87,14 @@
     display: flex;
     justify-content: center;
     margin: 7% 0;
+    width: 100%;
 }
 
 .one-twitt-card-third-column-container {
     display: flex;
-    width: 80%;
     margin: 0 auto;
     justify-content: space-between;
+    width: 100%;
 }
 
 .one-twitt-card-third-column-container .icon-num-container i {
@@ -111,7 +102,9 @@
 }
 
 .one-twitt-desc-container {
-    margin-bottom: 3%;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5%;
 }
 
 .icon-num-container {
@@ -119,10 +112,12 @@
     align-items: center;
 }
 
-.delete-twitt {
-    color: var(--red);
-}
 
 .comments-container {
-    margin-top: 3%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
 }

@@ -1,0 +1,6 @@
+.characters-container {
+    display: flex;
+    width: 20%;
+    align-self: flex-end;
+    justify-content: center;
+}
