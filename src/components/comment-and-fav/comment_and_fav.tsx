@@ -15,10 +15,11 @@ export const CommentAndFav = (props: TwittCardProps) => {
 
 
     const handleFavItem = () => {
+        console.log(twitt._id, user._id)
         if (twitt._id && user._id) {
             setLocalFavLoading(true);
             favTwitt(twitt._id, user._id);
-            fetchTwitts(fetchTwittActions.RELOAD)
+            fetchTwitts(fetchTwittActions.RELOAD);
         }
     }
 
@@ -26,7 +27,7 @@ export const CommentAndFav = (props: TwittCardProps) => {
         if (twitt._id && user._id) {
             setLocalFavLoading(true);
             undoFav(twitt._id, user._id);
-            fetchTwitts(fetchTwittActions.RELOAD)
+            fetchTwitts(fetchTwittActions.RELOAD);
         }
     }
 

@@ -1,29 +1,32 @@
-import { TwittCardProps } from "../../types"
-import './comment.css'
+import { CommentCardProps } from "../../types"
+import './comment-card.css'
 
-function Comment_Card(props: TwittCardProps) {
+function Comment_Card(props: CommentCardProps) {
 
-    const {twitt} = props;
+    const { commentEntity } = props;
+    const { user, comment } = commentEntity;
+
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    return (
-        <div className="comment-card" key={twitt._id}>
+    // TODO - DO IMAGE URL
 
+    return (
+        <div className="comment-card" >
 
             <div className="comment-content-container">
 
-
                 <div className="comment-card-first-column-container">
                     <div className="img-container">
-                        <img src={`${apiUrl}images/${twitt.user.avatar}`} alt="" />
+                        <img src={`${apiUrl}images/${user.avatar}`} alt="" />
                     </div>
-                    <div className="comment-username-container">
-                        <p>@{twitt.user.username}</p>
-                    </div>
+
                 </div>
                 <div className="comment-card-second-column-container">
+                    <div className="comment-username-container">
+                        <p>@{user.username}</p>
+                    </div>
                     <div className="comment-desc-container">
-                        <p>{twitt.twitt}</p>
+                        <p>{comment}</p>
                     </div>
                 </div>
 

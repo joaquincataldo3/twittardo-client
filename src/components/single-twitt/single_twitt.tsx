@@ -1,16 +1,17 @@
 import { useTwittGlobalContext } from "../../hooks/context/twitts";
 import { useUserGlobalContext } from "../../hooks/context/user";
+import { CommentAndFav } from "../comment-and-fav/comment_and_fav";
 import Comment_Card from "../comment-card/comment-card";
 import Create_Comment from "../create-comment/create_comment";
 import './single_twitt.css';
 
 
-export const single_twitt = () => {
+export const Single_Twitt = () => {
 
     const userContext = useUserGlobalContext();
-    const { user } = userContext;
     const { oneTwitt } = useTwittGlobalContext();
-    const { image, image_url, favourites, commentsNumber, twitt, _id } = oneTwitt;
+   
+    const { image, image_url, twitt } = oneTwitt;
 
     return (
         <div className="one-twitt-container">
@@ -54,21 +55,7 @@ export const single_twitt = () => {
                         }
                     </div>
                     <div className="one-twitt-card-third-column-container">
-                        <div className="icon-num-container">
-                            <>
-                                {
-                                    user.favourites.length > 0 ?
-                                        user.favourites.forEach(fav => fav == _id && <i className='bx bxs-star full-star' ></i>)
-                                        :
-                                        <i className='bx bx-star star'></i>
-                                }
-                            </>
-                            <span>{favourites > 0 ? favourites : '0'}</span>
-                        </div>
-                        <div className="icon-num-container">
-                            <i className='bx bx-comment'></i>
-                            <span>{commentsNumber > 0 ? commentsNumber : '0'}</span>
-                        </div>
+                        <CommentAndFav twitt={oneTwitt} />
                     </div>
                 </div>
             </div>
@@ -77,15 +64,16 @@ export const single_twitt = () => {
                 <div>
                     {
                         userContext.user.username &&
-                        <Create_Comment />
+                        <Create_Comment twittId={oneTwitt._id} />
                     }
                 </div>
 
                 {
-                    oneTwitt?.comments &&
-                    oneTwitt.comments.map((item, i) => {
+                    oneTwitt.comments && oneTwitt.comments.length > 0 &&
+                    oneTwitt.comments.map(item => {
+                        console.log(item.comment)
                         return (
-                            <Comment_Card twitt={item} key={i} />
+                            <Comment_Card commentEntity={item} key={item._id} />
                         )
                     })
                 }

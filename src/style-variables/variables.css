@@ -13,5 +13,10 @@
 
 .full-star {
     color: var(--yellow);
-   
+}
+
+.input-error {
+    border: 0;
+    outline: 0;
+    border: 1px solid red !important;
 }

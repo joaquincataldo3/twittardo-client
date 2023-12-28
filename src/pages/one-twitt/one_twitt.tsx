@@ -4,6 +4,7 @@ import { useTwittGlobalContext } from "../../hooks/context/twitts";
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import '../../style-variables/variables.css';
+import { Single_Twitt } from "../../components/single-twitt/single_twitt";
 
 function One_Twitt() {
 
@@ -29,7 +30,7 @@ function One_Twitt() {
             }
             {
                 !isLoading &&
-                    <One_Twitt />
+                    <Single_Twitt />
             }
         </>
     )

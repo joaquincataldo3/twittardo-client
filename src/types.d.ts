@@ -74,21 +74,27 @@ export interface TwittInitState {
 export interface TwittCxt extends TwittInitState  {
     twitts: {
         data: Twitt[]
-    } ,
+    },
+    characters: number
     oneTwitt: Twitt
     page: number
     twittError: string
+    twittTextareaContent: string
     isLoading: boolean
     isTwittErrorActive: boolean,
     noTwittsLeft: boolean
     isFavLoading: boolean
+    isTwittTextareaEmpty: boolean
     fetchTwitts: (method: string) => void
     fetchOneTwitt: (id: string) => void
-    createComment: (formData: FormData, twittId: string) => void
+    createComment: (commentContent: string, twittId: string) => void
     createTwittError: (msg: string) => void
     createTwitt: (formData: FormData) => void
     favTwitt: (twittId: string, userId: string) => void
     undoFav: (twittId: string, userId: string) => void
+    handleCharacters: (method: string) => void
+    handleTextareaChange: (value: React.ChangeEvent<HTMLTextAreaElement> | string) => void
+    handleTextareaIsEmpty: (value: boolean) => void
 }
 
 export interface FetchTwittActions {
@@ -108,11 +114,26 @@ export interface Twitt {
     favourites: number
 }
 
-export interface Comment extends Twitt {
-    twittCommented: Twitt
+export interface TwittTextareaProps {
+    name: string
 }
 
+// comment
 
+export interface CreateCommentProps {
+    twittId: string
+}
+
+export interface Comment {
+    _id: string
+    comment: string
+    favourites: number
+    user: User
+}
+
+export interface CommentCardProps {
+    commentEntity: Comment
+}
 
 
 // reducer

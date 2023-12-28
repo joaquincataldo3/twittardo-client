@@ -27,16 +27,22 @@ let reducerInitState: TwittInitState  = {
 
 let contextInitState: TwittCxt = {
     ...reducerInitState,
+    characters: 280,
     isLoading: false,
     noTwittsLeft: false,
     isFavLoading: false,
+    twittTextareaContent: '',
+    isTwittTextareaEmpty: false,
     fetchOneTwitt: () => {},
     createTwitt: () => {},
     createTwittError: () => {},
     fetchTwitts: () => {},
     createComment: () => {},
     favTwitt: () => {},
-    undoFav: () => {}
+    undoFav: () => {},
+    handleCharacters: () => {},
+    handleTextareaChange: () => {},
+    handleTextareaIsEmpty: () => { }
 }
 
 const TwittsContext = createContext<TwittCxt>(contextInitState)
@@ -48,6 +54,9 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const [noTwittsLeft, setNoTwittsLeft] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isFavLoading, setIsFavLoading] = useState<boolean>(false);
+    const [characters, setCharacters] = useState(280);
+    const [twittTextareaContent, setTwittTextAreaContent] = useState<string>('')
+    const [isTwittTextareaEmpty, setIsTwittTextareaEmpty] = useState<boolean>(false);
     const userContext = useUserGlobalContext();
     const navigate = useNavigate();
     const {user} = userContext;
@@ -121,9 +130,11 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         }
     };
 
-    const createComment = async (formData: FormData, twittId: string) => {
+    const createComment = async (commentContent: string, twittId: string) => {
         setIsLoading(true);
-        const response = await axios.post(`${apiUrl}comments/${twittId}/${user._id}/create`, formData, {
+        const response = await axios.post(`${apiUrl}comments/${twittId}/${user._id}/create`, {
+            comment: commentContent
+        }, {
             withCredentials: true
         });
         if(response.status === 200){
@@ -149,6 +160,25 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         setIsFavLoading(false);
     }
 
+    const handleCharacters = (method: string) => {
+        if(method === 'add') {
+            setCharacters(prevState => prevState - 1);
+        } else {
+            setCharacters(prevState => prevState + 1);
+        }
+    }
+
+    const handleTextareaChange = (parameter: React.ChangeEvent<HTMLTextAreaElement> | string) => {
+        if(typeof parameter === 'string') {
+            setTwittTextAreaContent(parameter)
+        } else {
+            setTwittTextAreaContent(parameter.target.value);
+        }
+    } 
+
+    const handleTextareaIsEmpty = (value: boolean) => {
+        setIsTwittTextareaEmpty(value);
+    }
 
     useEffect(() => {
         fetchTwitts(fetchTwittActions.INITIAL);
@@ -159,6 +189,11 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         ...state,
         noTwittsLeft,
         isLoading,
+        isFavLoading,
+        characters,
+        twittTextareaContent,
+        isTwittTextareaEmpty,
+        handleCharacters,
         fetchOneTwitt,
         createTwittError,
         createTwitt,
@@ -166,7 +201,8 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         createComment,
         favTwitt,
         undoFav,
-        isFavLoading
+        handleTextareaChange,
+        handleTextareaIsEmpty
     }
 
     return <TwittsContext.Provider value={providerValue}>

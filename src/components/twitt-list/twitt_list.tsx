@@ -27,13 +27,13 @@ const Twitt_List = () => {
                 <>
                     <div className="twitts-list-container">
                         {
-                            data.map((twitt, i) => {
+                            data.map(twitt => {
                                 return (
                                     <div className="twitt-card" key={twitt._id}>
                                         <div className="twitt-card-second-column-first-row">
                                             <a href={`/twitts/${twitt._id}`}><i className='bx bx-search-alt-2'></i></a>
                                         </div>
-                                        <Twitt_Card twitt={twitt} key={i} />
+                                        <Twitt_Card twitt={twitt} key={twitt._id} />
                                     </div>
                                 )
                             })

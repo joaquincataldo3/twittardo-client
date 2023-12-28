@@ -6,17 +6,17 @@
     height: fit-content;
     min-height: 110px;
     border-bottom: 1px solid var(--grey);
+    width: 80%;
 }
 
 .comment-content-container {
     height: 100%;
     display: flex;
-    flex-wrap: wrap;
-   justify-content: space-around;
+
 }
 
 .comment-card-first-column-container {
-    width: 100%;
+    width: 30%;
     height: fit-content;
     display: flex;
     align-items: center;
@@ -33,15 +33,15 @@
 }
 
 .comment-username-container {
-    padding-left: 3%;
     font-weight: 700;
     font-size: 0.875rem;
 }
 
 .comment-card-second-column-container {
     display: flex;
-    justify-content: flex-start;
-    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
     margin-top: 5%;
 }
 
