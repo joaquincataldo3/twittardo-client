@@ -3,6 +3,7 @@ import { useUserGlobalContext } from "../../hooks/context/user";
 import { CommentAndFav } from "../comment-and-fav/comment_and_fav";
 import Comment_Card from "../comment-card/comment-card";
 import Create_Comment from "../create-comment/create_comment";
+import { UserAvatar } from "../user-avatar/user_avatar";
 import './single_twitt.css';
 
 
@@ -22,9 +23,7 @@ export const Single_Twitt = () => {
 
                     <div className="one-twitt-card-first-column-container">
                         <div className="one-twitt-user-avatar-container">
-                            <div className="one-twitt-card-avatar-container">
-                                <img src={oneTwitt.user.image_url} alt="" />
-                            </div>
+                            <UserAvatar url={oneTwitt.user.image_url} />
                         </div>
 
                         <div className="one-twitt-card-username-container">
@@ -71,7 +70,6 @@ export const Single_Twitt = () => {
                 {
                     oneTwitt.comments && oneTwitt.comments.length > 0 &&
                     oneTwitt.comments.map(item => {
-                        console.log(item.comment)
                         return (
                             <Comment_Card commentEntity={item} key={item._id} />
                         )

@@ -1,6 +1,6 @@
 
 import Home from './pages/home/home';
-import User_Login from './components/forms/user_login';
+import User_Login from './components/login_form/user_login';
 import One_Twitt from './pages/one-twitt/one_twitt';
 import Shared_Layout from './components/shared-layout/shared_layout';
 import User_Profile from './pages/profile/user-profile';
@@ -23,7 +23,6 @@ function App() {
   return (
 
     <Routes>
-
       <Route path='home' element={<Shared_Layout />}>
         <Route index element={<Home />} />
       </Route>
@@ -33,9 +32,8 @@ function App() {
         {
           user && <Route path='profile/:userId' element={<User_Profile />} /> 
         }
-
       </Route>
-
+      
       <Route path='twitts' element={<Shared_Layout />}>
         <Route path=':twittId' element={<One_Twitt />} />
 

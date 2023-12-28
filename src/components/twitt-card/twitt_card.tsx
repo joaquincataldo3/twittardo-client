@@ -1,7 +1,7 @@
 import { TwittCardProps } from "../../types";
 import './twitt_card.css'
 import '../../style-variables/variables.css'
-import { Twitt_Avatar } from "../twitt-avatar/twitt_avatar";
+import { Twitt_Avatar } from "../user-avatar/user_avatar";
 import { CommentAndFav } from "../comment-and-fav/comment_and_fav";
 
 function Twitt_Card(props: TwittCardProps) {

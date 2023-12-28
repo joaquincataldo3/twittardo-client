@@ -19,8 +19,8 @@ export interface User {
     _id: string | null,
     username: string,
     email: string
-    avatar?: string,
-    image_url?: string,
+    avatar: string,
+    image_url: string,
     isAdmin: number | null,
     followers: Followers,
     following: Following,
