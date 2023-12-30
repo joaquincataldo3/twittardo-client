@@ -1,5 +1,5 @@
 import Twitt_List from "../../components/twitt-list/twitt_list"
-import Create_Twitt from "../../components/create-twitt/create_twitt"
+import { CreateTwitt } from "../../components/create-twitt/create_twitt"
 import { useUserGlobalContext } from "../../hooks/context/user"
 
 
@@ -14,7 +14,7 @@ function Home() {
       <main>
         {
           user.username &&
-          <Create_Twitt />
+          <CreateTwitt />
         } 
         <Twitt_List />
       </main>

@@ -1,6 +1,6 @@
 import './black_screen.css'
 import {  } from '../../hooks/context/user'
-import { BlackScreenProps} from '../../types'
+import { BlackScreenProps } from '../../utils/interfaces/props/props_interfaces';
 
 
 

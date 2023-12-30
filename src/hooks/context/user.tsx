@@ -1,10 +1,12 @@
 import axios from "axios";
 import userReducer from "../reducer/user";
 import { createContext, useReducer, useContext, useState } from "react";
-import { AppContextProp, UserCtxt, UserInitState } from "../../types";
-import { userActions } from "../../utils/utils";
+import { AppContextProp } from "../../utils/interfaces/props/props_interfaces";
+import { UserCtxt } from "../../utils/interfaces/entities/entities_interfaces";
+import { UserInitState } from "../../utils/interfaces/entities/entities_interfaces";
+import { userActions } from "../../utils/constants/constants";
 import { useNavigate } from "react-router-dom";
-import { userEmptyState } from "../../utils/utils";
+import { userEmptyState } from "../../utils/constants/constants";
 import { Params } from "react-router-dom";
 
 
@@ -109,7 +111,13 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     }
 
     const providerValue = {
-        ...state, login: loginFn, isMobileNavbarOpen, toggleNavbar, checkLogin, handleLogout, getUser
+        ...state, 
+        login: loginFn, 
+        isMobileNavbarOpen,
+        toggleNavbar, 
+        checkLogin,
+        handleLogout,
+        getUser
     };
 
 

@@ -30,7 +30,7 @@ function One_Twitt() {
             }
             {
                 !isLoading &&
-                    <Single_Twitt />
+                <Single_Twitt />
             }
         </>
     )

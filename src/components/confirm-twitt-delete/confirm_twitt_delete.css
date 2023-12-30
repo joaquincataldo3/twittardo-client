@@ -1,5 +1,7 @@
 @import url('../../style-variables/variables.css');
 
+
+
 .delete-twitt {
     color: var(--red);
 }
@@ -22,4 +24,21 @@
 .confirm-twitt-delete-active {
     opacity: 1;
     pointer-events: all;
+}
+
+.confirm-twitt-delete-buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-twitt-delete-buttons-container .input-label-container {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-label-container input, .input-label-container label {
+    width: 50%;
 }

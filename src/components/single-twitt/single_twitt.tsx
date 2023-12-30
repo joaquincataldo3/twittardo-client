@@ -11,12 +11,12 @@ import './single_twitt.css';
 export const Single_Twitt = () => {
 
     const userContext = useUserGlobalContext();
-    const {user} = userContext;
+    const { user } = userContext;
     const { oneTwitt } = useTwittGlobalContext();
     const { image, image_url, twitt } = oneTwitt;
-    
 
     return (
+        <>
         <div className="one-twitt-container">
             <div className={`one-twitt-wrapper ${image ? 'one-twitt-wrapper-img' : '.one-twitt-wrapper-no-img'}`}>
                 <div className={`${image_url ? 'one-twitt-content-container' : 'one-twitt-content-container-no-img'}`}>
@@ -24,10 +24,11 @@ export const Single_Twitt = () => {
                         <UserAvatar url={oneTwitt.user.image_url} width={55} height={45} />
                         <div className="one-twitt-card-username-container">
                             <p>@{oneTwitt.user.username}</p>
+                            
                             <>
                                 {
-                                    oneTwitt.user._id == user._id  &&
-                                    <ConfirmTwittDelete />
+                                    oneTwitt.user._id == user._id &&
+                                    <ConfirmTwittDelete twittId={oneTwitt._id} />
                                 }
                             </>
                         </div>
@@ -58,14 +59,17 @@ export const Single_Twitt = () => {
             <div className='comments-container'>
                 {
                     oneTwitt.comments && oneTwitt.comments.length > 0 &&
-                    oneTwitt.comments.map(item => {
+                    oneTwitt.comments.map((comment: any) => {
+                        console.log(comment)
                         return (
-                            <Comment_Card commentEntity={item} key={item._id} />
+                            <Comment_Card commentEntity={comment} key={comment._id} />
                         )
                     })
                 }
             </div>
 
         </div >
+        </>
+        
     )
 }

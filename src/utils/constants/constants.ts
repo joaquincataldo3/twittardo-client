@@ -1,4 +1,4 @@
-import { UserReducerActions, TwittReducerActions, FetchTwittActions } from "../types"
+import { UserReducerActions, TwittReducerActions, FetchTwittActions } from "../../types"
 
 
 export const twittsActions: TwittReducerActions = {

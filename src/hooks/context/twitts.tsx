@@ -1,13 +1,13 @@
 import axios from "axios";
 import twittsReducer from "../reducer/twitts";
 import { createContext, useContext, useEffect, useReducer, useState} from "react";
-import { AppContextProp } from "../../types";
-import { TwittCxt, TwittInitState } from "../../types";
+import { AppContextProp } from "../../utils/interfaces/props/props_interfaces";
+import { TwittCxt, TwittInitState } from "../../utils/interfaces/entities/entities_interfaces";
 
-import { twittsActions, fetchTwittActions } from "../../utils/utils";
+import { twittsActions, fetchTwittActions } from "../../utils/constants/constants";
 import { useNavigate } from "react-router-dom";
 import { useUserGlobalContext } from "./user";
-import { userEmptyState } from "../../utils/utils";
+import { userEmptyState } from "../../utils/constants/constants";
 
 let reducerInitState: TwittInitState  = {
     twitts: {
@@ -18,7 +18,8 @@ let reducerInitState: TwittInitState  = {
         twitt: '',
         user: userEmptyState,
         favourites: 0,
-        commentsNumber: 0 
+        commentsNumber: 0,
+        comments: [] 
     },
     page: 0,
     twittError: '',

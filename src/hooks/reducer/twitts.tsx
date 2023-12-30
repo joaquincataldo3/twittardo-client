@@ -1,6 +1,6 @@
 
 import { TwittInitState, Twitt } from "../../types"
-import { twittsActions, fetchTwittActions } from "../../utils/utils.ts"
+import { twittsActions, fetchTwittActions } from "../../utils/constants/constants.ts"
 
 type Action = { type: string, payload: any }
 

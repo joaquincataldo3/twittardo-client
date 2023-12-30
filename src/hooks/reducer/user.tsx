@@ -1,6 +1,6 @@
 
 import { User, UserInitState } from "../../types"
-import { userActions } from "../../utils/utils.ts"
+import { userActions } from "../../utils/constants/constants.ts"
 
 type Action = { type: string, payload: any }
 

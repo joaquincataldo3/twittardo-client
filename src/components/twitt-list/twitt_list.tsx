@@ -2,12 +2,13 @@ import { useTwittGlobalContext } from "../../hooks/context/twitts"
 import LoadingSpinner from "../loading-spinner/loading_spinner"
 import './twitt_list.css'
 import Twitt_Card from "../twitt-card/twitt_card"
-import { fetchTwittActions } from "../../utils/utils"
+import { fetchTwittActions } from "../../utils/constants/constants"
+import { Twitt } from "../../utils/interfaces/entities/entities_interfaces"
 
 const Twitt_List = () => {
 
     const twittContext = useTwittGlobalContext()!;
-    const {twitts, noTwittsLeft} = twittContext;
+    const { twitts, noTwittsLeft } = twittContext;
     const { data } = twitts;
     const { isLoading, fetchTwitts } = twittContext;
 
@@ -27,21 +28,16 @@ const Twitt_List = () => {
                 <>
                     <div className="twitts-list-container">
                         {
-                            data.map(twitt => {
+                            data.map((twitt: Twitt) => {
                                 return (
-                                    <div className="twitt-card" key={twitt._id}>
-                                        <div className="twitt-card-second-column-first-row">
-                                            <a href={`/twitts/${twitt._id}`}><i className='bx bx-search-alt-2'></i></a>
-                                        </div>
-                                        <Twitt_Card twitt={twitt} key={twitt._id} />
-                                    </div>
+                                    <Twitt_Card twitt={twitt} key={twitt._id} />
                                 )
                             })
                         }
 
                     </div>
                     <div className="load-more-twitts-container">
-                        <button className="load-more-twitts" onClick={handleFetchButtonClick} style={{pointerEvents: `${noTwittsLeft ? 'none' : 'all'}`}}>{noTwittsLeft ? 'No hay más twitts para cargar' : 'Cargar más twitts'}</button>
+                        <button className="load-more-twitts" onClick={handleFetchButtonClick} style={{ pointerEvents: `${noTwittsLeft ? 'none' : 'all'}` }}>{noTwittsLeft ? 'No hay más twitts para cargar' : 'Cargar más twitts'}</button>
                     </div>
 
                 </>

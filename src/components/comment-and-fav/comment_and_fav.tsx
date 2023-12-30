@@ -4,7 +4,7 @@ import { useUserGlobalContext } from "../../hooks/context/user"
 import { TwittCardProps } from "../../types";
 import LoadingSpinner from "../loading-spinner/loading_spinner";
 import './comment_and_fav.css';
-import { fetchTwittActions } from "../../utils/utils";
+import { fetchTwittActions } from "../../utils/constants/constants";
 
 export const CommentAndFav = (props: TwittCardProps) => {
 

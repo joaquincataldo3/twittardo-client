@@ -1,18 +1,20 @@
-import { TwittCardProps } from "../../types";
-import './twitt_card.css'
-import '../../style-variables/variables.css'
 import { UserAvatar } from "../user-avatar/user_avatar";
 import { CommentAndFav } from "../comment-and-fav/comment_and_fav";
+import { TwittCardProps } from '../../utils/interfaces/props/props_interfaces';
+import './twitt_card.css'
+import '../../style-variables/variables.css'
 
 function Twitt_Card(props: TwittCardProps) {
 
     const { twitt } = props;
     const { user } = twitt;
-   
+
     return (
         <>
             <div className="twitt-content-container">
-
+                <div className="twitt-card-second-column-first-row">
+                    <a href={`/twitts/${twitt._id}`}><i className='bx bx-search-alt-2'></i></a>
+                </div>
                 <UserAvatar url={user.image_url!} width={55} height={45} />
                 <div className="twitt-card-second-column-container">
 

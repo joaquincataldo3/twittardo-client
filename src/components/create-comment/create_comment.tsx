@@ -1,7 +1,7 @@
 import { useTwittGlobalContext } from '../../hooks/context/twitts';
 import { useUserGlobalContext } from '../../hooks/context/user'
 import { CreateCommentProps, HandleCreateTwitt } from '../../types';
-import { Create_Twitt_Btn } from '../create-twitt-btn/create_twitt_btn';
+import { Create_Twitt_Btn } from '../form-btn/form_btn';
 import { UserAvatar } from '../user-avatar/user_avatar';
 import '../../style-variables/variables.css';
 import './create_comment.css';
