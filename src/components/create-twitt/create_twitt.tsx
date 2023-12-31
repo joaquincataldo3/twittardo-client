@@ -5,6 +5,7 @@ import { HandleCreateTwitt } from '../../types';
 import { TwittTextarea } from '../twitt-textarea/twitt_textarea';
 import { TwittCharacters } from '../twitt-characters/twitt_characters';
 import './create_twitt.css';
+import '../../style-variables/variables.css';
 
 export const CreateTwitt = () => {
    
@@ -60,8 +61,7 @@ export const CreateTwitt = () => {
                     <label htmlFor="twitt-image" className='img-label'><i className='bx bx-photo-album' ></i></label>
                     <TwittCharacters />
                 </div>
-                    <FormBtn content={'Twittear'} handleClick={(e: FormEvent) => handleSubmitCreateTwForm(e)}/>
-
+                    <FormBtn content={'Twittear'} handleClick={(e) => handleSubmitCreateTwForm(e)} widthNum={70} additionalClassName={['margin-left-auto']}/>
             </form>
         </div>
     )

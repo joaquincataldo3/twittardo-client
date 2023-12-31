@@ -35,8 +35,6 @@
     width: 100%;
 }
 
-
-
 .characters-container {
     margin: 2% 0;
     display: flex;
@@ -53,8 +51,6 @@
     display: flex;
     align-items: center;
 }
-
-
 
 .delete-file {
     color: var(--purple)!important;   

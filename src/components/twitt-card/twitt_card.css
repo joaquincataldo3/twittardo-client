@@ -1,12 +1,12 @@
 @import '../../style-variables/variables.css';
 
-.twitt-card {
+.twitt-card-container {
     padding: 3%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: fit-content;
-    min-height: 150px;
+    min-height: 120px;
     border-bottom: 1px solid var(--grey);
 }
 

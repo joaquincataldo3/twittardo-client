@@ -3,7 +3,6 @@ import twittsReducer from "../reducer/twitts";
 import { createContext, useContext, useEffect, useReducer, useState} from "react";
 import { AppContextProp } from "../../utils/interfaces/props/props_interfaces";
 import { TwittCxt, TwittInitState } from "../../utils/interfaces/entities/entities_interfaces";
-
 import { twittsActions, fetchTwittActions } from "../../utils/constants/constants";
 import { useNavigate } from "react-router-dom";
 import { useUserGlobalContext } from "./user";
@@ -139,7 +138,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             withCredentials: true
         });
         if(response.status === 200){
-            fetchTwitts(fetchTwittActions.RELOAD); 
+            navigate(`/twitts/${twittId}`)
         } else {
             createTwittError('Error al crear el twitt, vuelva a intentarlo');
         }

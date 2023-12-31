@@ -1,26 +1,25 @@
 import { useTwittGlobalContext } from '../../hooks/context/twitts';
 import { useUserGlobalContext } from '../../hooks/context/user'
-import { CreateCommentProps, HandleCreateTwitt } from '../../types';
-import { Create_Twitt_Btn } from '../form-btn/form_btn';
+import { CreateCommentProps } from '../../utils/interfaces/props/props_interfaces';
+import { FormBtn } from '../form-btn/form_btn';
 import { UserAvatar } from '../user-avatar/user_avatar';
-import '../../style-variables/variables.css';
-import './create_comment.css';
 import { TwittTextarea } from '../twitt-textarea/twitt_textarea';
 import { TwittCharacters } from '../twitt-characters/twitt_characters';
+import './create_comment.css';
+import '../../style-variables/variables.css';
 
 function Create_Comment(props: CreateCommentProps) {
 
   const { user } = useUserGlobalContext();
-  const { createComment, twittTextareaContent, handleTextareaIsEmpty, characters} = useTwittGlobalContext();
+  const { createComment, twittTextareaContent, handleTextareaIsEmpty } = useTwittGlobalContext();
   const { twittId } = props;
 
-  const handleCreateComment: HandleCreateTwitt = (e: React.FormEvent) => {
+  const handleCreateComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (!twittTextareaContent) {
       handleTextareaIsEmpty(true);
     } else {
       handleTextareaIsEmpty(false);
-
       createComment(twittTextareaContent, twittId);
     }
 
@@ -38,7 +37,7 @@ function Create_Comment(props: CreateCommentProps) {
         <TwittTextarea name='comment' />
         <TwittCharacters />
   
-        <Create_Twitt_Btn content={'Crear comentario'} handleClick={handleCreateComment} />
+        <FormBtn content={'Crear comentario'} handleClick={handleCreateComment} widthNum={70} additionalClassName={['margin-left-auto']}/>
 
       </form>
 

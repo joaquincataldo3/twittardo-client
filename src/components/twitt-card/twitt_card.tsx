@@ -10,11 +10,9 @@ function Twitt_Card(props: TwittCardProps) {
     const { user } = twitt;
 
     return (
-        <>
+        <div className="twitt-card-container">
             <div className="twitt-content-container">
-                <div className="twitt-card-second-column-first-row">
-                    <a href={`/twitts/${twitt._id}`}><i className='bx bx-search-alt-2'></i></a>
-                </div>
+
                 <UserAvatar url={user.image_url!} width={55} height={45} />
                 <div className="twitt-card-second-column-container">
 
@@ -34,13 +32,15 @@ function Twitt_Card(props: TwittCardProps) {
                         </div>
                     }
                 </div>
-
+                <div className="twitt-card-second-column-first-row">
+                    <a href={`/twitts/${twitt._id}`}><i className='bx bx-search-alt-2'></i></a>
+                </div>
             </div>
 
             <div className="twitt-card-third-column-container">
                 <CommentAndFav twitt={twitt} />
             </div>
-        </>
+        </div>
     )
 }
 

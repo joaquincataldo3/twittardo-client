@@ -1,4 +1,4 @@
-import { ReactNode, FormEvent } from "react"
+import { ReactNode } from "react"
 import { Twitt } from "../entities/entities_interfaces"
 
 export interface AppContextProp {
@@ -30,8 +30,10 @@ export interface AvatarContainerProps {
 
 export interface CreateTwittBtnProps {
     content: string
-    handleClick: (e: FormEvent) => void
+    handleClick: (e: any) => void
     twittId?: string
+    additionalClassName?: string[]
+    widthNum: number
 }
 
 export interface BlackScreenProps {
