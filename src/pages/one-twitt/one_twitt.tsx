@@ -9,18 +9,22 @@ import { Single_Twitt } from "../../components/single-twitt/single_twitt";
 function One_Twitt() {
 
     const twittContext = useTwittGlobalContext();
+    const fetchSingleTwitt = twittContext?.fetchOneTwitt;
+    const isLoading = twittContext?.isFavLoading;
     const params = useParams();
     const { twittId } = params;
     const navigate = useNavigate();
-    const { fetchOneTwitt, isLoading } = twittContext;
+    
 
-    if (twittId) {
+    if (twittId && fetchSingleTwitt) {
         useEffect(() => {
-            fetchOneTwitt(twittId);
+            fetchSingleTwitt(twittId);
         }, [])
     } else {
         navigate('/home');
     }
+
+    
 
     return (
         <>

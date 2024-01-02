@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useUserGlobalContext } from '../../hooks/context/user';
 import { useEffect, useState } from 'react';
 import './user-profile.css'
+import Comment_Card from '../../components/comment-card/comment-card';
+import { Comment } from '../../utils/interfaces/entities/entities_interfaces';
 
 const userOptions = ["Tweets", "Respuestas", "Favoritos"];
 
@@ -70,13 +72,13 @@ function User_Profile() {
             <div className={`profile-user-content ${activeContainer == 1 ? 'user-content-active' : activeContainer == 2 ? 'user-content-left' : 'user-content-right'}`}>
               {
                 userProfile.comments.length > 0 ?
-                  userProfile.comments.map((comment, i) => {
+                  userProfile.comments.map((comment: Comment) => {
                     return (
                       <div className="twitt-card" key={comment._id}>
                         <div className="twitt-card-second-column-first-row">
                           <a href={`/twitts/${comment.twittCommented._id}`}>Responde al twitt de {comment.twittCommented.user.username}</a>
                         </div>
-                        <Twitt_Card twitt={comment} key={i} />
+                        <Comment_Card commentEntity={comment}/>
                       </div>
                     )
                   })

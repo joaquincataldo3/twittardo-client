@@ -43,7 +43,7 @@ let contextInitState: TwittCxt = {
     handleCharacters: () => {},
     handleTextareaChange: () => {},
     handleTextareaIsEmpty: () => { }
-}
+} 
 
 const TwittsContext = createContext<TwittCxt>(contextInitState)
 
@@ -179,7 +179,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const handleTextareaIsEmpty = (value: boolean) => {
         setIsTwittTextareaEmpty(value);
     }
-
+    
     useEffect(() => {
         fetchTwitts(fetchTwittActions.INITIAL);
     }, [])

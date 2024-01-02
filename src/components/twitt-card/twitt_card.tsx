@@ -1,6 +1,7 @@
 import { UserAvatar } from "../user-avatar/user_avatar";
 import { CommentAndFav } from "../comment-and-fav/comment_and_fav";
 import { TwittCardProps } from '../../utils/interfaces/props/props_interfaces';
+import { useUserGlobalContext } from "../../hooks/context/user";
 import './twitt_card.css'
 import '../../style-variables/variables.css'
 
@@ -8,12 +9,13 @@ function Twitt_Card(props: TwittCardProps) {
 
     const { twitt } = props;
     const { user } = twitt;
+    const { redirectUserProfile } = useUserGlobalContext();
 
     return (
         <div className="twitt-card-container">
             <div className="twitt-content-container">
 
-                <UserAvatar url={user.image_url!} width={55} height={45} />
+                <UserAvatar url={user.image_url!} width={55} height={45} handleFunction={redirectUserProfile} userId={user._id}/>
                 <div className="twitt-card-second-column-container">
 
                     <div className="twitt-card-user-info">

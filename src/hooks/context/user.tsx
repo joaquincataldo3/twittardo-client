@@ -20,9 +20,10 @@ const defState: UserCtxt = {
     toggleNavbar: () => {},
     checkLogin: () => {},
     handleLogout: () => {},
-    getUser: () => {}
+    getUser: () => {},
+    redirectUserProfile: () => {}
 };
- 
+
 const UserContext = createContext<UserCtxt>(defState);
 
 const initialState: UserInitState = {
@@ -87,7 +88,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
                     'Content-Type': 'application/json'
                 }
             });
-            const {data} = response;
+            const { data } = response;
             dispatch({ type: userActions.FETCH_ONEUSER_SUCCESS, payload: {user: data} })
         } catch (error) {
             let loginError;
@@ -109,6 +110,10 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         await axios(`${apiUrl}users/logout`, {withCredentials: true});
         window.location.reload();
     }
+    
+    const redirectUserProfile = (userId: string) => {
+        navigate(`user/profile/${userId}`);
+    }
 
     const providerValue = {
         ...state, 
@@ -117,7 +122,8 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         toggleNavbar, 
         checkLogin,
         handleLogout,
-        getUser
+        getUser,
+        redirectUserProfile
     };
 
 

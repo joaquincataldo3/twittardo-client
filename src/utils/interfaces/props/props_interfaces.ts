@@ -25,7 +25,8 @@ export interface AvatarContainerProps {
     url: string
     width: number
     height: number
-    handleFunction?: () => void
+    userId: string | null
+    handleFunction?: (userId: string) => void
 }
 
 export interface CreateTwittBtnProps {

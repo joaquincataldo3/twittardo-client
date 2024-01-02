@@ -28,7 +28,7 @@ export interface UserCtxt {
     checkLogin: () => void
     handleLogout: () => void
     getUser: (id: string | Readonly<Params<string>>) => void
-
+    redirectUserProfile: (userId: string) => void
 }
 
 export interface UserInitState {
@@ -98,6 +98,7 @@ export interface Comment {
     comment: string
     favourites: number
     user: User
+    twittCommented: Twitt
 }
 
 

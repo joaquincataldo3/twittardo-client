@@ -16,3 +16,9 @@ export interface TwittReducerActions {
     CREATE_TW_ERROR: string,
     CREATE_TWITT_SUCCESS: string
 }
+
+export interface FetchTwittActions {
+    INITIAL: string,
+    REGULAR: string,
+    RELOAD: string
+}

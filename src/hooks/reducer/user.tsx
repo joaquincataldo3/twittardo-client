@@ -1,6 +1,6 @@
-
-import { User, UserInitState } from "../../types"
-import { userActions } from "../../utils/constants/constants.ts"
+import { User } from "../../utils/interfaces/entities/entities_interfaces.ts";
+import { UserInitState } from "../../utils/interfaces/entities/entities_interfaces.ts";
+import { userActions } from "../../utils/constants/constants.ts";
 
 type Action = { type: string, payload: any }
 

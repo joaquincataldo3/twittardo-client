@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTwittGlobalContext } from "../../hooks/context/twitts";
 import { useUserGlobalContext } from "../../hooks/context/user"
-import { TwittCardProps } from "../../types";
+import { TwittCardProps } from "../../utils/interfaces/props/props_interfaces";
 import LoadingSpinner from "../loading-spinner/loading_spinner";
 import './comment_and_fav.css';
 import { fetchTwittActions } from "../../utils/constants/constants";
@@ -15,7 +15,6 @@ export const CommentAndFav = (props: TwittCardProps) => {
 
 
     const handleFavItem = () => {
-        console.log(twitt._id, user._id)
         if (twitt._id && user._id) {
             setLocalFavLoading(true);
             favTwitt(twitt._id, user._id);

@@ -1,5 +1,5 @@
-import { UserReducerActions, TwittReducerActions, FetchTwittActions } from "../../types"
 
+import { UserReducerActions, TwittReducerActions, FetchTwittActions } from "../interfaces/reducer/reducer_interfaces";
 
 export const twittsActions: TwittReducerActions = {
     FETCH_TWITTS_SUCCESS: 'FETCH_TWITTS_SUCCESS',
@@ -8,7 +8,7 @@ export const twittsActions: TwittReducerActions = {
     EMPTY_CREATE_TW_ERROR: 'EMPTY_CREATE_TW_ERROR',
     MAX_CHARACTERS_TW_ERROR: 'MAX_CHARACTERS_TW_ERROR',
     CREATE_TW_ERROR: 'CREATE_TW_ERROR',
-    CREATE_TWITT_SUCCESS: 'CREATE_TWITT_SUCCESS'  
+    CREATE_TWITT_SUCCESS: 'CREATE_TWITT_SUCCESS',
 };
 
 export const userActions: UserReducerActions = {
