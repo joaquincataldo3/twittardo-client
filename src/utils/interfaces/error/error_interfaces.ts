@@ -3,7 +3,7 @@ export interface LoginError {
     msg: string
 }
 
-export interface Error {
+export interface ErrorProps {
     message: string;
 }
 

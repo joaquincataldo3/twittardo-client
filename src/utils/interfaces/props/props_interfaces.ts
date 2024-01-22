@@ -1,5 +1,6 @@
-import { ReactNode } from "react"
+import { FormEvent, ReactNode } from "react"
 import { Twitt } from "../entities/entities_interfaces"
+import { MouseEvent } from "react"
 
 export interface AppContextProp {
     children: ReactNode
@@ -29,12 +30,24 @@ export interface AvatarContainerProps {
     handleFunction?: (userId: string) => void
 }
 
-export interface CreateTwittBtnProps {
-    content: string
-    handleClick: (e: any) => void
-    twittId?: string
+export interface BtnSharedProps {
+
     additionalClassName?: string[]
     widthNum: number
+}
+
+export interface CreateTwittBtnProps extends BtnSharedProps {
+    content: string
+    handleClick: (e: FormEvent) => void
+    twittId?: string
+}
+
+
+export interface FetchActionBtnProps extends BtnSharedProps {
+    handleClick: (e: MouseEvent) => void
+    state: boolean
+    keepFetchingText: string
+    noDataLeftText: string
 }
 
 export interface BlackScreenProps {

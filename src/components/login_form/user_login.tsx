@@ -1,7 +1,7 @@
 import { useState, FormEvent  } from "react"
 import { useUserGlobalContext } from "../../hooks/context/user"
-import './user_login.css'
 import { FormBtn } from "../form-btn/form_btn"
+import './form.css'
 
 
 function User_Login() {

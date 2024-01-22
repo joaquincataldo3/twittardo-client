@@ -1,6 +1,5 @@
 import Twitt_Card from '../../components/twitt-card/twitt_card';
 import LoadingSpinner from '../../components/loading-spinner/loading_spinner';
-import No_Content_Text from '../../components/no-content-text/no_content_text';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUserGlobalContext } from '../../hooks/context/user';
 import { useEffect, useState } from 'react';
@@ -32,13 +31,15 @@ function User_Profile() {
   }
 
 
+
+
   return (
     <>
       {
         isLoading && <LoadingSpinner />
       }
       {
-        !isLoading && userProfile &&
+        !isLoading && userProfile.twitts &&
         <main className="user-profile-main">
           <ul className="profile-options-container">
             {userOptions.map((option, index) => (
@@ -57,15 +58,12 @@ function User_Profile() {
                   userProfile.twitts.map((twitt, i) => {
                     return (
                       <div className="twitt-card" key={twitt._id}>
-                        <div className="twitt-card-second-column-first-row">
-                          <a href={`/twitts/${twitt._id}`}><i className='bx bx-search-alt-2'></i></a>
-                        </div>
                         <Twitt_Card twitt={twitt} key={i} />
                       </div>
                     )
                   })
                   :
-                  <No_Content_Text msg='twitts' />
+                  <p>No </p>
               }
 
             </div>

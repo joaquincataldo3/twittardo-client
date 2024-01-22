@@ -21,7 +21,9 @@ const defState: UserCtxt = {
     checkLogin: () => {},
     handleLogout: () => {},
     getUser: () => {},
-    redirectUserProfile: () => {}
+    redirectUserProfile: () => {},
+    registerError: false,
+    registerUser: () => {}
 };
 
 const UserContext = createContext<UserCtxt>(defState);
@@ -36,9 +38,11 @@ const initialState: UserInitState = {
 
 const UserContextProvider = ({ children }: AppContextProp) => {
 
-    const [state, dispatch] = useReducer(userReducer, initialState)
-    const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState<boolean>(false)
-    const navigate = useNavigate()
+    const [state, dispatch] = useReducer(userReducer, initialState);
+    const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [registerError, setRegisterError] = useState<boolean>(false);
+    const navigate = useNavigate();
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const loginFn = async (email: string, password: string) => {
@@ -89,7 +93,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
                 }
             });
             const { data } = response;
-            dispatch({ type: userActions.FETCH_ONEUSER_SUCCESS, payload: {user: data} })
+            dispatch({ type: userActions.FETCH_ONEUSER_SUCCESS, payload: { user: data } })
         } catch (error) {
             let loginError;
             if (error instanceof Error) {
@@ -115,6 +119,18 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         navigate(`user/profile/${userId}`);
     }
 
+    const registerUser = async (formData: FormData) => {
+        setIsLoading(true);
+        const response = await axios.post(`${apiUrl}users/register`, formData, {
+            withCredentials: true
+        });
+        if(response.status === 200){
+            navigate('/users/login');
+        } else {
+            setRegisterError(true);
+        }
+    };
+
     const providerValue = {
         ...state, 
         login: loginFn, 
@@ -123,7 +139,9 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         checkLogin,
         handleLogout,
         getUser,
-        redirectUserProfile
+        redirectUserProfile,
+        registerUser,
+        registerError
     };
 
 

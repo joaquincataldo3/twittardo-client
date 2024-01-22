@@ -18,7 +18,7 @@ let reducerInitState: TwittInitState  = {
         user: userEmptyState,
         favourites: 0,
         commentsNumber: 0,
-        comments: [] 
+        comments: [],
     },
     page: 0,
     twittError: '',
@@ -33,9 +33,9 @@ let contextInitState: TwittCxt = {
     isFavLoading: false,
     twittTextareaContent: '',
     isTwittTextareaEmpty: false,
+    createTwittError: false,
     fetchOneTwitt: () => {},
     createTwitt: () => {},
-    createTwittError: () => {},
     fetchTwitts: () => {},
     createComment: () => {},
     favTwitt: () => {},
@@ -54,6 +54,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const [noTwittsLeft, setNoTwittsLeft] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isFavLoading, setIsFavLoading] = useState<boolean>(false);
+    const [createTwittError, setCreateTwittError] = useState<boolean>(false);
     const [characters, setCharacters] = useState(280);
     const [twittTextareaContent, setTwittTextAreaContent] = useState<string>('')
     const [isTwittTextareaEmpty, setIsTwittTextareaEmpty] = useState<boolean>(false);
@@ -114,10 +115,6 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         }
     };
 
-    const createTwittError = (msg: string) => {
-        dispatch({type: twittsActions.CREATE_TW_ERROR, payload: {msg}})
-    };
-
     const createTwitt = async (formData: FormData) => {
         setIsLoading(true);
         const response = await axios.post(`${apiUrl}twitts/${user._id}/create`, formData, {
@@ -126,7 +123,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         if(response.status === 200){
             fetchTwitts(fetchTwittActions.RELOAD); 
         } else {
-            createTwittError('Error al crear el twitt, vuelva a intentarlo');
+            setCreateTwittError(true);
         }
     };
 
@@ -140,7 +137,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         if(response.status === 200){
             navigate(`/twitts/${twittId}`)
         } else {
-            createTwittError('Error al crear el twitt, vuelva a intentarlo');
+            setCreateTwittError(true);
         }
     };
 
@@ -193,16 +190,16 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         characters,
         twittTextareaContent,
         isTwittTextareaEmpty,
+        createTwittError,
         handleCharacters,
         fetchOneTwitt,
-        createTwittError,
         createTwitt,
         fetchTwitts,
         createComment,
         favTwitt,
         undoFav,
         handleTextareaChange,
-        handleTextareaIsEmpty
+        handleTextareaIsEmpty,
     }
 
     return <TwittsContext.Provider value={providerValue}>

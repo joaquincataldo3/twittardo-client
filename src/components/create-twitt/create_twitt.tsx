@@ -6,13 +6,14 @@ import { TwittTextarea } from '../twitt-textarea/twitt_textarea';
 import { TwittCharacters } from '../twitt-characters/twitt_characters';
 import './create_twitt.css';
 import '../../style-variables/variables.css';
+import { ErrorContainer } from '../error-container/error_container';
 
 export const CreateTwitt = () => {
    
     const { twittTextareaContent, handleTextareaIsEmpty, handleTextareaChange} = useTwittGlobalContext();
     const [file, setFile] = useState<File | null>(null);
     const [fileName, setFileName] = useState<string>('');
-    const { createTwitt } = useTwittGlobalContext();
+    const { createTwitt, createTwittError } = useTwittGlobalContext();
 
     const handleSubmitCreateTwForm: HandleCreateTwitt = (e: FormEvent) => {
         e.preventDefault();
@@ -61,7 +62,8 @@ export const CreateTwitt = () => {
                     <label htmlFor="twitt-image" className='img-label'><i className='bx bx-photo-album' ></i></label>
                     <TwittCharacters />
                 </div>
-                    <FormBtn content={'Twittear'} handleClick={(e) => handleSubmitCreateTwForm(e)} widthNum={70} additionalClassName={['margin-left-auto']}/>
+                <ErrorContainer message={'Error al crear un twitt, intente de nuevo'}/>
+                <FormBtn content={'Twittear'} handleClick={(e) => handleSubmitCreateTwForm(e)} widthNum={70} additionalClassName={['margin-left-auto']}/>
             </form>
         </div>
     )

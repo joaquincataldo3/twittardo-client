@@ -30,8 +30,10 @@ export const userEmptyState =  {
     _id: '',
     username: '',
     email: '',
-    image_url: '',
-    avatar: '',
+    image: {
+        public_id: '',
+        secure_url: ''
+    },
     isAdmin: null,
     followers: [],
     following: [],

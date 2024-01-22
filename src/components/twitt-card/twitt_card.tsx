@@ -10,12 +10,13 @@ function Twitt_Card(props: TwittCardProps) {
     const { twitt } = props;
     const { user } = twitt;
     const { redirectUserProfile } = useUserGlobalContext();
+    console.log(twitt)
 
     return (
         <div className="twitt-card-container">
             <div className="twitt-content-container">
 
-                <UserAvatar url={user.image_url!} width={55} height={45} handleFunction={redirectUserProfile} userId={user._id}/>
+                <UserAvatar url={user.image.secure_url} width={55} height={45} handleFunction={redirectUserProfile} userId={user._id}/>
                 <div className="twitt-card-second-column-container">
 
                     <div className="twitt-card-user-info">
@@ -28,9 +29,9 @@ function Twitt_Card(props: TwittCardProps) {
                         </div>
                     </div>
                     {
-                        twitt.image_url &&
+                        twitt.image &&
                         <div className="twitt-card-img-container">
-                            <img src={twitt.image_url} alt="" />
+                            <img src={twitt.image.secure_url} alt="" />
                         </div>
                     }
                 </div>

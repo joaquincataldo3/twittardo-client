@@ -1,18 +1,22 @@
 import { Params } from "react-router-dom"
 
+export type Image = {
+    secure_url: string
+    public_id: string
+}
+
 export interface User {
-    _id: string | null,
-    username: string,
+    _id: string | null
+    username: string
     email: string
-    avatar: string,
-    image_url: string,
-    isAdmin: number | null,
-    followers: string[] | string,
-    following: string[] | string,
-    followersNumber: number,
-    followingNumber: number,
+   image: Image,
+    isAdmin: number | null
+    followers: string[] | string
+    following: string[] | string
+    followersNumber: number
+    followingNumber: number
     favourites: string[]
-    twitts: Twitt[],
+    twitts: Twitt[]
     comments: Comment[]
 }
 
@@ -29,22 +33,25 @@ export interface UserCtxt {
     handleLogout: () => void
     getUser: (id: string | Readonly<Params<string>>) => void
     redirectUserProfile: (userId: string) => void
+    registerUser: (formData: FormData) => void
+    registerError: boolean
 }
 
 export interface UserInitState {
-    users: User[],
-    user: User,
-    userProfile: User,
+    users: User[]
+    user: User
+    userProfile: User
     error: string
     token: string
 }
 
+
+
 export interface Twitt {
-    _id: string,
-    twitt: string,
-    user: User,
-    image?: string,
-    image_url?: string,
+    _id: string
+    twitt: string
+    user: User
+    image?: Image
     comments: Comment[]
     commentsNumber: number
     favourites: number
@@ -70,14 +77,14 @@ export interface TwittCxt extends TwittInitState  {
     twittError: string
     twittTextareaContent: string
     isLoading: boolean
-    isTwittErrorActive: boolean,
+    isTwittErrorActive: boolean
     noTwittsLeft: boolean
     isFavLoading: boolean
     isTwittTextareaEmpty: boolean
+    createTwittError: boolean
     fetchTwitts: (method: string) => void
     fetchOneTwitt: (id: string) => void
     createComment: (commentContent: string, twittId: string) => void
-    createTwittError: (msg: string) => void
     createTwitt: (formData: FormData) => void
     favTwitt: (twittId: string, userId: string) => void
     undoFav: (twittId: string, userId: string) => void

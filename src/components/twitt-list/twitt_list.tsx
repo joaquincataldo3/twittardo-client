@@ -4,11 +4,12 @@ import './twitt_list.css'
 import Twitt_Card from "../twitt-card/twitt_card"
 import { fetchTwittActions } from "../../utils/constants/constants"
 import { Twitt } from "../../utils/interfaces/entities/entities_interfaces"
+import { FetchActionBtn } from "../fetch-action-btn/fetch_action_btn"
 
 const Twitt_List = () => {
 
     const twittContext = useTwittGlobalContext()!;
-    const { twitts, noTwittsLeft } = twittContext;
+    const { twitts, noTwittsLeft } = twittContext
     const { data } = twitts;
     const { isLoading, fetchTwitts } = twittContext;
 
@@ -37,9 +38,9 @@ const Twitt_List = () => {
 
                     </div>
                     <div className="load-more-twitts-container">
-                        <button className="load-more-twitts" onClick={handleFetchButtonClick} style={{ pointerEvents: `${noTwittsLeft ? 'none' : 'all'}` }}>{noTwittsLeft ? 'No hay más twitts para cargar' : 'Cargar más twitts'}</button>
+                        <FetchActionBtn handleClick={handleFetchButtonClick} widthNum={100} keepFetchingText={'Cargar más twitts'} noDataLeftText={'No hay más twitts'} state={noTwittsLeft}/>
+                        {/* <button className="load-more-twitts" onClick={handleFetchButtonClick} style={{ pointerEvents: `${noTwittsLeft ? 'none' : 'all'}` }}>{noTwittsLeft ? 'No hay más twitts para cargar' : 'Cargar más twitts'}</button> */}
                     </div>
-
                 </>
             }
 

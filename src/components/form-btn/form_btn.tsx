@@ -1,5 +1,5 @@
 import { CreateTwittBtnProps } from '../../utils/interfaces/props/props_interfaces';
-import './form_btn.css';
+import './btn.css';
 
 export const FormBtn = (props: CreateTwittBtnProps) => {
 
