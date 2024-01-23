@@ -20,7 +20,7 @@ function Navbar() {
             </div>
 
             <div className="navbar-user-info-container">
-              <UserAvatar url={user.image_url} width={75} height={65} />
+              <UserAvatar url={user.image.secure_url} width={75} height={65} />
 
               <div className='username-container'>
                 <p>@{user.username}</p>

@@ -1,0 +1,63 @@
+@import "../../style-variables/variables.css";
+
+.profile-options-container {
+    width: 80%;
+    margin: 8% auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-content-container {
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+   
+    border-bottom: none;
+    position: relative;
+    min-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+.profile-user-content {
+    position: absolute;
+    transition: transform 0.5s;
+    right: 0;
+    left: 0;
+    min-height: 90vh;
+}
+
+.profile-option-li {
+    border-bottom: 1px solid transparent;
+    transition: border .5s;
+}
+
+.profile-options-li-active {
+    border-bottom: 1px solid var(--purple);
+}
+
+.user-content-active {
+    background-color: white;
+    transform: translateX(0);
+}
+
+.user-content-right {
+    z-index: -1;
+    background-color: white;
+    transform: translateX(150%);
+}
+
+.user-content-left {
+    z-index: -1;
+    background-color: white;
+    transform: translateX(-150%);
+}
+
+.fetch-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

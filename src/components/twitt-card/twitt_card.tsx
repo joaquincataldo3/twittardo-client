@@ -7,13 +7,12 @@ import '../../style-variables/variables.css'
 
 function Twitt_Card(props: TwittCardProps) {
 
-    const { twitt } = props;
+    const { twitt, length, index} = props;
     const { user } = twitt;
     const { redirectUserProfile } = useUserGlobalContext();
-    console.log(twitt)
 
     return (
-        <div className="twitt-card-container">
+        <div className={`twitt-card-container ${index && length && index === length && - 1 && 'no-border-bottom'} `}>
             <div className="twitt-content-container">
 
                 <UserAvatar url={user.image.secure_url} width={55} height={45} handleFunction={redirectUserProfile} userId={user._id}/>

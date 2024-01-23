@@ -26,7 +26,7 @@ const reducer = (state: TwittInitState, action: Action): TwittInitState => {
             return { ...state, oneTwitt: twittPayload }
         case twittsActions.CREATE_TW_ERROR:
             const msg = action.payload.msg;
-            return { ...state, isTwittErrorActive: true, twittError: msg }
+            return { ...state, twittError: msg }
         default:
             throw new Error('Inesperado tipo de acción')
     }

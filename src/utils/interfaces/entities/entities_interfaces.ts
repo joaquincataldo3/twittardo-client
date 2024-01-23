@@ -15,7 +15,7 @@ export interface User {
     following: string[] | string
     followersNumber: number
     followingNumber: number
-    favourites: string[]
+    favourites: Twitt[]
     twitts: Twitt[]
     comments: Comment[]
 }
@@ -24,17 +24,19 @@ export interface UserCtxt {
     users: User[]
     user: User
     userProfile: User
-    error?: string
     token: string
-    login: (username: string, password: string) => void
+    formError: string
     isMobileNavbarOpen: boolean
+    userTwittsPage: number
+    noMoreTwitts: boolean
+    login: (username: string, password: string) => void
     toggleNavbar: () => void,
     checkLogin: () => void
     handleLogout: () => void
     getUser: (id: string | Readonly<Params<string>>) => void
     redirectUserProfile: (userId: string) => void
     registerUser: (formData: FormData) => void
-    registerError: boolean
+    getMoreTwittsByUser: (userId: string) => void
 }
 
 export interface UserInitState {
@@ -43,6 +45,8 @@ export interface UserInitState {
     userProfile: User
     error: string
     token: string
+    formError: string
+    userTwittsPage: number
 }
 
 
@@ -60,11 +64,10 @@ export interface Twitt {
 export interface TwittInitState {
     twitts: {
         data: Twitt[]
-    } ,
-    oneTwitt: Twitt,
-    page: number,
-    twittError: string,
-    isTwittErrorActive: boolean
+    }
+    oneTwitt: Twitt
+    page: number
+    twittError: string
 }
 
 export interface TwittCxt extends TwittInitState  {
@@ -77,11 +80,10 @@ export interface TwittCxt extends TwittInitState  {
     twittError: string
     twittTextareaContent: string
     isLoading: boolean
-    isTwittErrorActive: boolean
     noTwittsLeft: boolean
     isFavLoading: boolean
     isTwittTextareaEmpty: boolean
-    createTwittError: boolean
+
     fetchTwitts: (method: string) => void
     fetchOneTwitt: (id: string) => void
     createComment: (commentContent: string, twittId: string) => void

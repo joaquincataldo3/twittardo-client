@@ -21,7 +21,7 @@ function Header() {
           user.username === '' ?
             <button className='anchor-login-container'><a href={location === loginPathname ? '#' : loginPathname}>Logueate</a></button>
             :
-            <UserAvatar url={user.image_url} width={65} height={55} handleFunction={toggleNavbar}/>
+            <UserAvatar url={user.image.secure_url} width={65} height={55} handleFunction={toggleNavbar}/>
         }
         <div className='twittardo-logo-container'>
           <a href="/home">

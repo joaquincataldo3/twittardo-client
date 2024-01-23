@@ -16,14 +16,17 @@ const defState: UserCtxt = {
     userProfile: userEmptyState,
     isMobileNavbarOpen: false,
     token: '',
-    login: (_username: string, _password: string) => {},
-    toggleNavbar: () => {},
-    checkLogin: () => {},
-    handleLogout: () => {},
-    getUser: () => {},
-    redirectUserProfile: () => {},
-    registerError: false,
-    registerUser: () => {}
+    formError: '',
+    userTwittsPage: 3,
+    noMoreTwitts: false,
+    login: (_username: string, _password: string) => { },
+    toggleNavbar: () => { },
+    checkLogin: () => { },
+    handleLogout: () => { },
+    getUser: () => { },
+    redirectUserProfile: () => { },
+    registerUser: () => { },
+    getMoreTwittsByUser: () => { }
 };
 
 const UserContext = createContext<UserCtxt>(defState);
@@ -31,9 +34,11 @@ const UserContext = createContext<UserCtxt>(defState);
 const initialState: UserInitState = {
     users: [],
     user: userEmptyState,
-    userProfile: userEmptyState, 
+    userProfile: userEmptyState,
     token: '',
-    error: ''
+    error: '',
+    formError: '',
+    userTwittsPage: 3
 };
 
 const UserContextProvider = ({ children }: AppContextProp) => {
@@ -41,7 +46,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     const [state, dispatch] = useReducer(userReducer, initialState);
     const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [registerError, setRegisterError] = useState<boolean>(false);
+    const [noMoreTwitts, setNoMoreTwitts] = useState<boolean>(false);
     const navigate = useNavigate();
     const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -51,21 +56,15 @@ const UserContextProvider = ({ children }: AppContextProp) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                withCredentials: true 
+                withCredentials: true
             });
-            
-            dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: {user: response.data.userVerified} });
+
+            dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: { user: response.data.userVerified } });
             navigate('/home');
         } catch (error: any) {
-            let loginError;
-            if (error instanceof Error) {
-                loginError = error.message;
-                console.log(`Failed in login: ${loginError}`);
-            } else {
-                loginError = error.msg;
-                console.log(`Failed in login: ${loginError}`);
-            }
-            dispatch({ type: userActions.USER_LOGIN_ERROR, payload: loginError });
+            const errorPayload = error.response.data;
+            const { msg } = errorPayload;
+            dispatch({ type: userActions.USER_FORM_ERROR, payload: msg });
         }
     };
 
@@ -75,8 +74,8 @@ const UserContextProvider = ({ children }: AppContextProp) => {
                 withCredentials: true // para recibir y obtener cookies. importante
             });
             const data = response.data;
-            if(data.loggedIn){ 
-                dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: {user: data.user} })
+            if (data.loggedIn) {
+                dispatch({ type: userActions.USER_LOGIN_SUCCESS, payload: { user: data.user } })
             } else {
                 console.log('Not authenticated')
             }
@@ -93,7 +92,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
                 }
             });
             const { data } = response;
-            dispatch({ type: userActions.FETCH_ONEUSER_SUCCESS, payload: { user: data } })
+            dispatch({ type: userActions.FETCH_ONEUSER_SUCCESS, payload: { user: data } });
         } catch (error) {
             let loginError;
             if (error instanceof Error) {
@@ -111,37 +110,55 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     };
 
     const handleLogout = async () => {
-        await axios(`${apiUrl}users/logout`, {withCredentials: true});
+        await axios(`${apiUrl}users/logout`, { withCredentials: true });
         window.location.reload();
     }
-    
+
     const redirectUserProfile = (userId: string) => {
         navigate(`user/profile/${userId}`);
     }
 
     const registerUser = async (formData: FormData) => {
-        setIsLoading(true);
-        const response = await axios.post(`${apiUrl}users/register`, formData, {
-            withCredentials: true
-        });
-        if(response.status === 200){
+        try {
+            setIsLoading(true);
+            await axios.post(`${apiUrl}users/register`, formData, {
+                withCredentials: true
+            });
             navigate('/users/login');
-        } else {
-            setRegisterError(true);
+        } catch (error: any) {
+            const errorPayload = error.response.data;
+            const { msg } = errorPayload;
+            dispatch({ type: userActions.USER_FORM_ERROR, payload: msg });
         }
-    };
+    }
+
+    const getMoreTwittsByUser = async (userId: string) => {
+        const response = await axios.get(`${apiUrl}users/twitts/${userId}?p=${state.userTwittsPage}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }); 
+        const { data } = response;
+        if(data.length > 0) {
+            dispatch({type: userActions.GET_TWITTS_BY_USER, payload: data});
+        } else {
+            setNoMoreTwitts(true);
+        }
+    }
+    
 
     const providerValue = {
-        ...state, 
-        login: loginFn, 
+        ...state,
         isMobileNavbarOpen,
-        toggleNavbar, 
+        noMoreTwitts,
+        getMoreTwittsByUser,
+        login: loginFn,
+        toggleNavbar,
         checkLogin,
         handleLogout,
         getUser,
         redirectUserProfile,
         registerUser,
-        registerError
     };
 
 

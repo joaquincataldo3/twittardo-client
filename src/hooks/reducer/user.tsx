@@ -26,9 +26,12 @@ const reducer = (state: UserInitState, action: Action) => {
             userLogged.followingNumber = followingAccumulator
             const token = action.payload.token
             return { ...state, user: userLogged, token }
-        case userActions.USER_LOGIN_ERROR:
+        case userActions.USER_FORM_ERROR:
             const errorMsg = action.payload
-            return { ...state, error: errorMsg }
+            return { ...state, formError: errorMsg }
+        case userActions.GET_TWITTS_BY_USER:
+            const newTwitts = action.payload;
+            return { ...state,  user: { ...state.user, twitts: newTwitts}, page: state.userTwittsPage++ }
         default:
             throw new Error('Inesperado tipo de acción')
     }

@@ -4,14 +4,14 @@ import './comment-card.css'
 
 function Comment_Card(props: CommentCardProps) {
 
-    const { commentEntity } = props;
-    const { user, comment } = commentEntity;
+    const { comment } = props;
+    const { user } = comment;
 
     return (
         <div className="comment-card" >
             <div className="comment-content-container">
                 <div className="comment-card-first-column-container">
-                    <UserAvatar url={user.image_url} width={55} height={45} userId={null}/>
+                    <UserAvatar url={user.image.secure_url} width={55} height={45} userId={null}/>
 
                 </div>
                 <div className="comment-card-second-column-container">
@@ -19,7 +19,7 @@ function Comment_Card(props: CommentCardProps) {
                         <p>@{user.username}</p>
                     </div>
                     <div className="comment-desc-container">
-                        <p>{comment}</p>
+                        <p>{comment.comment}</p>
                     </div>
                 </div>
             </div>

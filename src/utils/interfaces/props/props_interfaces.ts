@@ -1,5 +1,5 @@
 import { FormEvent, ReactNode } from "react"
-import { Twitt } from "../entities/entities_interfaces"
+import { Comment, Twitt } from "../entities/entities_interfaces"
 import { MouseEvent } from "react"
 
 export interface AppContextProp {
@@ -8,14 +8,8 @@ export interface AppContextProp {
 
 export interface TwittCardProps {
     twitt: Twitt
-}
-
-export interface CommentCardProps {
-    comment: Comment
-}
-
-export interface CommentProps {
-    comment: Comment
+    length?: number
+    index?: number
 }
 
 export interface NoContentTextProps {
@@ -26,7 +20,7 @@ export interface AvatarContainerProps {
     url: string
     width: number
     height: number
-    userId: string | null
+    userId?: string | null
     handleFunction?: (userId: string) => void
 }
 
@@ -60,7 +54,9 @@ export interface CloseMenuProps {
 }
 
 export interface CommentCardProps {
-    commentEntity: Comment
+    comment: Comment
+    length?: number
+    index?: number
 }
 
 
@@ -80,4 +76,15 @@ export interface FetchTwittsBtnProps {
     content: string
     noTwittsLeft: boolean
     handleBtnClick: () => {}
+}
+
+export interface NoContentTextProps {
+    msg: string
+}
+
+export interface ProfileTwittBoxProps {
+    entity: Twitt[] | Comment[]
+    activeContainer: number
+    containerIndex: number
+    userId: string
 }

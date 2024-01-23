@@ -13,7 +13,7 @@ export const CreateTwitt = () => {
     const { twittTextareaContent, handleTextareaIsEmpty, handleTextareaChange} = useTwittGlobalContext();
     const [file, setFile] = useState<File | null>(null);
     const [fileName, setFileName] = useState<string>('');
-    const { createTwitt, createTwittError } = useTwittGlobalContext();
+    const { createTwitt, twittError } = useTwittGlobalContext();
 
     const handleSubmitCreateTwForm: HandleCreateTwitt = (e: FormEvent) => {
         e.preventDefault();
@@ -62,7 +62,7 @@ export const CreateTwitt = () => {
                     <label htmlFor="twitt-image" className='img-label'><i className='bx bx-photo-album' ></i></label>
                     <TwittCharacters />
                 </div>
-                <ErrorContainer message={'Error al crear un twitt, intente de nuevo'}/>
+                { twittError && <ErrorContainer message={twittError} /> }
                 <FormBtn content={'Twittear'} handleClick={(e) => handleSubmitCreateTwForm(e)} widthNum={70} additionalClassName={['margin-left-auto']}/>
             </form>
         </div>

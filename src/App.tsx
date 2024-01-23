@@ -14,7 +14,7 @@ import './App.css';
 function App() {
 
   const location = useLocation();
-  const { checkLogin, user } = useUserGlobalContext();
+  const { checkLogin } = useUserGlobalContext();
 
   useEffect(() => {
     checkLogin()
@@ -29,11 +29,9 @@ function App() {
 
       <Route path='user' element={<Shared_Layout />}>
         <Route path='login' element={<User_Login />} />
-        {
-          user && <Route path='profile/:userId' element={<User_Profile />} /> 
-        }
+        <Route path='profile/:userId' element={<User_Profile />} />
       </Route>
-      
+
       <Route path='twitts' element={<Shared_Layout />}>
         <Route path=':twittId' element={<One_Twitt />} />
 

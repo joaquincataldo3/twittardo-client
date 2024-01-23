@@ -14,7 +14,7 @@ function User_Login() {
     });
     const [file, setFile] = useState<File | null>(null);
     const [isInputEmpty, setIsInputEmpty] = useState(false);
-    const { error, registerUser, registerError} = useUserGlobalContext();
+    const { registerUser, formError} = useUserGlobalContext();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -51,14 +51,14 @@ function User_Login() {
     return (
         <main className="user-login-main">
             <form className="login-form">
-                {error && <p>{error}</p>}
+                
                 <div className="login-input-label-container">
                     <label htmlFor="email">Email</label>
-                    <input type="email" name="email" className={`${isInputEmpty || error ? 'input-error' : ''}`} onChange={handleChange} value={newUser.email} />
+                    <input type="email" name="email" className={`${isInputEmpty || formError ? 'input-error' : ''}`} onChange={handleChange} value={newUser.email} />
                 </div>
                 <div className="login-input-label-container">
                     <label htmlFor="username">Username</label>
-                    <input type="username" name="username" className={`${isInputEmpty || error ? 'input-error' : ''}`} onChange={handleChange} value={newUser.username} />
+                    <input type="username" name="username" className={`${isInputEmpty || formError ? 'input-error' : ''}`} onChange={handleChange} value={newUser.username} />
                 </div>
                 <div className="login-input-label-container">
                     <label htmlFor="file">Username</label>
@@ -66,10 +66,10 @@ function User_Login() {
                 </div>
                 <div className="login-input-label-container">
                     <label htmlFor="password">Contraseña</label>
-                    <input type="password" name="password" className={`${isInputEmpty || error ? 'input-error' : ''}`} onChange={handleChange} value={newUser.password} />
+                    <input type="password" name="password" className={`${isInputEmpty || formError ? 'input-error' : ''}`} onChange={handleChange} value={newUser.password} />
                 </div>
                 {
-                    registerError && <ErrorContainer message={"Error al crear el usuario, intente de nuevo"}/>
+                    formError && <ErrorContainer message={formError}/>
                 }
                 <FormBtn content={'Iniciar sesión'} handleClick={handleSubmit} additionalClassName={["login-btn"]} widthNum={70} />
             </form>
