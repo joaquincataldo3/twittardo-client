@@ -103,7 +103,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const fetchOneTwitt = async (id: string) => {
         try {
             setIsLoading(true);
-            const response = await axios(`${apiUrl}twitts/${id}`);
+            const response = await axios(`${apiUrl}twitts/one/${id}`);
             const data = await response.data;
             dispatch({ type: twittsActions.FETCH_ONETWITT_SUCCESS, payload: data });
             setIsLoading(false);

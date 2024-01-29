@@ -17,8 +17,15 @@ const defState: UserCtxt = {
     isMobileNavbarOpen: false,
     token: '',
     formError: '',
-    userTwittsPage: 3,
+    userTwittsPage: 1,
+    userFavouritesPage: 1,
+    userCommentsPage: 1,
     noMoreTwitts: false,
+    noMoreComments: false,
+    noMoreFavs: false,
+    twittsByUser: [],
+    commentsByUser: [],
+    favouritesByUser: [],
     login: (_username: string, _password: string) => { },
     toggleNavbar: () => { },
     checkLogin: () => { },
@@ -26,7 +33,9 @@ const defState: UserCtxt = {
     getUser: () => { },
     redirectUserProfile: () => { },
     registerUser: () => { },
-    getMoreTwittsByUser: () => { }
+    getTwittsByUser: () => { },
+    getCommentsByUser: () => { },
+    getFavouritesByUser: () => {}
 };
 
 const UserContext = createContext<UserCtxt>(defState);
@@ -38,7 +47,12 @@ const initialState: UserInitState = {
     token: '',
     error: '',
     formError: '',
-    userTwittsPage: 3
+    userTwittsPage: 1,
+    userFavouritesPage: 1,
+    userCommentsPage: 1,
+    twittsByUser: [],
+    commentsByUser: [],
+    favouritesByUser: [],
 };
 
 const UserContextProvider = ({ children }: AppContextProp) => {
@@ -47,6 +61,8 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [noMoreTwitts, setNoMoreTwitts] = useState<boolean>(false);
+    const [noMoreComments, setNoMoreComments] = useState<boolean>(false);
+    const [noMoreFavs, setNoMoreFavs] = useState<boolean>(false);
     const navigate = useNavigate();
     const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -132,26 +148,61 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         }
     }
 
-    const getMoreTwittsByUser = async (userId: string) => {
-        const response = await axios.get(`${apiUrl}users/twitts/${userId}?p=${state.userTwittsPage}`, {
+    const getTwittsByUser = async (userId: string) => {
+        const response = await axios.get(`${apiUrl}twitts/by-user/${userId}?p=${state.userTwittsPage}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }); 
+    
+        const { data } = response;
+        const { twitts } = data;
+        if(twitts.length > 0) {
+            dispatch({type: userActions.GET_TWITTS_BY_USER, payload: twitts});
+        } else {
+            setNoMoreTwitts(true);
+        }
+    }
+
+    const getCommentsByUser = async (userId: string) => {
+        const response = await axios.get(`${apiUrl}comments/by-user/${userId}?p=${state.userCommentsPage}`, {
             headers: {
                 'Content-Type': 'application/json'
             }
         }); 
         const { data } = response;
-        if(data.length > 0) {
-            dispatch({type: userActions.GET_TWITTS_BY_USER, payload: data});
+        const { comments } = data;
+        if(comments.length > 0) {
+            dispatch({type: userActions.GET_COMMENTS_BY_USER, payload: comments});
         } else {
-            setNoMoreTwitts(true);
+            setNoMoreComments(true);
         }
     }
+
+    const getFavouritesByUser = async (userId: string) => {
+        const response = await axios.get(`${apiUrl}users/favourites/${userId}?p=${state.userFavouritesPage}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }); 
+        const { data } = response;
+        const { favourites } = data;
+        console.log({favourites})
+        if(favourites.length > 0) {
+            dispatch({type: userActions.GET_FAVOURITES_BY_USER, payload: favourites});
+        } else {
+            setNoMoreFavs(true);
+        }
+    }
+    
     
 
     const providerValue = {
         ...state,
         isMobileNavbarOpen,
         noMoreTwitts,
-        getMoreTwittsByUser,
+        noMoreComments,
+        noMoreFavs,
         login: loginFn,
         toggleNavbar,
         checkLogin,
@@ -159,6 +210,9 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         getUser,
         redirectUserProfile,
         registerUser,
+        getCommentsByUser,
+        getTwittsByUser,
+        getFavouritesByUser
     };
 
 

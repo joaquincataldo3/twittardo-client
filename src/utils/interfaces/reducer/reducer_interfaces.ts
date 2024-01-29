@@ -6,6 +6,8 @@ export interface UserReducerActions {
     GET_FOLLOWERS_NUMBER: string
     LOGOUT_ERROR: string
     GET_TWITTS_BY_USER: string
+    GET_COMMENTS_BY_USER: string
+    GET_FAVOURITES_BY_USER: string
 }
 
 export interface TwittReducerActions {
@@ -19,7 +21,7 @@ export interface TwittReducerActions {
 }
 
 export interface FetchTwittActions {
-    INITIAL: string,
-    REGULAR: string,
+    INITIAL: string
+    REGULAR: string
     RELOAD: string
 }

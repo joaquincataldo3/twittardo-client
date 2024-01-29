@@ -61,3 +61,16 @@
     display: flex;
     justify-content: center;
 }
+
+.twitt-commented-reference-container {
+    padding: 5px;
+    margin-left: 15px;
+}
+
+.twitt-commented-description {
+    font-size: 0.875rem;
+}
+
+.twitt-commented-description a {
+    color: var(--purple);
+}

@@ -24,11 +24,18 @@ export interface UserCtxt {
     users: User[]
     user: User
     userProfile: User
+    twittsByUser: Twitt[],
+    commentsByUser: Comment[],
+    favouritesByUser: Twitt[]
     token: string
     formError: string
     isMobileNavbarOpen: boolean
-    userTwittsPage: number
     noMoreTwitts: boolean
+    noMoreComments: boolean
+    noMoreFavs: boolean
+    userTwittsPage: number
+    userCommentsPage: number
+    userFavouritesPage: number
     login: (username: string, password: string) => void
     toggleNavbar: () => void,
     checkLogin: () => void
@@ -36,7 +43,9 @@ export interface UserCtxt {
     getUser: (id: string | Readonly<Params<string>>) => void
     redirectUserProfile: (userId: string) => void
     registerUser: (formData: FormData) => void
-    getMoreTwittsByUser: (userId: string) => void
+    getTwittsByUser: (userId: string) => void
+    getCommentsByUser: (userId: string) => void
+    getFavouritesByUser: (userId: string) => void
 }
 
 export interface UserInitState {
@@ -47,6 +56,11 @@ export interface UserInitState {
     token: string
     formError: string
     userTwittsPage: number
+    userFavouritesPage: number
+    userCommentsPage: number
+    twittsByUser: Twitt[]
+    commentsByUser: Comment[],
+    favouritesByUser: Twitt[]
 }
 
 

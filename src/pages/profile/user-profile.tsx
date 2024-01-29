@@ -15,7 +15,7 @@ function User_Profile() {
   const navigate = useNavigate();
   const context = useUserGlobalContext();
   const params = useParams();
-  const { getUser, userProfile } = context;
+  const { getUser, userProfile, getTwittsByUser, twittsByUser, getCommentsByUser, getFavouritesByUser, commentsByUser, favouritesByUser} = context;
   const { userId } = params;
 
 
@@ -23,11 +23,15 @@ function User_Profile() {
     useEffect(() => {
       setIsLoading(true);
       getUser(userId);
+      getTwittsByUser(userId);
+      getCommentsByUser(userId);
+      getFavouritesByUser(userId);
       setIsLoading(false);
     }, [])
   } else {
     navigate('/home');
   }
+
 
   return (
     <>
@@ -53,7 +57,7 @@ function User_Profile() {
                 <ProfileTwittBox
                   userId={userId!}
                   key={i}
-                  entity={i === 0 ? userProfile.twitts : i === 1 ? userProfile.comments : userProfile.favourites}
+                  entity={i === 0 ? twittsByUser : i === 1 ? commentsByUser : favouritesByUser}
                   activeContainer={activeContainer}
                   containerIndex={i}
                 />

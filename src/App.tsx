@@ -34,7 +34,6 @@ function App() {
 
       <Route path='twitts' element={<Shared_Layout />}>
         <Route path=':twittId' element={<One_Twitt />} />
-
       </Route>
 
     </Routes>

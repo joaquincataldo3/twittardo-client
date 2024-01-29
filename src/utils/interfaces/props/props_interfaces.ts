@@ -40,8 +40,6 @@ export interface CreateTwittBtnProps extends BtnSharedProps {
 export interface FetchActionBtnProps extends BtnSharedProps {
     handleClick: (e: MouseEvent) => void
     state: boolean
-    keepFetchingText: string
-    noDataLeftText: string
 }
 
 export interface BlackScreenProps {

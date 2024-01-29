@@ -19,7 +19,7 @@ const reducer = (state: TwittInitState, action: Action): TwittInitState => {
                 page = 1;
                 updatedTwitts = data;
             }
-
+        
             return { ...state, page, twitts: { ...state.twitts, data: updatedTwitts } };
         case twittsActions.FETCH_ONETWITT_SUCCESS:
             const twittPayload = action.payload;

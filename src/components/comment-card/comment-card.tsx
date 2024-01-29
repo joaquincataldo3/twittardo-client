@@ -6,6 +6,7 @@ function Comment_Card(props: CommentCardProps) {
 
     const { comment } = props;
     const { user } = comment;
+    console.log(comment)
 
     return (
         <div className="comment-card" >

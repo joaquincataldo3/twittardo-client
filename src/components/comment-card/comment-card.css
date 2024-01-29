@@ -1,11 +1,10 @@
 .comment-card {
     display: flex;
     flex-direction: column;
-    height: fit-content;
-    border-top: 1px solid var(--grey);
+    min-height: 50px;
     border-bottom: 1px solid var(--grey);
     width: 90%;
-    padding: 5% 0;
+    padding: 2% 5% 5%;
 }
 
 .comment-content-container {

@@ -11,6 +11,7 @@ function Twitt_Card(props: TwittCardProps) {
     const { user } = twitt;
     const { redirectUserProfile } = useUserGlobalContext();
 
+
     return (
         <div className={`twitt-card-container ${index && length && index === length && - 1 && 'no-border-bottom'} `}>
             <div className="twitt-content-container">
