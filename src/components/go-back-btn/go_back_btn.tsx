@@ -1,27 +1,22 @@
-import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+
+import {  useNavigate } from 'react-router-dom';
+import { useUserGlobalContext } from '../../hooks/context/user';
 
 const GoBackBtn = () => {
-    const [previousPath, setPreviousPath] = useState('');
-    const location = useLocation();
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        return () => {
-            setPreviousPath(previousPath);
-        };
-      }, [location]);
+    const navigate = useNavigate();
+    const {previousLocation} = useUserGlobalContext();
 
     const handleGoBack = () => {
-        navigate(previousPath);
+        if(previousLocation) {
+            navigate(previousLocation);
+        }
     };
-
-    console.log(previousPath)
 
     return (
         <>
             {
-                previousPath &&
+                previousLocation &&
                 <button onClick={handleGoBack}><i className='bx bx-chevron-left'></i></button>
             }
         </>

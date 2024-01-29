@@ -5,7 +5,7 @@ import { AppContextProp } from "../../utils/interfaces/props/props_interfaces";
 import { UserCtxt } from "../../utils/interfaces/entities/entities_interfaces";
 import { UserInitState } from "../../utils/interfaces/entities/entities_interfaces";
 import { userActions } from "../../utils/constants/constants";
-import { useNavigate } from "react-router-dom";
+import { Location, useNavigate } from "react-router-dom";
 import { userEmptyState } from "../../utils/constants/constants";
 import { Params } from "react-router-dom";
 
@@ -26,6 +26,7 @@ const defState: UserCtxt = {
     twittsByUser: [],
     commentsByUser: [],
     favouritesByUser: [],
+    previousLocation: null,
     login: (_username: string, _password: string) => { },
     toggleNavbar: () => { },
     checkLogin: () => { },
@@ -35,7 +36,8 @@ const defState: UserCtxt = {
     registerUser: () => { },
     getTwittsByUser: () => { },
     getCommentsByUser: () => { },
-    getFavouritesByUser: () => {}
+    getFavouritesByUser: () => {},
+    handleSetPreviousLocation: () => {}
 };
 
 const UserContext = createContext<UserCtxt>(defState);
@@ -59,9 +61,10 @@ const UserContextProvider = ({ children }: AppContextProp) => {
 
     const [state, dispatch] = useReducer(userReducer, initialState);
     const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [_isLoading, setIsLoading] = useState<boolean>(false);
     const [noMoreTwitts, setNoMoreTwitts] = useState<boolean>(false);
     const [noMoreComments, setNoMoreComments] = useState<boolean>(false);
+    const [previousLocation, setPreviousLocation] = useState<string | null>(null);
     const [noMoreFavs, setNoMoreFavs] = useState<boolean>(false);
     const navigate = useNavigate();
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -121,18 +124,6 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         }
     }
 
-    const toggleNavbar = () => {
-        setIsMobileNavbarOpen(!isMobileNavbarOpen)
-    };
-
-    const handleLogout = async () => {
-        await axios(`${apiUrl}users/logout`, { withCredentials: true });
-        window.location.reload();
-    }
-
-    const redirectUserProfile = (userId: string) => {
-        navigate(`user/profile/${userId}`);
-    }
 
     const registerUser = async (formData: FormData) => {
         try {
@@ -187,7 +178,6 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         }); 
         const { data } = response;
         const { favourites } = data;
-        console.log({favourites})
         if(favourites.length > 0) {
             dispatch({type: userActions.GET_FAVOURITES_BY_USER, payload: favourites});
         } else {
@@ -196,6 +186,24 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     }
     
     
+    const toggleNavbar = () => {
+        setIsMobileNavbarOpen(!isMobileNavbarOpen)
+    };
+
+    const handleLogout = async () => {
+        await axios(`${apiUrl}users/logout`, { withCredentials: true });
+        window.location.reload();
+    }
+
+    const redirectUserProfile = (userId: string) => {
+        navigate(`user/profile/${userId}`);
+    }
+
+    const handleSetPreviousLocation = (location: Location) => {
+        const locationPath = location.pathname;
+        setPreviousLocation(locationPath);
+    }
+    
 
     const providerValue = {
         ...state,
@@ -203,6 +211,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         noMoreTwitts,
         noMoreComments,
         noMoreFavs,
+        previousLocation,
         login: loginFn,
         toggleNavbar,
         checkLogin,
@@ -212,7 +221,8 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         registerUser,
         getCommentsByUser,
         getTwittsByUser,
-        getFavouritesByUser
+        getFavouritesByUser,
+        handleSetPreviousLocation
     };
 
 

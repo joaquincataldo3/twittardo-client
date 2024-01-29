@@ -1,4 +1,4 @@
-import { Params } from "react-router-dom"
+import { Location, Params } from "react-router-dom"
 
 export type Image = {
     secure_url: string
@@ -36,6 +36,7 @@ export interface UserCtxt {
     userTwittsPage: number
     userCommentsPage: number
     userFavouritesPage: number
+    previousLocation: string | null
     login: (username: string, password: string) => void
     toggleNavbar: () => void,
     checkLogin: () => void
@@ -46,6 +47,7 @@ export interface UserCtxt {
     getTwittsByUser: (userId: string) => void
     getCommentsByUser: (userId: string) => void
     getFavouritesByUser: (userId: string) => void
+    handleSetPreviousLocation: (location: Location) => void 
 }
 
 export interface UserInitState {
