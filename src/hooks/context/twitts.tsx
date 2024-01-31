@@ -17,7 +17,6 @@ let reducerInitState: TwittInitState = {
         twitt: '',
         user: userEmptyState,
         favourites: 0,
-        commentsNumber: 0,
         comments: [],
     },
     page: 0,
@@ -56,9 +55,8 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const [characters, setCharacters] = useState(280);
     const [twittTextareaContent, setTwittTextAreaContent] = useState<string>('')
     const [isTwittTextareaEmpty, setIsTwittTextareaEmpty] = useState<boolean>(false);
-    const userContext = useUserGlobalContext();
     const navigate = useNavigate();
-    const { user } = userContext;
+    const { user, checkLogin} = useUserGlobalContext();
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const fetchTwitts = async (method: string) => {
@@ -108,7 +106,6 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             dispatch({ type: twittsActions.FETCH_ONETWITT_SUCCESS, payload: data });
             setIsLoading(false);
         } catch (error) {
-            console.log(error);
             navigate('/home');
         }
     };
@@ -132,30 +129,34 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const createComment = async (commentContent: string, twittId: string) => {
         try {
             setIsLoading(true);
-            await axios.post(`${apiUrl}comments/${twittId}/${user._id}/create`, {
+            const response = await axios.post(`${apiUrl}comments/${twittId}/create`, {
                 comment: commentContent
             }, {
                 withCredentials: true
             });
+            console.log(response);
             navigate(`/twitts/${twittId}`)
         } catch (error: any) {
+            console.log(error);
             const errorPayload = error.response.data;
             const { msg } = errorPayload;
             dispatch({ type: twittsActions.CREATE_TW_ERROR, payload: msg });
         }
     };
 
-    const favTwitt = async (twittId: string, userId: string) => {
+    const favTwitt = async (twittId: string) => {
         setIsFavLoading(true);
-        await axios.put(`${apiUrl}twitts/add-fav/${twittId}/${userId}`, null, {
+        await axios.put(`${apiUrl}twitts/add-fav/${twittId}`, null, {
             withCredentials: true
         });
         setIsFavLoading(false);
+        checkLogin();
+        fetchTwitts(fetchTwittActions.RELOAD);
     }
 
-    const undoFav = async (twittId: string, userId: string) => {
+    const undoFav = async (twittId: string) => {
         setIsFavLoading(true);
-        await axios.put(`${apiUrl}twitts/undo-fav/${twittId}/${userId}`, null, {
+        await axios.put(`${apiUrl}twitts/undo-fav/${twittId}`, null, {
             withCredentials: true
         });
         setIsFavLoading(false);
@@ -205,6 +206,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         handleTextareaIsEmpty,
     }
 
+    
     return <TwittsContext.Provider value={providerValue}>
         {children}
     </TwittsContext.Provider>

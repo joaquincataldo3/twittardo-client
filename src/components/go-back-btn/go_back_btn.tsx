@@ -1,11 +1,11 @@
 
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useUserGlobalContext } from '../../hooks/context/user';
 
 const GoBackBtn = () => {
 
     const navigate = useNavigate();
-    const {previousLocation} = useUserGlobalContext();
+    const {previousLocation, handleSetPreviousLocation} = useUserGlobalContext();
 
     const handleGoBack = () => {
         if(previousLocation) {

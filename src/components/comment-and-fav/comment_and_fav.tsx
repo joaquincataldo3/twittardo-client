@@ -4,58 +4,54 @@ import { useUserGlobalContext } from "../../hooks/context/user"
 import { TwittCardProps } from "../../utils/interfaces/props/props_interfaces";
 import LoadingSpinner from "../loading-spinner/loading_spinner";
 import './comment_and_fav.css';
-import { fetchTwittActions } from "../../utils/constants/constants";
 
 export const CommentAndFav = (props: TwittCardProps) => {
 
     const { user } = useUserGlobalContext();
     const { twitt } = props;
-    const { favTwitt, undoFav, isFavLoading, fetchTwitts} = useTwittGlobalContext();
-    const [isLocalFavLoading, setLocalFavLoading] = useState<boolean>(false);
-
+    const twittId = twitt._id;
+    const { favTwitt, undoFav, isFavLoading } = useTwittGlobalContext();
+    console.log(twitt)
+    
 
     const handleFavItem = () => {
         if (twitt._id && user._id) {
-            setLocalFavLoading(true);
             favTwitt(twitt._id, user._id);
-            fetchTwitts(fetchTwittActions.RELOAD);
         }
     }
 
     const handleUnfavItem = () => {
         if (twitt._id && user._id) {
-            setLocalFavLoading(true);
             undoFav(twitt._id, user._id);
-            fetchTwitts(fetchTwittActions.RELOAD);
         }
     }
 
+    const isFavorited = user.favourites.some(favourite => favourite._id === twittId);
+
     useEffect(() => {
-        if (isFavLoading === isLocalFavLoading && isLocalFavLoading) {
-            setLocalFavLoading(false);
-        }
-    }, [isFavLoading, isLocalFavLoading]);
+        isFavorited
+    }, [])
 
     return (
         <div className="fav-comment-container">
             {
-                isLocalFavLoading ?
+                isFavLoading ?
                     <LoadingSpinner />
                     :
                     <>
                         <div className="icon-num-container">
                             <>
-                                {
-                                    user.favourites.includes(twitt._id) ?
-                                        <i key={twitt._id} className='bx bxs-star full-star' onClick={handleUnfavItem}></i> :
-                                        <i className='bx bx-star star' onClick={handleFavItem}></i>
-                                }
+                                {isFavorited ? (
+                                    <i className='bx bxs-star full-star' onClick={handleUnfavItem}></i>
+                                ) : (
+                                    <i className='bx bx-star star' onClick={handleFavItem}></i>
+                                )}
                             </>
                             <p>{twitt.favourites > 0 ? twitt.favourites : '0'}</p>
                         </div>
                         <div className="icon-num-container">
                             <i className='bx bx-comment'></i>
-                            <p>{twitt.commentsNumber > 0 ? twitt.commentsNumber : '0'}</p>
+                            <p>{twitt.comments.length > 0 ? `${twitt.comments.length}` : '0'}</p>
                         </div>
                     </>
             }

@@ -1,19 +1,24 @@
 import Twitt_List from "../../components/twitt-list/twitt_list";
 import { CreateTwitt } from "../../components/create-twitt/create_twitt";
 import { useUserGlobalContext } from "../../hooks/context/user";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+
 
 
 function Home() {
 
   const context = useUserGlobalContext();
-  const {user, handleSetPreviousLocation } = context;
+  const {user, handleSetPreviousLocation} = context;
   const location = useLocation();
+  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
   
   useEffect(() => {
+    setCurrentLocation(location.pathname);
     return () => {
-      handleSetPreviousLocation(location)
+      if(currentLocation){
+        handleSetPreviousLocation(currentLocation);
+      }
     }
   }, [])
 

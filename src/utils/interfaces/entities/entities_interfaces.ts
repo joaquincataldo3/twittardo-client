@@ -47,7 +47,7 @@ export interface UserCtxt {
     getTwittsByUser: (userId: string) => void
     getCommentsByUser: (userId: string) => void
     getFavouritesByUser: (userId: string) => void
-    handleSetPreviousLocation: (location: Location) => void 
+    handleSetPreviousLocation: (location: string) => void 
 }
 
 export interface UserInitState {

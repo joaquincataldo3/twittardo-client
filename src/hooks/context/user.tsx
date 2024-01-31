@@ -199,9 +199,9 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         navigate(`user/profile/${userId}`);
     }
 
-    const handleSetPreviousLocation = (location: Location) => {
-        const locationPath = location.pathname;
-        setPreviousLocation(locationPath);
+    const handleSetPreviousLocation = (location: string) => {
+        setPreviousLocation(location);
+        console.log(previousLocation)
     }
     
 

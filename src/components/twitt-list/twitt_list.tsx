@@ -38,8 +38,8 @@ const Twitt_List = () => {
 
                     </div>
                     <div className="load-more-twitts-container">
-                        <FetchActionBtn handleClick={handleFetchButtonClick} widthNum={100} keepFetchingText={'Cargar más twitts'} noDataLeftText={'No hay más twitts'} state={noTwittsLeft}/>
-                        {/* <button className="load-more-twitts" onClick={handleFetchButtonClick} style={{ pointerEvents: `${noTwittsLeft ? 'none' : 'all'}` }}>{noTwittsLeft ? 'No hay más twitts para cargar' : 'Cargar más twitts'}</button> */}
+                        <FetchActionBtn handleClick={handleFetchButtonClick} widthNum={100}  state={noTwittsLeft}/>
+
                     </div>
                 </>
             }

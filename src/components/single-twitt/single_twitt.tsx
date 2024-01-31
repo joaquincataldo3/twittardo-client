@@ -10,8 +10,7 @@ import './single_twitt.css';
 
 export const Single_Twitt = () => {
 
-    const userContext = useUserGlobalContext();
-    const { user } = userContext;
+    const { user, redirectUserProfile } = useUserGlobalContext();
     const { oneTwitt } = useTwittGlobalContext();
     const { image, twitt } = oneTwitt;
   
@@ -23,7 +22,7 @@ export const Single_Twitt = () => {
                 <div className={`one-twitt-wrapper ${image ? 'one-twitt-wrapper-img' : '.one-twitt-wrapper-no-img'}`}>
                     <div className={`${image?.secure_url? 'one-twitt-content-container' : 'one-twitt-content-container-no-img'}`}>
                         <div className="one-twitt-card-first-column-container">
-                            <UserAvatar url={oneTwitt.user.image.secure_url} width={55} height={45} userId={oneTwitt.user._id} />
+                            <UserAvatar  url={oneTwitt.user.image.secure_url} width={55} height={45} userId={oneTwitt.user._id} handleFunction={redirectUserProfile}/>
                             <div className="one-twitt-card-username-container">
                                 <p>@{oneTwitt.user.username}</p>
 
@@ -62,9 +61,8 @@ export const Single_Twitt = () => {
                     {
                         oneTwitt.comments && oneTwitt.comments.length > 0 &&
                         oneTwitt.comments.map((comment: any) => {
-                            console.log(comment)
                             return (
-                                <Comment_Card commentEntity={comment} key={comment._id} />
+                                <Comment_Card comment={comment} key={comment._id} />
                             )
                         })
                     }

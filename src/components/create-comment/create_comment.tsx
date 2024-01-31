@@ -28,7 +28,7 @@ function Create_Comment(props: CreateCommentProps) {
   return (
     <div className="create-comment-container">
     
-        <UserAvatar url={user.image_url} width={55} height={45} />
+        <UserAvatar url={user.image.secure_url} width={55} height={45} />
      
 
       <form action="" className="create-comment-form">

@@ -14,11 +14,13 @@ import './App.css';
 function App() {
 
   const location = useLocation();
-  const { checkLogin } = useUserGlobalContext();
+  const { checkLogin  } = useUserGlobalContext();
 
   useEffect(() => {
-    checkLogin()
-  }, [location])
+    checkLogin();
+  }, [location]);
+
+  
 
   return (
 
