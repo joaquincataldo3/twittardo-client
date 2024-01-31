@@ -145,21 +145,18 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     };
 
     const favTwitt = async (twittId: string) => {
-        setIsFavLoading(true);
         await axios.put(`${apiUrl}twitts/add-fav/${twittId}`, null, {
             withCredentials: true
         });
-        setIsFavLoading(false);
         checkLogin();
         fetchTwitts(fetchTwittActions.RELOAD);
     }
 
     const undoFav = async (twittId: string) => {
-        setIsFavLoading(true);
         await axios.put(`${apiUrl}twitts/undo-fav/${twittId}`, null, {
             withCredentials: true
         });
-        setIsFavLoading(false);
+        fetchTwitts(fetchTwittActions.RELOAD);
     }
 
     const handleCharacters = (method: string) => {
