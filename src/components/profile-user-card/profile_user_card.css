@@ -5,6 +5,11 @@
     margin: 3% auto;
 }
 
+.profile-username {
+    font-weight: 700;
+    margin-top: 5%;
+}
+
 .profile-card-first-row {
     display: flex;
     width: 100%;

@@ -9,18 +9,17 @@ import { useUserGlobalContext } from './hooks/context/user';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './App.css';
+import RegisterForm from './components/register-form/register_form';
 
 
 function App() {
 
   const location = useLocation();
-  const { checkLogin  } = useUserGlobalContext();
+  const { checkLogin, user} = useUserGlobalContext();
 
   useEffect(() => {
     checkLogin();
   }, [location]);
-
-  
 
   return (
 
@@ -32,11 +31,17 @@ function App() {
       <Route path='user' element={<Shared_Layout />}>
         <Route path='login' element={<User_Login />} />
         <Route path='profile/:userId' element={<User_Profile />} />
+        {
+          !user._id &&
+          <Route path='register' element={<RegisterForm />}/>
+        }
       </Route>
 
       <Route path='twitts' element={<Shared_Layout />}>
         <Route path=':twittId' element={<One_Twitt />} />
       </Route>
+
+
 
     </Routes>
 

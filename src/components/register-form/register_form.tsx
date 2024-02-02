@@ -5,7 +5,7 @@ import '../login_form/form.css';
 import { ErrorContainer } from "../error-container/error_container";
 
 
-function User_Login() {
+function RegisterForm() {
 
     const [newUser, setNewUser] = useState({
         email: '',
@@ -14,8 +14,8 @@ function User_Login() {
     });
     const [file, setFile] = useState<File | null>(null);
     const [isInputEmpty, setIsInputEmpty] = useState(false);
-    const { registerUser, formError} = useUserGlobalContext();
-
+    const { registerUser, formError } = useUserGlobalContext();
+    
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setNewUser((prevUser) => ({
@@ -71,11 +71,11 @@ function User_Login() {
                 {
                     formError && <ErrorContainer message={formError}/>
                 }
-                <FormBtn content={'Iniciar sesión'} handleClick={handleSubmit} additionalClassName={["login-btn"]} widthNum={70} />
+                <FormBtn content={'Registrarse'} handleClick={handleSubmit} additionalClassName={["login-btn"]} widthNum={50} />
             </form>
         </main>
 
     )
 }
 
-export default User_Login
+export default RegisterForm

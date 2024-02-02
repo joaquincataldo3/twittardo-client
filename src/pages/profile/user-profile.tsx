@@ -41,7 +41,7 @@ function User_Profile() {
       }
       {
         userProfile._id != user._id &&
-        <ProfileUserCard user={user} userProfile={user} />
+        <ProfileUserCard user={user} userProfile={userProfile} />
       }
       {
         !isLoading && userProfile.twitts &&

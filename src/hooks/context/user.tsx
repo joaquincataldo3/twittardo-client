@@ -192,7 +192,9 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     };
 
     const handleLogout = async () => {
-        await axios(`${apiUrl}users/logout`, { withCredentials: true });
+        await axios(`${apiUrl}users/logout`, { withCredentials: true, headers: {
+            'Content-Type': 'application/json'
+        }});
         window.location.reload();
     }
 
@@ -205,11 +207,21 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     }
 
     const unfollowUser = async (userId: string) => {
-        await axios.put(`${apiUrl}/users/${userId}/unfollow`);   
+        await axios.put(`${apiUrl}users/${userId}/unfollow`, undefined, { withCredentials: true, headers: {
+            'Content-Type': 'application/json'
+        }});   
     }
 
     const followUser = async (userId: string) => {
-        await axios.put(`${apiUrl}/users/${userId}/follow`);  
+        try {
+            await axios.put(`${apiUrl}users/${userId}/follow`, undefined, { withCredentials: true, headers: {
+                'Content-Type': 'application/json'
+            }});    
+            console.log('exito')
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
 
