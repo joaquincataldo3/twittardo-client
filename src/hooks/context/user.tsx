@@ -99,7 +99,6 @@ const UserContextProvider = ({ children }: AppContextProp) => {
                 console.log('Not authenticated')
             }
         } catch (error: any) {
-            console.log(error.response);
         }
     };
 

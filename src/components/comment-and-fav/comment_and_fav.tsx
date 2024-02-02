@@ -11,8 +11,7 @@ export const CommentAndFav = (props: TwittCardProps) => {
     const { twitt } = props;
     const twittId = twitt._id;
     const { favTwitt, undoFav, isFavLoading } = useTwittGlobalContext();
-    console.log(twitt)
-    
+
 
     const handleFavItem = () => {
         if (twitt._id && user._id) {
@@ -42,9 +41,9 @@ export const CommentAndFav = (props: TwittCardProps) => {
                         <div className="icon-num-container">
                             <>
                                 {isFavorited ? (
-                                    <i className='bx bxs-star full-star' onClick={handleUnfavItem}></i>
+                                    <i className='bx bxs-star full-star' onClick={user && handleUnfavItem}></i>
                                 ) : (
-                                    <i className='bx bx-star star' onClick={handleFavItem}></i>
+                                    <i className='bx bx-star star' onClick={user && handleFavItem}></i>
                                 )}
                             </>
                             <p>{twitt.favourites > 0 ? twitt.favourites : '0'}</p>

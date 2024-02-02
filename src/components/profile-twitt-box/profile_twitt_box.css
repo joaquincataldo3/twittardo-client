@@ -42,18 +42,9 @@
 .user-content-active {
     background-color: white;
     transform: translateX(0);
-}
-
-.user-content-right {
-    z-index: -1;
-    background-color: white;
-    transform: translateX(150%);
-}
-
-.user-content-left {
-    z-index: -1;
-    background-color: white;
-    transform: translateX(-150%);
+    z-index: 2;
+    right: 0;
+    left: 0;
 }
 
 .fetch-btn-container {

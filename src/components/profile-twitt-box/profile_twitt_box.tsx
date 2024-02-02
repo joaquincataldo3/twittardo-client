@@ -27,7 +27,8 @@ export const ProfileTwittBox = (props: ProfileTwittBoxProps) => {
     }
 
     return (
-        <div className={`profile-user-content ${activeContainer == containerIndex ? 'user-content-active' : activeContainer == containerIndex - 1 ? 'user-content-left' : 'user-content-right'}`}>
+        <div  className={`profile-user-content ${containerIndex === activeContainer ? 'user-content-active' : ''}`}
+        style={{ transform: `translateX(${(containerIndex - activeContainer) * 100}%)` }}>
             {
                 entity.length > 0 &&
                 entity.map((item, i) => {
@@ -39,14 +40,14 @@ export const ProfileTwittBox = (props: ProfileTwittBoxProps) => {
                         )
                     } else if ('comment' in item) {
                         return (
-                            <>
+                            <div key={item._id}>
                                 <div className='twitt-commented-reference-container'>
-                                    <p className='twitt-commented-description'>Responde al <a href={`/twitts/${item._id}`}>twitt</a> de <a href={`/user/profile/${item.user._id}`}>{item.user.username}</a></p>
+                                    <p className='twitt-commented-description'>Responde al <a href={`/twitts/${item.twittCommented._id}`}>twitt</a> de <a href={`/user/profile/${item.twittCommented.user._id}`}>{item.twittCommented.user.username}</a></p>
                                 </div>
                                 <div className="twitt-card" key={item._id}>
                                     <Comment_Card comment={item as Comment} length={entity.length} index={i} />
                                 </div>
-                            </>
+                            </div>
                         )
                     } else {
                         return (
