@@ -1,0 +1,26 @@
+@import '../../style-variables/variables.css';
+
+.profile-card-container {
+    width: 90%;
+    margin: 3% auto;
+}
+
+.profile-card-first-row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.follow-user-container {
+    width: 30%;
+}
+
+.profile-card-second-row {
+    margin-top: 5%;
+    display: flex;
+}
+
+.profile-card-second-row p:first-child {
+    margin-right: 3%;
+}

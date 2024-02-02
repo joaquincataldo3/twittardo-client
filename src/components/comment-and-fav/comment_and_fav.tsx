@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTwittGlobalContext } from "../../hooks/context/twitts";
 import { useUserGlobalContext } from "../../hooks/context/user"
 import { TwittCardProps } from "../../utils/interfaces/props/props_interfaces";

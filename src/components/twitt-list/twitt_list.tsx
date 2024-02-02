@@ -39,7 +39,6 @@ const Twitt_List = () => {
                     </div>
                     <div className="load-more-twitts-container">
                         <FetchActionBtn handleClick={handleFetchButtonClick} widthNum={100}  state={noTwittsLeft}/>
-
                     </div>
                 </>
             }

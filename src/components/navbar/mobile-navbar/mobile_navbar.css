@@ -27,15 +27,18 @@
     height: 50%;
 }
 
+.close-mobile-navbar-container {
+    margin-bottom: 10%;
+}
+
 .close-navbar {
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: black;
 }
 
 ul {
     list-style: none;
 }
-
 
 .username-container {
     margin-top: 10%;

@@ -5,7 +5,7 @@ import { AppContextProp } from "../../utils/interfaces/props/props_interfaces";
 import { UserCtxt } from "../../utils/interfaces/entities/entities_interfaces";
 import { UserInitState } from "../../utils/interfaces/entities/entities_interfaces";
 import { userActions } from "../../utils/constants/constants";
-import { Location, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { userEmptyState } from "../../utils/constants/constants";
 import { Params } from "react-router-dom";
 
@@ -37,7 +37,9 @@ const defState: UserCtxt = {
     getTwittsByUser: () => { },
     getCommentsByUser: () => { },
     getFavouritesByUser: () => {},
-    handleSetPreviousLocation: () => {}
+    handleSetPreviousLocation: () => {},
+    followUser: () => {},
+    unfollowUser: () => {}
 };
 
 const UserContext = createContext<UserCtxt>(defState);
@@ -200,9 +202,16 @@ const UserContextProvider = ({ children }: AppContextProp) => {
 
     const handleSetPreviousLocation = (location: string) => {
         setPreviousLocation(location);
-        console.log(previousLocation)
     }
-    
+
+    const unfollowUser = async (userId: string) => {
+        await axios.put(`${apiUrl}/users/${userId}/unfollow`);   
+    }
+
+    const followUser = async (userId: string) => {
+        await axios.put(`${apiUrl}/users/${userId}/follow`);  
+    }
+
 
     const providerValue = {
         ...state,
@@ -221,7 +230,9 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         getCommentsByUser,
         getTwittsByUser,
         getFavouritesByUser,
-        handleSetPreviousLocation
+        handleSetPreviousLocation,
+        followUser,
+        unfollowUser
     };
 
 

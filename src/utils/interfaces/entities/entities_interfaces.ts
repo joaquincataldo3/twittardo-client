@@ -1,4 +1,4 @@
-import { Location, Params } from "react-router-dom"
+import { Params } from "react-router-dom"
 
 export type Image = {
     secure_url: string
@@ -11,8 +11,8 @@ export interface User {
     email: string
    image: Image,
     isAdmin: number | null
-    followers: string[] | string
-    following: string[] | string
+    followers: User[]
+    following: User[]
     followersNumber: number
     followingNumber: number
     favourites: Twitt[]
@@ -73,7 +73,6 @@ export interface Twitt {
     user: User
     image?: Image
     comments: Comment[]
-    commentsNumber: number
     favourites: number
 }
 

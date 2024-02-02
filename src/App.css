@@ -1,3 +1,5 @@
+@import './style-variables/variables.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -12,4 +14,8 @@
 
 a {
   text-decoration: none;
+}
+
+.purple-thing {
+  color: var(--purple);
 }

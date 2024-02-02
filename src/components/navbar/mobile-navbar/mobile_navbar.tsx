@@ -16,7 +16,7 @@ function Navbar() {
 
           <div className="first-row-wrapper">
             <div className='close-mobile-navbar-container'>
-              <i className='bx bx-x close-navbar' onClick={toggleNavbar}></i>
+              <i className='bx bx-x close-navbar purple-thing' onClick={toggleNavbar}></i>
             </div>
 
             <div className="navbar-user-info-container">
@@ -28,19 +28,19 @@ function Navbar() {
 
               <div className="user-stats-container">
                 <div className="user-followers">
-                  <p><span>{user.followersNumber}</span> seguidores</p>
+                  <p><span className='purple-thing'>{user.followersNumber}</span> seguidores</p>
                 </div>
                 <div className="user-following">
-                  <p><span>{user.followingNumber}</span> seguidos</p>
+                  <p><span className='purple-thing'>{user.followingNumber}</span> seguidos</p>
                 </div>
               </div>
             </div>
 
             <nav className="mobile-navbar">
               <ul>
-                <li className='mobile-navbar-item'><i className='bx bx-user' ></i><a href={`/user/profile/${user._id}`} onClick={() => getUser(user._id!)}>Perfil</a></li>
-                <li className='mobile-navbar-item'><i className='bx bx-bell' ></i><p>Notificaciones</p></li>
-                <li className='mobile-navbar-item'><i className='bx bx-bookmark' ></i><p>Guardados</p></li>
+                <li className='mobile-navbar-item'><i className='bx bx-user purple-thing' ></i><a href={`/user/profile/${user._id}`} onClick={() => getUser(user._id!)}>Perfil</a></li>
+                <li className='mobile-navbar-item'><i className='bx bx-bell purple-thing' ></i><p>Notificaciones</p></li>
+                <li className='mobile-navbar-item'><i className='bx bx-bookmark purple-thing' ></i><p>Guardados</p></li>
               </ul>
             </nav>
           </div>

@@ -1,5 +1,5 @@
 import { FormEvent, ReactNode } from "react"
-import { Comment, Twitt } from "../entities/entities_interfaces"
+import { Comment, Twitt, User } from "../entities/entities_interfaces"
 import { MouseEvent } from "react"
 
 export interface AppContextProp {
@@ -85,4 +85,9 @@ export interface ProfileTwittBoxProps {
     activeContainer: number
     containerIndex: number
     userId: string
+}
+
+export interface ProfileUserCardProps {
+    user: User
+    userProfile: User
 }

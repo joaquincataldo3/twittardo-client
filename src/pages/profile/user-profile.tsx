@@ -4,6 +4,7 @@ import { useUserGlobalContext } from '../../hooks/context/user';
 import { useEffect, useState } from 'react';
 import { ProfileTwittBox } from '../../components/profile-twitt-box/profile_twitt_box';
 import './user-profile.css'
+import { ProfileUserCard } from '../../components/profile-user-card/profile_user_card';
 
 
 const userOptions = ["Tweets", "Respuestas", "Favoritos"];
@@ -15,7 +16,7 @@ function User_Profile() {
   const navigate = useNavigate();
   const context = useUserGlobalContext();
   const params = useParams();
-  const { getUser, userProfile, getTwittsByUser, twittsByUser, getCommentsByUser, getFavouritesByUser, commentsByUser, favouritesByUser} = context;
+  const {user, getUser, userProfile, getTwittsByUser, twittsByUser, getCommentsByUser, getFavouritesByUser, commentsByUser, favouritesByUser} = context;
   const { userId } = params;
 
 
@@ -37,6 +38,10 @@ function User_Profile() {
     <>
       {
         isLoading && <LoadingSpinner />
+      }
+      {
+        userProfile._id != user._id &&
+        <ProfileUserCard user={user} userProfile={user} />
       }
       {
         !isLoading && userProfile.twitts &&
