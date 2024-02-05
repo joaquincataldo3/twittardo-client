@@ -106,6 +106,8 @@ export interface TwittCxt extends TwittInitState  {
     noTwittsLeft: boolean
     isFavLoading: boolean
     isTwittTextareaEmpty: boolean
+    isTwittDeleteInProcess: boolean
+    handleDeleteTwitt: (twittId: string) => void
     setInitialTextAreaValue: () => void
     fetchTwitts: (method: string) => void
     fetchOneTwitt: (id: string) => void

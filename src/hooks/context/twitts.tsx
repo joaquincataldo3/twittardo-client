@@ -31,7 +31,9 @@ let contextInitState: TwittCxt = {
     isFavLoading: false,
     twittTextareaContent: '',
     isTwittTextareaEmpty: false,
+    isTwittDeleteInProcess: false,
     twittError: '',
+    handleDeleteTwitt: () => {},
     setInitialTextAreaValue: () => {},
     fetchOneTwitt: () => { },
     createTwitt: () => { },
@@ -57,9 +59,11 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const [twittTextareaContent, setTwittTextAreaContent] = useState<string>('')
     const [isTwittTextareaEmpty, setIsTwittTextareaEmpty] = useState<boolean>(false);
     const [twittsDataLength, setTwittsDataLength] = useState<number | null>(null);
+    const [isTwittDeleteInProcess, setIsTwittDeleteInProcess] = useState<boolean>(false);
     const navigate = useNavigate();
     const { checkLogin} = useUserGlobalContext();
     const apiUrl = process.env.REACT_APP_API_URL;
+    const errorMsg = 'Error. Intente nuevamente'
 
     const fetchTwitts = async (method: string) => {
         try {
@@ -120,9 +124,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             });
             fetchTwitts(fetchTwittActions.RELOAD);
         } catch (error: any) {
-            const msg = 'Error. Intente nuevamente';
-            dispatch({ type: twittsActions.CREATE_TW_ERROR, payload: msg });
-            
+            dispatch({ type: twittsActions.CREATE_TW_ERROR, payload: errorMsg });    
         }
         setIsLoading(false);
     };
@@ -183,6 +185,18 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         setTwittTextAreaContent('');
     }
 
+       
+    const handleDeleteTwitt = async (twittId: string) => {
+        setIsTwittDeleteInProcess(true);
+        const response = await axios.delete(`${apiUrl}/twitts/${twittId}/delete`);
+        if (response.status !== 200) {
+            setIsTwittDeleteInProcess(false);
+            dispatch({ type: twittsActions.CREATE_TW_ERROR, payload: errorMsg });
+        } else {
+            navigate('/home')
+        }
+    }
+
     useEffect(() => {
         fetchTwitts(fetchTwittActions.INITIAL);
     }, [])
@@ -196,6 +210,8 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         characters,
         twittTextareaContent,
         isTwittTextareaEmpty,
+        isTwittDeleteInProcess,
+        handleDeleteTwitt,
         handleCharacters,
         fetchOneTwitt,
         createTwitt,

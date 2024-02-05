@@ -1,4 +1,4 @@
-import { CloseMenuProps } from '../../types';
+import { CloseMenuProps } from '../../utils/interfaces/props/props_interfaces';
 import './close_menu.css';
 
 export const CloseMenu = (props: CloseMenuProps) => {

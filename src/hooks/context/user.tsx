@@ -214,7 +214,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         }
         setIsUserFavouritesLoading(false);
     }
-    
+ 
     
     const toggleNavbar = () => {
         setIsMobileNavbarOpen(!isMobileNavbarOpen)
