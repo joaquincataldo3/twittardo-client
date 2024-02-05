@@ -24,8 +24,8 @@ export interface UserCtxt {
     users: User[]
     user: User
     userProfile: User
-    twittsByUser: Twitt[],
-    commentsByUser: Comment[],
+    twittsByUser: Twitt[]
+    commentsByUser: Comment[]
     favouritesByUser: Twitt[]
     token: string
     formError: string
@@ -37,6 +37,11 @@ export interface UserCtxt {
     userCommentsPage: number
     userFavouritesPage: number
     previousLocation: string | null
+    isUserLoading: boolean
+    isUserTwittsLoading: boolean
+    isUserCommentsLoading: boolean
+    isUserFavouritesLoading: boolean
+    isFollowLoading: boolean
     login: (username: string, password: string) => void
     toggleNavbar: () => void,
     checkLogin: () => void
@@ -44,10 +49,13 @@ export interface UserCtxt {
     getUser: (id: string | Readonly<Params<string>>) => void
     redirectUserProfile: (userId: string) => void
     registerUser: (formData: FormData) => void
+    updateUser: (formData: FormData) => void
     getTwittsByUser: (userId: string) => void
     getCommentsByUser: (userId: string) => void
     getFavouritesByUser: (userId: string) => void
     handleSetPreviousLocation: (location: string) => void 
+    followUser: (userId: string) => void
+    unfollowUser: (userId: string) => void
 }
 
 export interface UserInitState {
@@ -98,7 +106,7 @@ export interface TwittCxt extends TwittInitState  {
     noTwittsLeft: boolean
     isFavLoading: boolean
     isTwittTextareaEmpty: boolean
-
+    setInitialTextAreaValue: () => void
     fetchTwitts: (method: string) => void
     fetchOneTwitt: (id: string) => void
     createComment: (commentContent: string, twittId: string) => void

@@ -1,5 +1,5 @@
 import { useTwittGlobalContext } from "../../hooks/context/twitts";
-import { TwittTextareaProps } from "../../types";
+import { TwittTextareaProps } from "../../utils/interfaces/props/props_interfaces";
 
 
 export const TwittTextarea = (props: TwittTextareaProps) => {

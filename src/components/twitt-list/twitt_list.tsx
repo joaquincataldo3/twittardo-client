@@ -23,7 +23,9 @@ const Twitt_List = () => {
             <h1>For you</h1>
 
             {isLoading &&
-                <LoadingSpinner />
+                <div className="loading-spinner-container">
+                    <LoadingSpinner />
+                </div>
             }
             {!isLoading &&
                 <>

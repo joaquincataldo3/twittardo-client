@@ -13,8 +13,6 @@ export const Single_Twitt = () => {
     const { user, redirectUserProfile } = useUserGlobalContext();
     const { oneTwitt } = useTwittGlobalContext();
     const { image, twitt } = oneTwitt;
-  
-
 
     return (
         <>

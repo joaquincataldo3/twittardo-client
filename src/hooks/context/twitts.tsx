@@ -32,6 +32,7 @@ let contextInitState: TwittCxt = {
     twittTextareaContent: '',
     isTwittTextareaEmpty: false,
     twittError: '',
+    setInitialTextAreaValue: () => {},
     fetchOneTwitt: () => { },
     createTwitt: () => { },
     fetchTwitts: () => { },
@@ -51,12 +52,12 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const [state, dispatch] = useReducer(twittsReducer, reducerInitState);
     const [noTwittsLeft, setNoTwittsLeft] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isFavLoading, setIsFavLoading] = useState<boolean>(false);
+    const [isFavLoading, _setIsFavLoading] = useState<boolean>(false);
     const [characters, setCharacters] = useState(280);
     const [twittTextareaContent, setTwittTextAreaContent] = useState<string>('')
     const [isTwittTextareaEmpty, setIsTwittTextareaEmpty] = useState<boolean>(false);
     const navigate = useNavigate();
-    const { user, checkLogin} = useUserGlobalContext();
+    const { checkLogin} = useUserGlobalContext();
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const fetchTwitts = async (method: string) => {
@@ -84,7 +85,6 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
                 setNoTwittsLeft(true);
             }
             setIsLoading(false);
-
         } catch (error) {
             let fetchError;
             if (error instanceof Error) {
@@ -113,31 +113,29 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const createTwitt = async (formData: FormData) => {
         try {
             setIsLoading(true);
-            await axios.post(`${apiUrl}twitts/${user._id}/create`, formData, {
+            await axios.post(`${apiUrl}twitts/create`, formData, {
                 withCredentials: true
             });
             fetchTwitts(fetchTwittActions.RELOAD);
         } catch (error: any) {
-            const errorPayload = error.response.data;
-            const { msg } = errorPayload;
-            dispatch({ type: twittsActions.CREATE_TW_ERROR, payload: msg })
+            const msg = 'Error. Intente nuevamente';
+            dispatch({ type: twittsActions.CREATE_TW_ERROR, payload: msg });
+            
         }
-
-
+        setIsLoading(false);
     };
 
     const createComment = async (commentContent: string, twittId: string) => {
         try {
             setIsLoading(true);
-            const response = await axios.post(`${apiUrl}comments/${twittId}/create`, {
+            await axios.post(`${apiUrl}comments/${twittId}/create`, {
                 comment: commentContent
             }, {
                 withCredentials: true
             });
-            console.log(response);
-            navigate(`/twitts/${twittId}`)
+            setIsLoading(false);
+            fetchOneTwitt(twittId);
         } catch (error: any) {
-            console.log(error);
             const errorPayload = error.response.data;
             const { msg } = errorPayload;
             dispatch({ type: twittsActions.CREATE_TW_ERROR, payload: msg });
@@ -179,6 +177,10 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         setIsTwittTextareaEmpty(value);
     }
 
+    const setInitialTextAreaValue = () => {
+        setTwittTextAreaContent('');
+    }
+
     useEffect(() => {
         fetchTwitts(fetchTwittActions.INITIAL);
     }, [])
@@ -201,6 +203,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
         undoFav,
         handleTextareaChange,
         handleTextareaIsEmpty,
+        setInitialTextAreaValue
     }
 
     

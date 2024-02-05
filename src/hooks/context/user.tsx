@@ -27,6 +27,11 @@ const defState: UserCtxt = {
     commentsByUser: [],
     favouritesByUser: [],
     previousLocation: null,
+    isUserLoading: false,
+    isUserCommentsLoading: false,
+    isUserFavouritesLoading: false,
+    isUserTwittsLoading: false,
+    isFollowLoading: false,
     login: (_username: string, _password: string) => { },
     toggleNavbar: () => { },
     checkLogin: () => { },
@@ -39,7 +44,8 @@ const defState: UserCtxt = {
     getFavouritesByUser: () => {},
     handleSetPreviousLocation: () => {},
     followUser: () => {},
-    unfollowUser: () => {}
+    unfollowUser: () => {},
+    updateUser: () => {}
 };
 
 const UserContext = createContext<UserCtxt>(defState);
@@ -63,11 +69,15 @@ const UserContextProvider = ({ children }: AppContextProp) => {
 
     const [state, dispatch] = useReducer(userReducer, initialState);
     const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState<boolean>(false);
-    const [_isLoading, setIsLoading] = useState<boolean>(false);
     const [noMoreTwitts, setNoMoreTwitts] = useState<boolean>(false);
     const [noMoreComments, setNoMoreComments] = useState<boolean>(false);
     const [previousLocation, setPreviousLocation] = useState<string | null>(null);
     const [noMoreFavs, setNoMoreFavs] = useState<boolean>(false);
+    const [isUserLoading, setIsUserLoading] = useState<boolean>(false);
+    const [isUserTwittsLoading, setIsUserTwittsLoading] = useState<boolean>(false);
+    const [isUserCommentsLoading, setIsUserCommentsLoading] = useState<boolean>(false);
+    const [isUserFavouritesLoading, setIsUserFavouritesLoading] = useState<boolean>(false);
+    const [isFollowLoading, setIsFollowLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -106,6 +116,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
 
     const getUser = async (userId: string | Readonly<Params<string>>) => {
         try {
+            setIsUserLoading(true);
             const response = await axios.get(`${apiUrl}users/${userId}`, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -113,6 +124,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
             });
             const { data } = response;
             dispatch({ type: userActions.FETCH_ONEUSER_SUCCESS, payload: { user: data } });
+            setIsUserLoading(false);
         } catch (error) {
             let loginError;
             if (error instanceof Error) {
@@ -128,7 +140,6 @@ const UserContextProvider = ({ children }: AppContextProp) => {
 
     const registerUser = async (formData: FormData) => {
         try {
-            setIsLoading(true);
             await axios.post(`${apiUrl}users/register`, formData, {
                 withCredentials: true
             });
@@ -140,7 +151,21 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         }
     }
 
+    const updateUser = async (formData: FormData) => {
+        try {
+            await axios.put(`${apiUrl}users/update`, formData, {
+                withCredentials: true
+            });
+            navigate('/users/login');
+        } catch (error: any) {
+            const errorPayload = error.response.data;
+            const { msg } = errorPayload;
+            dispatch({ type: userActions.USER_FORM_ERROR, payload: msg });
+        }
+    }
+
     const getTwittsByUser = async (userId: string) => {
+        setIsUserTwittsLoading(true);
         const response = await axios.get(`${apiUrl}twitts/by-user/${userId}?p=${state.userTwittsPage}`, {
             headers: {
                 'Content-Type': 'application/json'
@@ -154,9 +179,11 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         } else {
             setNoMoreTwitts(true);
         }
+        setIsUserTwittsLoading(false);
     }
 
     const getCommentsByUser = async (userId: string) => {
+        setIsUserCommentsLoading(true);
         const response = await axios.get(`${apiUrl}comments/by-user/${userId}?p=${state.userCommentsPage}`, {
             headers: {
                 'Content-Type': 'application/json'
@@ -169,9 +196,11 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         } else {
             setNoMoreComments(true);
         }
+        setIsUserCommentsLoading(false);
     }
 
     const getFavouritesByUser = async (userId: string) => {
+        setIsUserFavouritesLoading(true);
         const response = await axios.get(`${apiUrl}users/favourites/${userId}?p=${state.userFavouritesPage}`, {
             headers: {
                 'Content-Type': 'application/json'
@@ -184,6 +213,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         } else {
             setNoMoreFavs(true);
         }
+        setIsUserFavouritesLoading(false);
     }
     
     
@@ -207,21 +237,19 @@ const UserContextProvider = ({ children }: AppContextProp) => {
     }
 
     const unfollowUser = async (userId: string) => {
+        setIsFollowLoading(true);
         await axios.put(`${apiUrl}users/${userId}/unfollow`, undefined, { withCredentials: true, headers: {
             'Content-Type': 'application/json'
         }});   
+        setIsFollowLoading(false);
     }
 
     const followUser = async (userId: string) => {
-        try {
-            await axios.put(`${apiUrl}users/${userId}/follow`, undefined, { withCredentials: true, headers: {
-                'Content-Type': 'application/json'
-            }});    
-            console.log('exito')
-        } catch (error) {
-            console.log(error)
-        }
-        
+        setIsFollowLoading(true);
+        await axios.put(`${apiUrl}users/${userId}/follow`, undefined, { withCredentials: true, headers: {
+            'Content-Type': 'application/json'
+         }});          
+         setIsFollowLoading(false);
     }
 
 
@@ -232,6 +260,11 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         noMoreComments,
         noMoreFavs,
         previousLocation,
+        isUserCommentsLoading,
+        isUserFavouritesLoading,
+        isUserLoading, 
+        isUserTwittsLoading,
+        isFollowLoading,
         login: loginFn,
         toggleNavbar,
         checkLogin,
@@ -244,7 +277,8 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         getFavouritesByUser,
         handleSetPreviousLocation,
         followUser,
-        unfollowUser
+        unfollowUser,
+        updateUser
     };
 
 

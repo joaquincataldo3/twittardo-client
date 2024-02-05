@@ -1,4 +1,4 @@
-import { FormEvent, ReactNode } from "react"
+import { Dispatch, FormEvent, ReactNode, SetStateAction } from "react"
 import { Comment, Twitt, User } from "../entities/entities_interfaces"
 import { MouseEvent } from "react"
 

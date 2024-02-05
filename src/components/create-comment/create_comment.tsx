@@ -7,11 +7,12 @@ import { TwittTextarea } from '../twitt-textarea/twitt_textarea';
 import { TwittCharacters } from '../twitt-characters/twitt_characters';
 import './create_comment.css';
 import '../../style-variables/variables.css';
+import LoadingSpinner from '../loading-spinner/loading_spinner';
 
 function Create_Comment(props: CreateCommentProps) {
 
   const { user } = useUserGlobalContext();
-  const { createComment, twittTextareaContent, handleTextareaIsEmpty } = useTwittGlobalContext();
+  const { createComment, twittTextareaContent, handleTextareaIsEmpty, isLoading } = useTwittGlobalContext();
   const { twittId } = props;
 
   const handleCreateComment = (e: React.FormEvent) => {
@@ -26,22 +27,21 @@ function Create_Comment(props: CreateCommentProps) {
   }
 
   return (
-    <div className="create-comment-container">
-    
-        <UserAvatar url={user.image.secure_url} width={55} height={45} />
-     
-
+    <>
+    {
+      isLoading ?
+      <LoadingSpinner />
+      :
+      <div className="create-comment-container">
+      <UserAvatar url={user.image.secure_url} width={55} height={45} />
       <form action="" className="create-comment-form">
-
-      
         <TwittTextarea name='comment' />
         <TwittCharacters />
-  
-        <FormBtn content={'Crear comentario'} handleClick={handleCreateComment} widthNum={70} additionalClassName={['margin-left-auto']}/>
-
+        <FormBtn content={'Crear comentario'} handleClick={handleCreateComment} widthNum={70} additionalClassName={['margin-left-auto']} />
       </form>
-
     </div>
+    }
+    </> 
   )
 }
 

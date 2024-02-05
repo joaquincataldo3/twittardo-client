@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useUserGlobalContext } from '../../hooks/context/user';
 import { useEffect, useState } from 'react';
 import { ProfileTwittBox } from '../../components/profile-twitt-box/profile_twitt_box';
-import './user-profile.css'
 import { ProfileUserCard } from '../../components/profile-user-card/profile_user_card';
 
 
@@ -11,40 +10,43 @@ const userOptions = ["Tweets", "Respuestas", "Favoritos"];
 
 function User_Profile() {
 
-  const [isLoading, setIsLoading] = useState(false);
   const [activeContainer, setActiveContainer] = useState(0);
   const navigate = useNavigate();
-  const context = useUserGlobalContext();
   const params = useParams();
-  const {user, getUser, userProfile, getTwittsByUser, twittsByUser, getCommentsByUser, getFavouritesByUser, commentsByUser, favouritesByUser} = context;
+  const { user, getUser, userProfile, getTwittsByUser, twittsByUser, getCommentsByUser, getFavouritesByUser, commentsByUser, favouritesByUser, isUserLoading} = useUserGlobalContext();
   const { userId } = params;
 
 
   if (userId) {
     useEffect(() => {
-      setIsLoading(true);
-      getUser(userId);
-      getTwittsByUser(userId);
-      getCommentsByUser(userId);
-      getFavouritesByUser(userId);
-      setIsLoading(false);
-    }, [])
+      if (userId) {
+        const fetchData = async () => {
+          getUser(userId);
+          getTwittsByUser(userId);
+          getCommentsByUser(userId);
+          getFavouritesByUser(userId);
+        }
+        fetchData()
+      }
+    }, [userId])
   } else {
     navigate('/home');
   }
 
 
+
+
   return (
     <>
       {
-        isLoading && <LoadingSpinner />
+        isUserLoading && <LoadingSpinner />
       }
       {
-        userProfile._id != user._id &&
+        userProfile._id != user._id && !isUserLoading &&
         <ProfileUserCard user={user} userProfile={userProfile} />
       }
       {
-        !isLoading && userProfile.twitts &&
+        userProfile.twitts && !isUserLoading &&
         <main className="user-profile-main">
           <ul className="profile-options-container">
             {userOptions.map((option, index) => (
