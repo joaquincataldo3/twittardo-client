@@ -11,7 +11,7 @@ import { useUserGlobalContext } from '../../hooks/context/user';
 import LoadingSpinner from '../loading-spinner/loading_spinner';
 
 export const ProfileTwittBox = (props: ProfileTwittBoxProps) => {
-
+    
     const { entity, activeContainer, containerIndex, userId } = props;
     const { noMoreTwitts, getTwittsByUser, noMoreComments, getCommentsByUser, getFavouritesByUser, noMoreFavs, isUserCommentsLoading, isUserTwittsLoading, isUserFavouritesLoading } = useUserGlobalContext();
 
@@ -29,7 +29,7 @@ export const ProfileTwittBox = (props: ProfileTwittBoxProps) => {
 
     return (
         <div className={`profile-user-content ${containerIndex === activeContainer ? 'user-content-active' : ''}`}
-            style={{ transform: `translateX(${(containerIndex - activeContainer) * 100}%)` }}>
+            style={{ transform: `translateX(${(containerIndex - activeContainer) * 100}%)` }} key={containerIndex}>
             {
                 entity.length > 0 &&
                 entity.map((item, i) => {

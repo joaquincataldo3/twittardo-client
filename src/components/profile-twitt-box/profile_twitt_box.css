@@ -65,3 +65,22 @@
 .twitt-commented-description a {
     color: var(--purple);
 }
+
+.user-profile-update-container {
+    width: 80%;
+    display: flex;
+    justify-content: right;
+    margin: 5% auto 2%;
+}
+
+.user-profile-update-container a {
+    border: 1px solid var(--purple);
+    padding: 2%;
+    border-radius: 5px;
+    font-size: 0.875rem;
+    color: black;
+}
+
+.user-profile-update-container a:visited {
+    color: black;
+}

@@ -143,7 +143,7 @@ const UserContextProvider = ({ children }: AppContextProp) => {
             await axios.post(`${apiUrl}users/register`, formData, {
                 withCredentials: true
             });
-            navigate('/users/login');
+            navigate('/user/login');
         } catch (error: any) {
             const errorPayload = error.response.data;
             const { msg } = errorPayload;
@@ -151,15 +151,14 @@ const UserContextProvider = ({ children }: AppContextProp) => {
         }
     }
 
-    const updateUser = async (formData: FormData) => {
+    const updateUser = async (formData: FormData, userId: string) => {
         try {
-            await axios.put(`${apiUrl}users/update`, formData, {
+            await axios.put(`${apiUrl}users/${userId}/update`, formData, {
                 withCredentials: true
             });
-            navigate('/users/login');
+            navigate(`/user/profile/${userId}`);
         } catch (error: any) {
-            const errorPayload = error.response.data;
-            const { msg } = errorPayload;
+            const msg = "Problema mientras se hacía una ctualización del usuario"
             dispatch({ type: userActions.USER_FORM_ERROR, payload: msg });
         }
     }

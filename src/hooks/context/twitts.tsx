@@ -56,6 +56,7 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const [characters, setCharacters] = useState(280);
     const [twittTextareaContent, setTwittTextAreaContent] = useState<string>('')
     const [isTwittTextareaEmpty, setIsTwittTextareaEmpty] = useState<boolean>(false);
+    const [twittsDataLength, setTwittsDataLength] = useState<number | null>(null);
     const navigate = useNavigate();
     const { checkLogin} = useUserGlobalContext();
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -79,7 +80,8 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
             }
             const response = await axios.get(`${apiUrl}twitts/all?p=${page}`);
             const data = response.data;
-            if (data.length > 0) {
+            if (data.length != twittsDataLength) {
+                setTwittsDataLength(data.length)
                 dispatch({ type: twittsActions.FETCH_TWITTS_SUCCESS, payload: { data, method } });
             } else {
                 setNoTwittsLeft(true);

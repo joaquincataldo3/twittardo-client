@@ -56,3 +56,12 @@
 .login-btn a:visited {
     color: var(--blue);
 }
+
+.disclaimer-register {
+    font-size: 0.875rem;
+    margin-top: 5%;
+}
+
+.upload-img {
+    margin-top: 5%!important;
+}

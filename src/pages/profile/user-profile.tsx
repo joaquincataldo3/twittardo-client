@@ -16,7 +16,6 @@ function User_Profile() {
   const { user, getUser, userProfile, getTwittsByUser, twittsByUser, getCommentsByUser, getFavouritesByUser, commentsByUser, favouritesByUser, isUserLoading} = useUserGlobalContext();
   const { userId } = params;
 
-
   if (userId) {
     useEffect(() => {
       if (userId) {
@@ -33,17 +32,18 @@ function User_Profile() {
     navigate('/home');
   }
 
-
-
-
   return (
     <>
       {
         isUserLoading && <LoadingSpinner />
       }
       {
-        userProfile._id != user._id && !isUserLoading &&
+        userProfile._id != user._id && !isUserLoading ?
         <ProfileUserCard user={user} userProfile={userProfile} />
+        :
+        <div className='user-profile-update-container'>
+          <a href="/user/update?u=1">Actualizar datos</a>
+        </div>
       }
       {
         userProfile.twitts && !isUserLoading &&

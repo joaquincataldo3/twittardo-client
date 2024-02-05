@@ -15,7 +15,7 @@ import RegisterForm from './components/register-form/register_form';
 function App() {
 
   const location = useLocation();
-  const { checkLogin, user } = useUserGlobalContext();
+  const { checkLogin } = useUserGlobalContext();
 
   useEffect(() => {
     checkLogin();
@@ -32,6 +32,7 @@ function App() {
         <Route path='login' element={<User_Login />} />
         <Route path='profile/:userId' element={<User_Profile />} />
         <Route path='register' element={<RegisterForm />} />
+        <Route path='update' element={<RegisterForm />} />
       </Route>
 
       <Route path='twitts' element={<Shared_Layout />}>

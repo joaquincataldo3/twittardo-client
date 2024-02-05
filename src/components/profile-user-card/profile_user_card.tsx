@@ -31,7 +31,7 @@ export const ProfileUserCard = (props: ProfileUserCardProps) => {
         <div className="profile-card-container">
             <div className="profile-card-first-row">
                 
-                <UserAvatar url={user.image.secure_url} width={55} height={50} />
+                <UserAvatar url={userProfile.image.secure_url} width={55} height={50} />
         
                 <div className="follow-user-container">
                     {

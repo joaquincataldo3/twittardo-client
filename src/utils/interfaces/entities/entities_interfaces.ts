@@ -49,7 +49,7 @@ export interface UserCtxt {
     getUser: (id: string | Readonly<Params<string>>) => void
     redirectUserProfile: (userId: string) => void
     registerUser: (formData: FormData) => void
-    updateUser: (formData: FormData) => void
+    updateUser: (formData: FormData, userId:string) => void
     getTwittsByUser: (userId: string) => void
     getCommentsByUser: (userId: string) => void
     getFavouritesByUser: (userId: string) => void
@@ -134,3 +134,13 @@ export interface Comment {
 }
 
 
+export interface UserRegisterFormData {
+    email: string
+    username: string
+}
+
+export interface UserRegisterValidationErrors {
+    email: boolean
+    username: boolean
+    password: boolean
+}
