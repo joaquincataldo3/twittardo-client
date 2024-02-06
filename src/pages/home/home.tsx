@@ -3,9 +3,6 @@ import { CreateTwitt } from "../../components/create-twitt/create_twitt";
 import { useUserGlobalContext } from "../../hooks/context/user";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Black_Screen from "../../components/black-screen/black_screen";
-
-
 
 function Home() {
 
