@@ -5,7 +5,7 @@ import { useUserGlobalContext } from '../../hooks/context/user';
 const GoBackBtn = () => {
 
     const navigate = useNavigate();
-    const {previousLocation, handleSetPreviousLocation} = useUserGlobalContext();
+    const {previousLocation } = useUserGlobalContext();
 
     const handleGoBack = () => {
         if(previousLocation) {

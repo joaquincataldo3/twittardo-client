@@ -1,11 +1,9 @@
 import { FormEvent, useState } from 'react';
 import { CloseMenu } from '../close-menu/close_menu';
-import { useNavigate } from 'react-router-dom';
 import { ConfirmDeleteTwittProps } from '../../utils/interfaces/props/props_interfaces';
 import { FormBtn } from '../form-btn/form_btn';
 import { useTwittGlobalContext } from '../../hooks/context/twitts';
 import Black_Screen from '../black-screen/black_screen';
-import axios from 'axios';
 import LoadingSpinner from '../loading-spinner/loading_spinner';
 import './confirm_twitt_delete.css';
 

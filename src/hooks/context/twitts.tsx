@@ -66,7 +66,6 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
     const errorMsg = 'Error. Intente nuevamente'
 
     const fetchTwitts = async (method: string) => {
-        try {
             setIsLoading(true);
             let page;
             switch (method) {
@@ -91,17 +90,6 @@ const TwittContextProvider = ({ children }: AppContextProp) => {
                 setNoTwittsLeft(true);
             }
             setIsLoading(false);
-        } catch (error) {
-            let fetchError;
-            if (error instanceof Error) {
-                console.log(`Failed in login: ${error.message}`);
-                fetchError = error.message;
-            } else {
-                console.log(`Failed in login: ${error}`);
-                fetchError = error;
-            }
-            navigate('/home');
-        }
     };
 
     const fetchOneTwitt = async (id: string) => {
