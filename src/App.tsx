@@ -24,18 +24,18 @@ function App() {
   return (
 
     <Routes>
-      <Route path='home' element={<Shared_Layout />}>
+      <Route path='/home' element={<Shared_Layout />}>
         <Route index element={<Home />} />
       </Route>
 
-      <Route path='user' element={<Shared_Layout />}>
+      <Route path='/user' element={<Shared_Layout />}>
         <Route path='login' element={<User_Login />} />
         <Route path='profile/:userId' element={<User_Profile />} />
         <Route path='register' element={<RegisterForm />} />
-        <Route path='update' element={<RegisterForm />} />
+        <Route path='/update' element={<RegisterForm />} />
       </Route>
 
-      <Route path='twitts' element={<Shared_Layout />}>
+      <Route path='/twitts' element={<Shared_Layout />}>
         <Route path=':twittId' element={<One_Twitt />} />
       </Route>
 
